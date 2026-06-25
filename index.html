@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rinnai LP</title>
+<style>
+/* ========== reset.css ========== */
+/* =========================================================
+   reset.css
+   重點：不跟原站 CSS 打架。
+   - 全域只設 box-sizing（安全，原站通常也是這樣）
+   - 其餘 reset 一律鎖在 .lp 內，碰不到 header/footer
+   ========================================================= */
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+body { letter-spacing: 0.12rem; }
+
+/* 以下只作用在 LP 內容區 */
+.lp {
+	margin: 0;
+}
+.lp h1, .lp h2, .lp h3, .lp h4, .lp h5, .lp h6 {
+	margin: 0;
+}
+.lp ul, .lp ol {
+	padding: 0;
+	list-style: none;
+}
+.lp img, .lp picture, .lp video, .lp svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+.lp a {
+	color: #fff;
+	text-decoration: none;
+}
+.lp button {
+	font: inherit;
+	color: inherit;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+
+/* 尊重 reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+	.lp * {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* ========== variables.css ========== */
+/* =========================================================
+   variables.css — LP 設計 token（色票取自 PDF 設計稿）
+   改一處全站連動。
+   ========================================================= */
+
+:root {
+	/* --- 容器 --- */
+	--container-max: 1160px;
+	--container-pad: clamp(16px, 4vw, 40px);
+
+	/* --- 間距 --- */
+	--space-1: 4px;  --space-2: 8px;  --space-3: 16px;
+	--space-4: 24px; --space-5: 40px; --space-6: 64px; --space-7: 96px;
+	--section-y: clamp(48px, 7vw, 88px);
+
+	/* --- 字級 --- */
+	--fs-display: clamp(30px, 5.2vw, 52px);  /* hero 主標 */
+	--fs-h2: clamp(24px, 3.6vw, 38px);       /* 區段標題 */
+	--fs-h3: clamp(19px, 2.4vw, 24px);       /* 卡片標題 */
+	--fs-lead: clamp(20px, 1.8vw, 18px);     /* 區段小標 */
+	--fs-body: 16px;
+	--fs-small: 16px;
+	--fs-stat: clamp(28px, 4vw, 40px);       /* 數據百分比 */
+	--lh-tight: 1.2;
+	--lh-body: 1.75;
+
+	/* --- 顏色（取自設計稿）--- */
+	--c-navy:      #0B4282;   /* 主色：科技區/CTA/標題 */
+	--c-navy-d:    #082f5e;   /* 漸層用深藍 */
+	--c-red:       #E60012;   /* 強調：數據/新品標籤 */
+	--c-ink:       #1b2b3f;   /* 淺底主文字 */
+	--c-ink-soft:  #5d6b7d;   /* 次要文字 */
+	--c-bg:        #E8EEFA;   /* 頁面底 */
+	--c-bg-white:  #E8EEFA;   /* 卡片 */
+	--c-bg-alt:    #E8EEFA;   /* 交錯底色 */
+	--c-hero-top:  #DAE7F0;   /* hero 上方水感淺藍 */
+	--c-line:      #dbe3ee;   /* 分隔線/邊框 */
+	--c-on-dark:        #1b2b3f;
+	--c-on-dark-soft:   #5d6b7d; /* 次要文字 */
+
+	/* --- 其他 --- */
+	--radius: 14px;
+	--radius-sm: 10px;
+	--shadow: 0 6px 24px rgba(11, 66, 130, 0.08);
+	--shadow-card: 0 4px 16px rgba(11, 66, 130, 0.06);
+	--grid-gap: clamp(16px, 3vw, 28px);
+}
+
+/* =========================================================
+   斷點（mobile-first；@media 無法用變數，列此供參）
+     tablet :  768px
+     desktop: 1024px  ← 建議對齊 header .pc/.sp 切換點
+   ========================================================= */
+
+.lp {
+	color: var(--c-ink);
+	font-size: var(--fs-body);
+	line-height: var(--lh-body);
+	background: var(--c-bg);
+	font-family: "Noto Sans TC", "Hiragino Sans", "Microsoft JhengHei", system-ui, sans-serif;
+}
+
+/* ========== layout.css ========== */
+/* =========================================================
+   layout.css — 骨架：container + grid + 區段
+   mobile-first，全部鎖在 .lp 下。
+   ========================================================= */
+
+/* ---- 容器：控最大寬 + 左右留白 ---- */
+.lp .container {
+	width: 100%;
+	max-width: var(--container-max);
+	margin-inline: auto;
+	padding-inline: var(--container-pad);
+}
+
+/* ---- 區段：統一上下節奏 ---- */
+.lp-section {
+	padding-block: var(--section-y);
+}
+.lp-section + .lp-section {
+	/* 用 padding 控節奏，避免 margin 疊加；交錯底色時很好用 */
+}
+.lp-section--alt {
+	background: var(--c-bg-alt);
+}
+
+/* =========================================================
+   GRID
+   .grid 預設手機單欄；到桌機才展開成多欄。
+   用 data 或 modifier 控欄數：grid--2 / grid--3 / grid--4
+   ========================================================= */
+.lp .grid {
+	display: grid;
+	gap: var(--grid-gap);
+	grid-template-columns: 1fr;   /* 手機：全部單欄堆疊 */
+}
+
+/* 12 欄輔助（需要精細排版時用）*/
+.lp .grid--12 {
+	grid-template-columns: repeat(12, 1fr);
+}
+
+/* ---- 平板：min-width 768px ---- */
+@media (min-width: 768px) {
+	.lp .grid--2 { grid-template-columns: repeat(2, 1fr); }
+	.lp .grid--3 { grid-template-columns: repeat(2, 1fr); } /* 平板先 2 欄 */
+}
+
+/* ---- 桌機：min-width 1024px（建議對齊 header 切換點）---- */
+@media (min-width: 1024px) {
+	.lp .grid--3 { grid-template-columns: repeat(3, 1fr); }
+	.lp .grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ---- 欄位跨度輔助（搭配 .grid--12）---- */
+@media (min-width: 1024px) {
+	.lp .col-4  { grid-column: span 4; }
+	.lp .col-6  { grid-column: span 6; }
+	.lp .col-8  { grid-column: span 8; }
+	.lp .col-12 { grid-column: span 12; }
+}
+
+/* ---- 通用排版輔助 ---- */
+.lp .flex {
+	display: flex;
+	gap: var(--grid-gap);
+}
+.lp .flex--center { align-items: center; justify-content: center; }
+.lp .flex--between { justify-content: space-between; }
+.lp .flex--wrap { flex-wrap: wrap; }
+
+/* ---- 鍵盤可見焦點（無障礙底線）---- */
+.lp a:focus-visible,
+.lp button:focus-visible {
+	outline: 2px solid var(--c-primary);
+	outline-offset: 2px;
+}
+
+/* ========== lp.css ========== */
+/* =========================================================
+   lp.css — LP 各區段樣式 + RWD（全部鎖在 .lp 下）
+   mobile-first；斷點 768 / 1024。
+   ========================================================= */
+
+/* ---------- 共用排版元件 ---------- */
+.lp-eyebrow {
+	display: inline-block;
+	font-size: var(--fs-small);
+	letter-spacing: .08em;
+	color: var(--c-navy);
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: var(--space-3);
+}
+
+.lp-h2--light { color: var(--c-on-dark); }
+.lp-h2--left  { text-align: left; margin-bottom: var(--space-4); }
+.lp-lead {
+	text-align: center;
+	color: var(--c-ink-soft);
+	font-size: var(--fs-lead);
+	margin: calc(var(--space-5) * -1 + var(--space-2)) 0 var(--space-5);
+}
+.lp-lead--light { color: var(--c-on-dark-soft); }
+.lp-lead--left  { text-align: left; }
+.lp-h3title {
+	font-size: var(--fs-h3);
+	font-weight: 800;
+	color: var(--c-navy);
+	margin-bottom: var(--space-4);
+	padding-bottom: var(--space-3);
+	border-bottom: 2px solid var(--c-navy);
+}
+
+/* ---------- 按鈕 ---------- */
+.lp-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: .4em;
+	padding: 13px 26px;
+	border-radius: 5px;
+	font-size: var(--fs-body);
+	font-weight: 700;
+	line-height: 1;
+	transition: transform .15s ease, opacity .15s ease, background .15s ease;
+	white-space: nowrap;
+}
+.lp-btn:hover { transform: translateY(-2px); }
+.lp-btn--primary { background: var(--c-navy); color: #fff; }
+.lp-btn--ghost   { color: #fff; border: 1.5px solid rgba(255,255,255,.7); }
+.lp-btn--ghost:hover { background: rgba(255,255,255,.12); }
+.lp-btn--outline { color: #fff; border: 1.5px solid rgba(255,255,255,.85); }
+/* CTA 深底上的 primary 反白 */
+.lp-cta .lp-btn--primary { background: #fff; color: var(--c-navy); }
+
+/* ---------- 圖片佔位框 ---------- */
+.lp-ph {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, #e3eaf5, #d4e0ef);
+	border: 1px dashed #b9c8de;
+	border-radius: var(--radius-sm);
+	color: #7c8ca3;
+	font-size: var(--fs-small);
+	text-align: center;
+	overflow: hidden;
+}
+.lp-ph > span { line-height: 1.4; }
+.lp-ph--hero { aspect-ratio: 4 / 5; }
+.lp-ph--card { aspect-ratio: 4 / 3; }
+.lp-ph--wide { aspect-ratio: 16 / 10; }
+.lp-ph--tall { aspect-ratio: 3 / 4; }
+.lp-ph--sq   { aspect-ratio: 1 / 1; }
+.lp-ph--logo { width: 84px; height: 44px; flex: 0 0 auto; }
+/* 深底上的佔位框換成半透明白 */
+.lp-tech--dark .lp-ph {
+	background: rgba(255,255,255,.08);
+	border-color: rgba(255,255,255,.25);
+	color: rgba(255,255,255,.6);
+}
+
+/* ---------- icon 佔位 ---------- */
+.lp-ico {
+	display: inline-block;
+	width: 64px; height: 64px;
+	border-radius: 50%;
+	background: rgba(11,66,130,.10);
+	border: 1px solid rgba(11,66,130,.18);
+	flex-shrink: 0;
+}
+
+/* ---------- 深藍區段底 ---------- */
+.lp-tech--dark {
+	background: #E8EEFA;
+	color: var(--c-ink);
+}
+
+/* =========================================================
+   01 HERO
+   ========================================================= */
+/* HERO：滿版商品圖 + 左側文字。
+   目前 hero 背景改成本地圖片 ./img/hero_bg.png。 */
+.lp-hero {
+	position: relative;
+	display: flex;
+	align-items: center;
+	min-height: clamp(560px, 56vw, 820px);
+	padding: 88px 0 28px;
+	overflow: hidden;
+	background: url('./img/hero_bg.png') center/cover no-repeat;
+}
+.lp-hero__inner { position: relative; width: 100%; }
+.lp-hero__copy { max-width: 560px; }
+	.lp-hero .lp-eyebrow { color: #1F2120; margin-bottom: 10px; font-size: 20px; }
+	.lp-hero .lp-hero__title {
+		margin-top: 0;
+		font-size: var(--fs-display);
+		line-height: 1.3;
+		font-weight: 600;
+		color: #1F2120;
+		margin-bottom: 10px;
+	}
+	.lp-hero .lp-hero__sub {
+		color: #1F2120;
+		font-size: var(--fs-lead);
+		font-weight: 600;
+		line-height: 1.6;
+		margin-top: 0;
+		margin-bottom: 30px;
+	}
+@media (max-width: 767px) {
+	.lp-hero {
+		min-height: auto;
+		padding: 104px 0 190px;
+	}
+	.lp-hero__copy { max-width: 100%; }
+}
+
+/* =========================================================
+   02 品牌信任
+   ========================================================= */
+.lp-trust { background: #E8EEFA; }
+.lp-trust__list {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--space-4) var(--space-3);
+}
+.lp-trust__item {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+.lp-trust__item .lp-ico {
+	flex-shrink: 0;
+	width: 64px;
+	height: 64px;
+}
+.lp-trust__text {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+.lp-trust__text strong { 
+	color: var(--c-navy); 
+	font-size: 1.2rem;
+	margin: 0;
+}
+.lp-trust__text span { 
+	color: var(--c-ink-soft); 
+	font-size: var(--fs-small); 
+	line-height: 1.4;
+}
+@media (min-width: 768px) {
+	.lp-trust__list { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* =========================================================
+   03 / 06 困擾卡片
+   ========================================================= */
+.lp-cards { align-items: stretch; }
+.lp-card {
+	background: #E8EEFA;
+	border-radius: var(--radius);
+	overflow: hidden;
+	box-shadow: var(--shadow-card);
+	display: flex; flex-direction: column;
+}
+.lp-card .lp-ph { border: 0; border-radius: 0; }
+.lp-card__body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+.lp-card__title { font-size: var(--fs-h3); font-weight: 800; color: var(--c-navy); }
+.lp-card__text { color: var(--c-ink-soft); font-size: var(--fs-small); }
+
+/* =========================================================
+   04 熱水科技 A — 產品卡
+   ========================================================= */
+.lp-prodcards { margin-top: var(--space-2); }
+.lp-prodcard {
+	background: rgba(255,255,255,.06);
+	border: 1px solid rgba(255,255,255,.14);
+	border-radius: var(--radius);
+	overflow: hidden;
+	display: flex; flex-direction: column;
+}
+.lp-prodcard .lp-ph { border-radius: 0; border: 0; }
+.lp-prodcard__body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
+.lp-prodcard__name { font-size: var(--fs-h3); font-weight: 800; color: #1b2b3f; }
+.lp-prodcard__desc { color: var(--c-on-dark-soft); font-size: var(--fs-small); }
+.lp-prodcard .lp-btn { align-self: flex-start; margin-top: auto; }
+
+/* =========================================================
+   05 奈米氣泡
+   ========================================================= */
+.lp-nano { background: #E8EEFA; }
+.lp-nano__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-5);
+	align-items: center;
+}
+.lp-nano__text { color: var(--c-ink-soft); margin: var(--space-3) 0 var(--space-4); }
+.lp-nano__bubble {
+	max-width: 280px; margin-inline: auto;
+	border-radius: 50%;
+	background: radial-gradient(circle at 40% 35%, #fff 0%, #dCEBFb 45%, #bcd6f2 100%);
+	border: 0;
+	color: var(--c-navy);
+	font-weight: 700;
+}
+.lp-nano__bubble b { font-size: 1.6rem; color: var(--c-red); display: inline-block; margin: 2px 0; }
+.lp-nano__stats {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2px var(--space-5);
+}
+.lp-stat {
+	display: flex; align-items: center; justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-3) 0;
+	border-bottom: 1px solid var(--c-line);
+}
+.lp-stat__label { font-size: var(--fs-small); color: var(--c-ink); font-weight: 700; line-height: 1.3; }
+.lp-stat__label i { display: block; font-style: normal; font-weight: 400; color: var(--c-ink-soft); font-size: 12px; }
+.lp-stat__num { font-size: var(--fs-stat); font-weight: 900; color: var(--c-red); white-space: nowrap; }
+.lp-nano__note { font-size: 12px; color: var(--c-ink-soft); margin-top: var(--space-4); }
+
+@media (min-width: 1024px) {
+	.lp-nano__grid { grid-template-columns: .9fr .7fr 1.35fr; gap: var(--space-6); }
+	.lp-nano__bubble { margin: 0; }
+}
+
+/* =========================================================
+   07 熱水科技 B — 特色產品
+   ========================================================= */
+.lp-feature__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-5);
+	align-items: center;
+}
+.lp-tag {
+	display: inline-block;
+	background: var(--c-red);
+	color: #fff;
+	font-size: var(--fs-small);
+	font-weight: 700;
+	padding: 5px 14px;
+	border-radius: 6px;
+	margin-bottom: var(--space-3);
+}
+.lp-tag--soft { background: rgba(11,66,130,.10); color: var(--c-navy); }
+.lp-feature__name { font-size: clamp(26px,4vw,40px); font-weight: 900; color: #1b2b3f; line-height: 1.15; }
+.lp-feature__desc { color: var(--c-on-dark-soft); margin: var(--space-3) 0 var(--space-4); }
+.lp-checklist { display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-5); }
+.lp-checklist li { position: relative; padding-left: 30px; color: #1b2b3f; font-size: var(--fs-small); }
+.lp-checklist li::before {
+	content: "✓";
+	position: absolute; left: 0; top: -1px;
+	width: 20px; height: 20px; border-radius: 50%;
+	background: var(--c-red); color: #fff;
+	font-size: 12px; line-height: 20px; text-align: center;
+}
+.lp-feature__media { max-width: 420px; margin-inline: auto; width: 100%; }
+
+@media (min-width: 1024px) {
+	.lp-feature__grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+	.lp-feature__media { margin: 0; }
+}
+
+/* =========================================================
+   08+09 推薦方案 + 系列比較
+   ========================================================= */
+.lp-recommend__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-6);
+}
+.lp-table { width: 100%; border-collapse: collapse; margin-bottom: var(--space-4); background: #E8EEFA; border-radius: var(--radius-sm); overflow: hidden; box-shadow: var(--shadow-card); }
+.lp-table th, .lp-table td { padding: 13px 18px; text-align: left; font-size: var(--fs-small); border-bottom: 1px solid var(--c-line); }
+.lp-table thead th { background: var(--c-navy); color: #fff; font-weight: 700; }
+.lp-table tbody td { color: var(--c-ink); }
+.lp-table tbody td:last-child { color: var(--c-navy); font-weight: 700; }
+.lp-table tbody tr:last-child td { border-bottom: 0; }
+
+.lp-compare__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+.lp-compare__head .lp-h2 { margin-bottom: 0; }
+.lp-compare__track {
+	display: flex;
+	gap: var(--space-4);
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	padding-bottom: var(--space-3);
+	-webkit-overflow-scrolling: touch;
+}
+.lp-compare__card {
+	flex: 0 0 78%;
+	max-width: 260px;
+	scroll-snap-align: start;
+	background: #E8EEFA;
+	border-radius: var(--radius);
+	box-shadow: var(--shadow-card);
+	padding: var(--space-3);
+	display: flex; flex-direction: column; gap: var(--space-2);
+}
+.lp-compare__name { font-size: 1.05rem; font-weight: 800; color: var(--c-navy); line-height: 1.25; margin-top: var(--space-2); }
+.lp-compare__desc { font-size: var(--fs-small); color: var(--c-ink-soft); }
+.lp-compare__use { font-size: 13px; color: var(--c-ink); }
+.lp-compare__use b { display: inline-block; background: var(--c-bg); color: var(--c-navy); padding: 2px 8px; border-radius: 4px; margin-right: 6px; font-size: 12px; }
+.lp-compare__points { display: flex; flex-direction: column; gap: 4px; margin-top: var(--space-2); }
+.lp-compare__points li { position: relative; padding-left: 16px; font-size: 13px; color: var(--c-ink-soft); }
+.lp-compare__points li::before { content: "・"; position: absolute; left: 0; color: var(--c-red); }
+.lp-compare__dots { display: flex; gap: 6px; justify-content: center; margin-top: var(--space-3); }
+.lp-compare__dots span { width: 8px; height: 8px; border-radius: 50%; background: #c2cfe0; }
+.lp-compare__dots .is-active { background: var(--c-navy); width: 22px; border-radius: 4px; }
+
+@media (min-width: 1024px) {
+	.lp-recommend__grid { grid-template-columns: .85fr 1.15fr; align-items: start; }
+	.lp-compare__card { flex-basis: 46%; }
+}
+
+/* =========================================================
+   10+11+12 媒體 / 口碑 / FAQ
+   ========================================================= */
+.lp-bottom3__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-6);
+}
+.lp-media__list, .lp-review__list { display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-4); }
+.lp-media__item { display: flex; gap: var(--space-3); }
+.lp-media__source { font-size: 12px; color: var(--c-ink-soft); font-weight: 700; }
+.lp-media__headline { font-size: var(--fs-small); color: var(--c-ink); line-height: 1.5; margin: 2px 0 4px; }
+.lp-date { font-size: 12px; color: #9aa7b8; }
+
+.lp-review { background: #E8EEFA; border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); box-shadow: var(--shadow-card); }
+.lp-review__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.lp-review__src { font-size: 13px; font-weight: 700; color: var(--c-navy); }
+.lp-review__score { font-size: 13px; color: #f5a623; font-weight: 700; }
+.lp-review__text { font-size: var(--fs-small); color: var(--c-ink); margin-bottom: 6px; }
+
+.lp-faq__list { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+.lp-faq__q {
+	width: 100%; text-align: left;
+	display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+	padding: 15px 18px;
+	background: #E8EEFA; border-radius: var(--radius-sm);
+	box-shadow: var(--shadow-card);
+	font-size: var(--fs-small); color: var(--c-ink); font-weight: 500;
+}
+.lp-faq__plus { color: var(--c-red); font-size: 18px; font-weight: 700; }
+.lp-link { color: var(--c-navy); font-weight: 700; font-size: var(--fs-small); }
+
+@media (min-width: 1024px) {
+	.lp-bottom3__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+}
+
+/* =========================================================
+   13 Bottom CTA
+   ========================================================= */
+.lp-cta__inner { text-align: center; }
+.lp-cta__title { font-size: var(--fs-h2); font-weight: 800; color: #1b2b3f; line-height: 1.4; margin-bottom: var(--space-5); }
+.lp-cta__btns { display: flex; flex-direction: column; gap: var(--space-3); align-items: center; }
+
+@media (min-width: 768px) {
+	.lp-cta__btns { flex-direction: row; justify-content: center; flex-wrap: wrap; }
+}
+
+
+/* ====== 預覽用佔位 header / footer（正式版改用原站 partial + 原站 CSS）====== */
+/* Header：透明浮於 hero，向下滑動後底色變白 */
+.pv-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 50;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	background: transparent;
+	transition: background .25s ease, box-shadow .25s ease;
+}
+.pv-bar.scrolled {
+	background: #fff;
+	box-shadow: 0 2px 18px rgba(11,66,130,.10);
+}
+.pv-bar .container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	max-width: none;
+	padding-left: 50px;
+	padding-right: 70px;
+}
+.pv-logo {
+	display: inline-block;
+	width: 146px;
+	line-height: 1;
+}
+.pv-logo img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+.pv-bar nav {
+	display: none;
+	align-items: center;
+	gap: 34px;
+	font-size: 22px;
+	font-weight: 400;
+}
+.pv-bar nav a,
+.pv-logo {
+	text-decoration: none;
+}
+.pv-bar nav a {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	color: #1F2120;
+}
+.pv-bar nav a:hover {
+	color: var(--c-navy);
+}
+.pv-ico-sm {
+	width: 22px;
+	height: 22px;
+}
+.pv-foot {
+	background: #08315e;
+	color: #9fb6d3;
+	text-align: center;
+	padding: 32px 16px;
+	font-size: 13px;
+}
+@media (max-width: 1244px) {
+	.pv-logo {
+		width: 115px;
+	}
+}
+@media (max-width: 767px) {
+	.pv-logo {
+		width: 73px;
+	}
+}
+@media (min-width: 1024px) {
+	.pv-bar nav {
+		display: flex;
+	}
+}
+
+/* HERO button — increase overall size in hero area */
+.lp-hero .lp-btn {
+	padding: 25px 40px;
+	font-size: calc(var(--fs-body) + 5px);
+	border-radius: 10px;
+}
+
+/* HERO button responsive tweaks */
+@media (max-width: 1244px) {
+    .lp-hero .lp-btn {
+        padding: 26px 36px;
+        font-size: calc(var(--fs-body) + 1px);
+    }
+}
+@media (max-width: 767px) {
+    .lp-hero .lp-btn {
+        padding: 16px 26px;
+        font-size: var(--fs-body);
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER（佔位）。正式版改成：
+       <?php include 'partials/_lp-header.php'; ?>
+     並在 <head> 載入原站 header/footer 的 CSS（icon font 等）。
+     ============================================================ -->
+<header class="pv-bar" id="siteHeader">
+	<div class="container">
+		<a class="pv-logo" href="#"><img src="./img/logo.svg" alt="Rinnai"></a>
+		<nav>
+			<a href="#">產品系列</a>
+			<a href="#">技術與創新</a>
+			<a href="#">選購指南</a>
+			<a href="#">支援服務</a>
+			<a href="#">關於林內</a>
+			<a href="#"><svg class="pv-ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.4-7-11a7 7 0 0 1 14 0c0 4.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>經銷商查詢</a>
+		</nav>
+	</div>
+</header>
+
+<main class="lp">
+<!-- ============================================================
+     LP SECTIONS — 內容主體（grid-based，RWD）
+     圖片皆為佔位框 .lp-ph，data-img 標注對應素材，換成 <img> 即可。
+     ============================================================ -->
+
+<!-- ===== 01 HERO ===== -->
+<section class="lp-section lp-hero">
+	<div class="container lp-hero__inner">
+		<div class="lp-hero__copy">
+			<p class="lp-eyebrow">日本百年熱能科技</p>
+			<h1 class="lp-hero__title">從熱水開始，<br>打造更健康的居家生活</h1>
+			<p class="lp-hero__sub">奈米氣泡科技 × 強勁水壓，讓每一次用水更舒適潔淨</p>
+			<a class="lp-btn lp-btn--primary" href="#nano">探索奈米氣泡科技 →</a>
+		</div>
+	</div>
+</section>
+
+<!-- ===== 02 品牌信任 ===== -->
+<section class="lp-section lp-trust">
+	<div class="container">
+		<ul class="lp-trust__list">
+			<li class="lp-trust__item">
+				<span class="lp-ico" aria-hidden="true"></span>
+				<div class="lp-trust__text">
+					<strong>100+ 年</strong>
+					<span>日本林內成立超過 100 年</span>
+				</div>
+			</li>
+			<li class="lp-trust__item">
+				<span class="lp-ico" aria-hidden="true"></span>
+				<div class="lp-trust__text">
+					<strong>日本研發</strong>
+					<span>Air Bubble Technology 奈米氣泡科技</span>
+				</div>
+			</li>
+			<li class="lp-trust__item">
+				<span class="lp-ico" aria-hidden="true"></span>
+				<div class="lp-trust__text">
+					<strong>第三方實證</strong>
+					<span>7 大檢驗機構 安心有保障</span>
+				</div>
+			</li>
+			<li class="lp-trust__item">
+				<span class="lp-ico" aria-hidden="true"></span>
+				<div class="lp-trust__text">
+					<strong>50+ 據點</strong>
+					<span>全台服務據點 專業售後服務</span>
+				</div>
+			</li>
+			<li class="lp-trust__item">
+				<span class="lp-ico" aria-hidden="true"></span>
+				<div class="lp-trust__text">
+					<strong>領導品牌</strong>
+					<span>日本熱水器領導品牌 值得信賴</span>
+				</div>
+			</li>
+		</ul>
+	</div>
+</section>
+
+<!-- ===== 03 用水困擾 ===== -->
+<section class="lp-section">
+	<div class="container">
+		<h2 class="lp-h2">你是否也有這些用水困擾？</h2>
+		<div class="grid grid--3 lp-cards">
+			<article class="lp-card">
+				<div class="lp-ph lp-ph--card" data-img="水壓不足"><span>圖片</span></div>
+				<div class="lp-card__body">
+					<span class="lp-ico" aria-hidden="true"></span>
+					<h3 class="lp-card__title">水壓不足</h3>
+					<p class="lp-card__text">高樓層、頂樓、水壓小<br>洗澡不夠暢快</p>
+				</div>
+			</article>
+			<article class="lp-card">
+				<div class="lp-ph lp-ph--card" data-img="水垢髒污"><span>圖片</span></div>
+				<div class="lp-card__body">
+					<span class="lp-ico" aria-hidden="true"></span>
+					<h3 class="lp-card__title">水垢髒污</h3>
+					<p class="lp-card__text">浴室、廚房水槽堆積<br>清潔費時又費力</p>
+				</div>
+			</article>
+			<article class="lp-card">
+				<div class="lp-ph lp-ph--card" data-img="多點用水"><span>圖片</span></div>
+				<div class="lp-card__body">
+					<span class="lp-ico" aria-hidden="true"></span>
+					<h3 class="lp-card__title">多點用水</h3>
+					<p class="lp-card__text">多點浴室、同時使用<br>忽冷忽熱不穩定</p>
+				</div>
+			</article>
+		</div>
+	</div>
+</section>
+
+<!-- ===== 04 熱水科技 A（深藍）===== -->
+<section class="lp-section lp-tech--dark">
+	<div class="container">
+		<h2 class="lp-h2 lp-h2--light">為不同需求而生的熱水科技</h2>
+		<p class="lp-lead lp-lead--light">林內以創新科技，提供舒適、節能又安心的熱水體驗</p>
+		<div class="grid grid--2 lp-prodcards">
+			<article class="lp-prodcard">
+				<div class="lp-ph lp-ph--wide" data-img="內藏式加壓馬達熱水器"><span>產品圖</span></div>
+				<div class="lp-prodcard__body">
+					<h3 class="lp-prodcard__name">林內 內藏式加壓馬達熱水器</h3>
+					<p class="lp-prodcard__desc">低水壓穩定，沐浴強勁快舒爽</p>
+					<a class="lp-btn lp-btn--ghost" href="#">了解更多 →</a>
+				</div>
+			</article>
+			<article class="lp-prodcard">
+				<div class="lp-ph lp-ph--wide" data-img="Ultra Fine Bubble 奈米氣泡熱水器"><span>產品圖</span></div>
+				<div class="lp-prodcard__body">
+					<h3 class="lp-prodcard__name">林內 Ultra Fine Bubble 奈米氣泡熱水器</h3>
+					<a class="lp-btn lp-btn--ghost" href="#">了解更多 →</a>
+				</div>
+			</article>
+		</div>
+	</div>
+</section>
+
+<!-- ===== 05 奈米氣泡科技 ===== -->
+<section class="lp-section lp-nano" id="nano">
+	<div class="container lp-nano__grid">
+		<div class="lp-nano__intro">
+			<h2 class="lp-h2 lp-h2--left">奈米氣泡科技<br>讓生活更美好</h2>
+			<p class="lp-nano__text">獨家 Air Bubble Technology，將直徑小於 1 微米的奈米氣泡溶於水中，深入肌膚的毛孔，促進肌膚潔淨，同時抑制細菌與異味，讓每一次用水都成為深入身體的呵護。</p>
+			<a class="lp-btn lp-btn--primary" href="#">了解奈米氣泡科技 →</a>
+		</div>
+		<div class="lp-nano__visual">
+			<div class="lp-ph lp-ph--sq lp-nano__bubble" data-img="奈米氣泡視覺">
+				<span>直徑小於<br><b>1 微米</b><br>奈米氣泡</span>
+			</div>
+		</div>
+		<div class="lp-nano__stats">
+			<div class="lp-stat"><span class="lp-stat__label">抑菌<br><i>細菌菌落減少</i></span><span class="lp-stat__num">39%</span></div>
+			<div class="lp-stat"><span class="lp-stat__label">抑制紅色水垢<br><i>紅色菌斑減少</i></span><span class="lp-stat__num">70%</span></div>
+			<div class="lp-stat"><span class="lp-stat__label">保濕<br><i>淨潤提高肌膚含水量</i></span><span class="lp-stat__num">+114%</span></div>
+			<div class="lp-stat"><span class="lp-stat__label">抑制水垢面積<br><i>水垢面積減少</i></span><span class="lp-stat__num">28%</span></div>
+			<div class="lp-stat"><span class="lp-stat__label">降低化妝品殘留<br><i>化妝品殘留減少</i></span><span class="lp-stat__num">30%</span></div>
+			<div class="lp-stat"><span class="lp-stat__label">維持肌膚保濕<br><i>肌膚含水量增加</i></span><span class="lp-stat__num">+114%</span></div>
+			<div class="lp-stat"><span class="lp-stat__label">強化秀髮光澤<br><i>光澤度增加</i></span><span class="lp-stat__num">+33%</span></div>
+			<div class="lp-stat"><span class="lp-stat__label">強化秀髮彈性<br><i>拉伸強度提升</i></span><span class="lp-stat__num">+38%</span></div>
+		</div>
+	</div>
+	<div class="container">
+		<p class="lp-nano__note">＊與一般熱水的對照比較；日本林內試驗數據。</p>
+	</div>
+</section>
+
+<!-- ===== 06 電熱水器困擾 ===== -->
+<section class="lp-section lp-section--alt">
+	<div class="container">
+		<h2 class="lp-h2">您是否也有這些電熱水器困擾？</h2>
+		<div class="grid grid--3 lp-cards">
+			<article class="lp-card">
+				<div class="lp-ph lp-ph--card" data-img="大樓無天然瓦斯"><span>圖片</span></div>
+				<div class="lp-card__body">
+					<span class="lp-ico" aria-hidden="true"></span>
+					<h3 class="lp-card__title">大樓無天然瓦斯</h3>
+					<p class="lp-card__text">大樓建案不供瓦斯<br>傳統瓦斯搬運不便</p>
+				</div>
+			</article>
+			<article class="lp-card">
+				<div class="lp-ph lp-ph--card" data-img="用水加熱好慢"><span>圖片</span></div>
+				<div class="lp-card__body">
+					<span class="lp-ico" aria-hidden="true"></span>
+					<h3 class="lp-card__title">用水加熱好慢</h3>
+					<p class="lp-card__text">洗澡需漫長等待<br>多人連用熱水不夠</p>
+				</div>
+			</article>
+			<article class="lp-card">
+				<div class="lp-ph lp-ph--card" data-img="擔心耗電量大"><span>圖片</span></div>
+				<div class="lp-card__body">
+					<span class="lp-ico" aria-hidden="true"></span>
+					<h3 class="lp-card__title">擔心耗電量大</h3>
+					<p class="lp-card__text">高電價負擔<br>希望更節能環保</p>
+				</div>
+			</article>
+		</div>
+	</div>
+</section>
+
+<!-- ===== 07 熱水科技 B（深藍．倍容量儲熱）===== -->
+<section class="lp-section lp-tech--dark">
+	<div class="container">
+		<h2 class="lp-h2 lp-h2--light">為不同需求而生的熱水科技</h2>
+		<p class="lp-lead lp-lead--light">林內以創新科技，提供舒適、節能又安心的熱水體驗</p>
+		<div class="lp-feature__grid">
+			<div class="lp-feature__copy">
+				<span class="lp-tag">新品</span>
+				<h3 class="lp-feature__name">倍容量儲熱<br>電熱水器</h3>
+				<p class="lp-feature__desc">解決儲水不夠用、加熱慢難題</p>
+				<ul class="lp-checklist">
+					<li>分層內膽設計｜熱水不被冷水沖散</li>
+					<li>高功率輔助加熱｜即用即熱補水</li>
+					<li>高溫運轉 × 智慧混水｜舒適恆溫更持久</li>
+					<li>智慧節能省電模式</li>
+				</ul>
+				<a class="lp-btn lp-btn--ghost" href="#">了解更多 →</a>
+			</div>
+			<div class="lp-feature__media">
+				<div class="lp-ph lp-ph--tall" data-img="倍容量儲熱電熱水器"><span>產品圖</span></div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ===== 08+09 推薦方案 + 系列比較（同一帶，左右兩欄）===== -->
+<section class="lp-section lp-section--alt">
+	<div class="container lp-recommend__grid">
+		<!-- 左：推薦方案表 -->
+		<div class="lp-recommend">
+			<h2 class="lp-h2 lp-h2--left">推薦適合你的熱水器</h2>
+			<p class="lp-lead lp-lead--left">找到適合你的熱水方案</p>
+			<table class="lp-table">
+				<thead><tr><th>生活需求</th><th>推薦方案</th></tr></thead>
+				<tbody>
+					<tr><td>水壓不足</td><td>UFB 內藏式增壓馬達</td></tr>
+					<tr><td>頂樓住宅</td><td>UFB 內藏式增壓馬達</td></tr>
+					<tr><td>老屋翻新</td><td>UFB 內藏式增壓馬達</td></tr>
+					<tr><td>多點熱水家庭</td><td>UFB 開放版熱水器</td></tr>
+					<tr><td>熱水不穩定</td><td>恆溫／倍容量熱水器</td></tr>
+					<tr><td>多人家庭</td><td>恆溫／倍容量熱水器</td></tr>
+					<tr><td>需更換浴缸</td><td>倍容量儲熱熱水器</td></tr>
+				</tbody>
+			</table>
+			<a class="lp-btn lp-btn--primary" href="#">進一步選擇 →</a>
+		</div>
+
+		<!-- 右：系列比較 carousel -->
+		<div class="lp-compare">
+			<div class="lp-compare__head">
+				<h2 class="lp-h2 lp-h2--left">林內熱水器系列比較</h2>
+				<span class="lp-tag lp-tag--soft">熱門系列</span>
+			</div>
+			<div class="lp-compare__track">
+				<article class="lp-compare__card">
+					<div class="lp-ph lp-ph--card" data-img="UFB內藏式增壓"><span>產品圖</span></div>
+					<h3 class="lp-compare__name">UFB 內藏式增壓熱水器</h3>
+					<p class="lp-compare__desc">強勁水壓、暢快舒適</p>
+					<p class="lp-compare__use"><b>適用</b>頂樓、老屋</p>
+					<ul class="lp-compare__points">
+						<li>內建增壓馬達</li><li>UFB 奈米氣泡科技</li><li>多點出水穩定</li>
+					</ul>
+				</article>
+				<article class="lp-compare__card">
+					<div class="lp-ph lp-ph--card" data-img="UFB開放版"><span>產品圖</span></div>
+					<h3 class="lp-compare__name">UFB 開放版熱水器</h3>
+					<p class="lp-compare__desc">潔淨、穩定</p>
+					<p class="lp-compare__use"><b>適用</b>公寓</p>
+					<ul class="lp-compare__points">
+						<li>UFB 奈米氣泡科技</li><li>多點出水穩定</li>
+					</ul>
+				</article>
+				<article class="lp-compare__card">
+					<div class="lp-ph lp-ph--card" data-img="FE強制排氣"><span>產品圖</span></div>
+					<h3 class="lp-compare__name">FE 強制排氣熱水器</h3>
+					<p class="lp-compare__desc">高效節能</p>
+					<p class="lp-compare__use"><b>適用</b>通天厝</p>
+					<ul class="lp-compare__points">
+						<li>分層火排設計</li><li>多重安全保護</li>
+					</ul>
+				</article>
+				<article class="lp-compare__card">
+					<div class="lp-ph lp-ph--card" data-img="RF自然排氣"><span>產品圖</span></div>
+					<h3 class="lp-compare__name">RF 自然排氣熱水器</h3>
+					<p class="lp-compare__desc">經濟實惠</p>
+					<p class="lp-compare__use"><b>適用</b>通風良好環境</p>
+					<ul class="lp-compare__points">
+						<li>經濟實惠耐用</li>
+					</ul>
+				</article>
+			</div>
+			<div class="lp-compare__dots" aria-hidden="true">
+				<span class="is-active"></span><span></span>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ===== 10+11+12 媒體 / 口碑 / FAQ（底部三欄）===== -->
+<section class="lp-section">
+	<div class="container lp-bottom3__grid">
+		<!-- 媒體關注 -->
+		<div class="lp-col">
+			<h2 class="lp-h3title">媒體關注</h2>
+			<ul class="lp-media__list">
+				<li class="lp-media__item">
+					<div class="lp-ph lp-ph--logo" data-img="壹蘋"><span>logo</span></div>
+					<div>
+						<p class="lp-media__source">壹蘋新聞網</p>
+						<p class="lp-media__headline">林內日本獨家技術落地台灣產線，脆友推「升級熱水器最有感」</p>
+						<time class="lp-date">2025-12-24</time>
+					</div>
+				</li>
+				<li class="lp-media__item">
+					<div class="lp-ph lp-ph--logo" data-img="上報"><span>logo</span></div>
+					<div>
+						<p class="lp-media__source">上報 UP MEDIA</p>
+						<p class="lp-media__headline">日本職人技術在台灣落地！一條龍產線確保品質，30+ 台灣董座都親自推薦！</p>
+						<time class="lp-date">2025-12-23</time>
+					</div>
+				</li>
+				<li class="lp-media__item">
+					<div class="lp-ph lp-ph--logo" data-img="工商時報"><span>logo</span></div>
+					<div>
+						<p class="lp-media__source">工商時報 COMMERCIAL TIMES</p>
+						<p class="lp-media__headline">能友熱烈討論 普發現金家電汰換「升級林內熱水器立即有感」</p>
+						<time class="lp-date">2025-12-23</time>
+					</div>
+				</li>
+			</ul>
+			<a class="lp-link" href="#">閱讀更多 →</a>
+		</div>
+
+		<!-- 使用者口碑 -->
+		<div class="lp-col">
+			<h2 class="lp-h3title">使用者口碑</h2>
+			<ul class="lp-review__list">
+				<li class="lp-review">
+					<div class="lp-review__head"><span class="lp-review__src">Google Review</span><span class="lp-review__score">★ 5.0</span></div>
+					<p class="lp-review__text">高樓層終於不用擔心水壓不足，洗澡舒服很多！</p>
+					<time class="lp-date">2025-05-02</time>
+				</li>
+				<li class="lp-review">
+					<div class="lp-review__head"><span class="lp-review__src">mobile01</span></div>
+					<p class="lp-review__text">奈米氣泡功能很有感，浴室水垢真的變少！</p>
+					<time class="lp-date">2025-04-18</time>
+				</li>
+				<li class="lp-review">
+					<div class="lp-review__head"><span class="lp-review__src">PTT 居家版</span></div>
+					<p class="lp-review__text">多人同時洗澡，洗碗都不會忽冷忽熱，非常穩定！</p>
+					<time class="lp-date">2025-04-10</time>
+				</li>
+			</ul>
+			<a class="lp-link" href="#">閱讀更多 →</a>
+		</div>
+
+		<!-- FAQ -->
+		<div class="lp-col">
+			<h2 class="lp-h3title">常見問題 FAQ</h2>
+			<ul class="lp-faq__list">
+				<li class="lp-faq__item"><button class="lp-faq__q" type="button">奈米氣泡熱水器是什麼？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
+				<li class="lp-faq__item"><button class="lp-faq__q" type="button">頂級住宅適合什麼熱水器？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
+				<li class="lp-faq__item"><button class="lp-faq__q" type="button">多人家庭如何挑選熱水器？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
+				<li class="lp-faq__item"><button class="lp-faq__q" type="button">熱水器容量怎麼選？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
+				<li class="lp-faq__item"><button class="lp-faq__q" type="button">林內熱水器保固多久？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
+			</ul>
+			<a class="lp-link" href="#">閱讀更多 →</a>
+		</div>
+	</div>
+</section>
+
+<!-- ===== 13 Bottom CTA（深藍）===== -->
+<section class="lp-section lp-tech--dark lp-cta">
+	<div class="container lp-cta__inner">
+		<h2 class="lp-cta__title">找到最適合你的熱水方案<br>讓每一次用水，都成為更好的生活體驗。</h2>
+		<div class="lp-cta__btns">
+			<a class="lp-btn lp-btn--primary" href="#">預約產品諮詢 →</a>
+			<a class="lp-btn lp-btn--outline" href="#">聯絡林內團隊 →</a>
+			<a class="lp-btn lp-btn--outline" href="#">查看全系列熱水器 →</a>
+		</div>
+	</div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER（佔位）。正式版改成：
+       <?php include 'partials/_lp-footer.php'; ?>
+     ============================================================ -->
+<footer class="pv-foot">© Rinnai Corporation.</footer>
+
+<script>
+(function(){
+	var bar = document.getElementById('siteHeader');
+	function onScroll(){ if(bar) bar.classList.toggle('scrolled', window.scrollY > 10); }
+	window.addEventListener('scroll', onScroll, { passive:true });
+	onScroll();
+})();
+</script>
+
+</body>
+</html>
