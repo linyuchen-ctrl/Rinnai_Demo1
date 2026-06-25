@@ -6,13 +6,6 @@
 <title>Rinnai LP</title>
 <style>
 /* ========== reset.css ========== */
-/* =========================================================
-   reset.css
-   重點：不跟原站 CSS 打架。
-   - 全域只設 box-sizing（安全，原站通常也是這樣）
-   - 其餘 reset 一律鎖在 .lp 內，碰不到 header/footer
-   ========================================================= */
-
 *, *::before, *::after {
 	box-sizing: border-box;
 }
@@ -57,59 +50,43 @@ body { letter-spacing: 0.12rem; }
 }
 
 /* ========== variables.css ========== */
-/* =========================================================
-   variables.css — LP 設計 token（色票取自 PDF 設計稿）
-   改一處全站連動。
-   ========================================================= */
-
 :root {
-	/* --- 容器 --- */
 	--container-max: 1160px;
 	--container-pad: clamp(16px, 4vw, 40px);
 
-	/* --- 間距 --- */
 	--space-1: 4px;  --space-2: 8px;  --space-3: 16px;
 	--space-4: 24px; --space-5: 40px; --space-6: 64px; --space-7: 96px;
 	--section-y: clamp(48px, 7vw, 88px);
 
-	/* --- 字級 --- */
-	--fs-display: clamp(30px, 5.2vw, 52px);  /* hero 主標 */
-	--fs-h2: clamp(24px, 3.6vw, 38px);       /* 區段標題 */
-	--fs-h3: clamp(19px, 2.4vw, 24px);       /* 卡片標題 */
-	--fs-lead: clamp(20px, 1.8vw, 18px);     /* 區段小標 */
+	--fs-display: clamp(30px, 5.2vw, 52px);
+	--fs-h2: clamp(24px, 3.6vw, 38px);
+	--fs-h3: clamp(19px, 2.4vw, 24px);
+	--fs-lead: clamp(20px, 1.8vw, 18px);
 	--fs-body: 16px;
 	--fs-small: 16px;
-	--fs-stat: clamp(28px, 4vw, 40px);       /* 數據百分比 */
+	--fs-stat: clamp(28px, 4vw, 40px);
 	--lh-tight: 1.2;
 	--lh-body: 1.75;
 
-	/* --- 顏色（取自設計稿）--- */
-	--c-navy:      #0B4282;   /* 主色：科技區/CTA/標題 */
-	--c-navy-d:    #082f5e;   /* 漸層用深藍 */
-	--c-red:       #E60012;   /* 強調：數據/新品標籤 */
-	--c-ink:       #1b2b3f;   /* 淺底主文字 */
-	--c-ink-soft:  #5d6b7d;   /* 次要文字 */
-	--c-bg:        #E8EEFA;   /* 頁面底 */
-	--c-bg-white:  #E8EEFA;   /* 卡片 */
-	--c-bg-alt:    #E8EEFA;   /* 交錯底色 */
-	--c-hero-top:  #DAE7F0;   /* hero 上方水感淺藍 */
-	--c-line:      #dbe3ee;   /* 分隔線/邊框 */
+	--c-navy:      #0B4282;
+	--c-navy-d:    #082f5e;
+	--c-red:       #E60012;
+	--c-ink:       #1b2b3f;
+	--c-ink-soft:  #5d6b7d;
+	--c-bg:        #E8EEFA;
+	--c-bg-white:  #E8EEFA;
+	--c-bg-alt:    #E8EEFA;
+	--c-hero-top:  #DAE7F0;
+	--c-line:      #dbe3ee;
 	--c-on-dark:        #1b2b3f;
-	--c-on-dark-soft:   #5d6b7d; /* 次要文字 */
+	--c-on-dark-soft:   #5d6b7d;
 
-	/* --- 其他 --- */
 	--radius: 14px;
 	--radius-sm: 10px;
 	--shadow: 0 6px 24px rgba(11, 66, 130, 0.08);
 	--shadow-card: 0 4px 16px rgba(11, 66, 130, 0.06);
 	--grid-gap: clamp(16px, 3vw, 28px);
 }
-
-/* =========================================================
-   斷點（mobile-first；@media 無法用變數，列此供參）
-     tablet :  768px
-     desktop: 1024px  ← 建議對齊 header .pc/.sp 切換點
-   ========================================================= */
 
 .lp {
 	color: var(--c-ink);
@@ -120,12 +97,6 @@ body { letter-spacing: 0.12rem; }
 }
 
 /* ========== layout.css ========== */
-/* =========================================================
-   layout.css — 骨架：container + grid + 區段
-   mobile-first，全部鎖在 .lp 下。
-   ========================================================= */
-
-/* ---- 容器：控最大寬 + 左右留白 ---- */
 .lp .container {
 	width: 100%;
 	max-width: var(--container-max);
@@ -133,54 +104,35 @@ body { letter-spacing: 0.12rem; }
 	padding-inline: var(--container-pad);
 }
 
-/* ---- 區段：統一上下節奏 ---- */
 .lp-section {
 	padding-block: var(--section-y);
-}
-.lp-section + .lp-section {
-	/* 用 padding 控節奏，避免 margin 疊加；交錯底色時很好用 */
 }
 .lp-section--alt {
 	background: var(--c-bg-alt);
 }
 
-/* =========================================================
-   GRID
-   .grid 預設手機單欄；到桌機才展開成多欄。
-   用 data 或 modifier 控欄數：grid--2 / grid--3 / grid--4
-   ========================================================= */
 .lp .grid {
 	display: grid;
 	gap: var(--grid-gap);
-	grid-template-columns: 1fr;   /* 手機：全部單欄堆疊 */
+	grid-template-columns: 1fr;
 }
-
-/* 12 欄輔助（需要精細排版時用）*/
 .lp .grid--12 {
 	grid-template-columns: repeat(12, 1fr);
 }
-
-/* ---- 平板：min-width 768px ---- */
 @media (min-width: 768px) {
 	.lp .grid--2 { grid-template-columns: repeat(2, 1fr); }
-	.lp .grid--3 { grid-template-columns: repeat(2, 1fr); } /* 平板先 2 欄 */
+	.lp .grid--3 { grid-template-columns: repeat(2, 1fr); }
 }
-
-/* ---- 桌機：min-width 1024px（建議對齊 header 切換點）---- */
 @media (min-width: 1024px) {
 	.lp .grid--3 { grid-template-columns: repeat(3, 1fr); }
 	.lp .grid--4 { grid-template-columns: repeat(4, 1fr); }
 }
-
-/* ---- 欄位跨度輔助（搭配 .grid--12）---- */
 @media (min-width: 1024px) {
 	.lp .col-4  { grid-column: span 4; }
 	.lp .col-6  { grid-column: span 6; }
 	.lp .col-8  { grid-column: span 8; }
 	.lp .col-12 { grid-column: span 12; }
 }
-
-/* ---- 通用排版輔助 ---- */
 .lp .flex {
 	display: flex;
 	gap: var(--grid-gap);
@@ -188,8 +140,6 @@ body { letter-spacing: 0.12rem; }
 .lp .flex--center { align-items: center; justify-content: center; }
 .lp .flex--between { justify-content: space-between; }
 .lp .flex--wrap { flex-wrap: wrap; }
-
-/* ---- 鍵盤可見焦點（無障礙底線）---- */
 .lp a:focus-visible,
 .lp button:focus-visible {
 	outline: 2px solid var(--c-primary);
@@ -197,12 +147,6 @@ body { letter-spacing: 0.12rem; }
 }
 
 /* ========== lp.css ========== */
-/* =========================================================
-   lp.css — LP 各區段樣式 + RWD（全部鎖在 .lp 下）
-   mobile-first；斷點 768 / 1024。
-   ========================================================= */
-
-/* ---------- 共用排版元件 ---------- */
 .lp-eyebrow {
 	display: inline-block;
 	font-size: var(--fs-small);
@@ -232,7 +176,6 @@ body { letter-spacing: 0.12rem; }
 	border-bottom: 2px solid var(--c-navy);
 }
 
-/* ---------- 按鈕 ---------- */
 .lp-btn {
 	display: inline-flex;
 	align-items: center;
@@ -250,10 +193,8 @@ body { letter-spacing: 0.12rem; }
 .lp-btn--ghost   { color: #fff; border: 1.5px solid rgba(255,255,255,.7); }
 .lp-btn--ghost:hover { background: rgba(255,255,255,.12); }
 .lp-btn--outline { color: #fff; border: 1.5px solid rgba(255,255,255,.85); }
-/* CTA 深底上的 primary 反白 */
 .lp-cta .lp-btn--primary { background: #fff; color: var(--c-navy); }
 
-/* ---------- 圖片佔位框 ---------- */
 .lp-ph {
 	position: relative;
 	display: flex;
@@ -274,14 +215,12 @@ body { letter-spacing: 0.12rem; }
 .lp-ph--tall { aspect-ratio: 3 / 4; }
 .lp-ph--sq   { aspect-ratio: 1 / 1; }
 .lp-ph--logo { width: 84px; height: 44px; flex: 0 0 auto; }
-/* 深底上的佔位框換成半透明白 */
 .lp-tech--dark .lp-ph {
 	background: rgba(255,255,255,.08);
 	border-color: rgba(255,255,255,.25);
 	color: rgba(255,255,255,.6);
 }
 
-/* ---------- icon 佔位 ---------- */
 .lp-ico {
 	display: inline-block;
 	width: 64px; height: 64px;
@@ -291,23 +230,18 @@ body { letter-spacing: 0.12rem; }
 	flex-shrink: 0;
 }
 
-/* ---------- 深藍區段底 ---------- */
 .lp-tech--dark {
 	background: #E8EEFA;
 	color: var(--c-ink);
 }
 
-/* =========================================================
-   01 HERO
-   ========================================================= */
-/* HERO：滿版商品圖 + 左側文字。
-   目前 hero 背景改成本地圖片 ./img/hero_bg.png。 */
+/* 01 HERO */
 .lp-hero {
 	position: relative;
 	display: flex;
 	align-items: center;
 	min-height: clamp(560px, 56vw, 820px);
-	padding: 88px 0 28px;
+	padding: 110px 0 28px;
 	overflow: hidden;
 	background: url('./img/hero_bg.png') center/cover no-repeat;
 }
@@ -338,9 +272,7 @@ body { letter-spacing: 0.12rem; }
 	.lp-hero__copy { max-width: 100%; }
 }
 
-/* =========================================================
-   02 品牌信任
-   ========================================================= */
+/* 02 品牌信任 */
 .lp-trust { background: #E8EEFA; }
 .lp-trust__list {
 	display: grid;
@@ -362,23 +294,21 @@ body { letter-spacing: 0.12rem; }
 	flex-direction: column;
 	gap: 4px;
 }
-.lp-trust__text strong { 
-	color: var(--c-navy); 
+.lp-trust__text strong {
+	color: var(--c-navy);
 	font-size: 1.2rem;
 	margin: 0;
 }
-.lp-trust__text span { 
-	color: var(--c-ink-soft); 
-	font-size: var(--fs-small); 
+.lp-trust__text span {
+	color: var(--c-ink-soft);
+	font-size: var(--fs-small);
 	line-height: 1.4;
 }
 @media (min-width: 768px) {
 	.lp-trust__list { grid-template-columns: repeat(5, 1fr); }
 }
 
-/* =========================================================
-   03 / 06 困擾卡片
-   ========================================================= */
+/* 03 / 06 困擾卡片 */
 .lp-cards { align-items: stretch; }
 .lp-card {
 	background: #E8EEFA;
@@ -392,9 +322,7 @@ body { letter-spacing: 0.12rem; }
 .lp-card__title { font-size: var(--fs-h3); font-weight: 800; color: var(--c-navy); }
 .lp-card__text { color: var(--c-ink-soft); font-size: var(--fs-small); }
 
-/* =========================================================
-   04 熱水科技 A — 產品卡
-   ========================================================= */
+/* 04 熱水科技 A — 產品卡 */
 .lp-prodcards { margin-top: var(--space-2); }
 .lp-prodcard {
 	background: rgba(255,255,255,.06);
@@ -409,9 +337,7 @@ body { letter-spacing: 0.12rem; }
 .lp-prodcard__desc { color: var(--c-on-dark-soft); font-size: var(--fs-small); }
 .lp-prodcard .lp-btn { align-self: flex-start; margin-top: auto; }
 
-/* =========================================================
-   05 奈米氣泡
-   ========================================================= */
+/* 05 奈米氣泡 */
 .lp-nano { background: #E8EEFA; }
 .lp-nano__grid {
 	display: grid;
@@ -450,9 +376,7 @@ body { letter-spacing: 0.12rem; }
 	.lp-nano__bubble { margin: 0; }
 }
 
-/* =========================================================
-   07 熱水科技 B — 特色產品
-   ========================================================= */
+/* 07 熱水科技 B — 特色產品 */
 .lp-feature__grid {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -488,9 +412,7 @@ body { letter-spacing: 0.12rem; }
 	.lp-feature__media { margin: 0; }
 }
 
-/* =========================================================
-   08+09 推薦方案 + 系列比較
-   ========================================================= */
+/* 08+09 推薦方案 + 系列比較 */
 .lp-recommend__grid {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -539,9 +461,7 @@ body { letter-spacing: 0.12rem; }
 	.lp-compare__card { flex-basis: 46%; }
 }
 
-/* =========================================================
-   10+11+12 媒體 / 口碑 / FAQ
-   ========================================================= */
+/* 10+11+12 媒體 / 口碑 / FAQ */
 .lp-bottom3__grid {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -575,9 +495,7 @@ body { letter-spacing: 0.12rem; }
 	.lp-bottom3__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
 }
 
-/* =========================================================
-   13 Bottom CTA
-   ========================================================= */
+/* 13 Bottom CTA */
 .lp-cta__inner { text-align: center; }
 .lp-cta__title { font-size: var(--fs-h2); font-weight: 800; color: #1b2b3f; line-height: 1.4; margin-bottom: var(--space-5); }
 .lp-cta__btns { display: flex; flex-direction: column; gap: var(--space-3); align-items: center; }
@@ -587,89 +505,114 @@ body { letter-spacing: 0.12rem; }
 }
 
 
-/* ====== 預覽用佔位 header / footer（正式版改用原站 partial + 原站 CSS）====== */
-/* Header：透明浮於 hero，向下滑動後底色變白 */
-.pv-bar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 50;
-	height: 100px;
-	display: flex;
-	align-items: center;
-	background: transparent;
-	transition: background .25s ease, box-shadow .25s ease;
+/* ====== 台灣官網 nav 整合（GNAV）====== */
+/* 顏色變數（與 LP 共用時可刪，改吃 LP 的 :root）*/
+.gnav{ --gnav-h:100px; --gnav-text:#1F2120; --gnav-red:#E60012; --gnav-navy:#0B4282; }
+
+/* header 本體：透明浮於 hero，滑動後變白 */
+.gnav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--gnav-h);
+	background:transparent;transition:background .25s ease,box-shadow .25s ease,height .25s ease}
+.gnav.is-scrolled{background:#fff;box-shadow:0 2px 18px rgba(11,66,130,.10);--gnav-h:76px}
+.gnav.is-scrolled .gnav__logo{width:104px}
+.gnav__inner{height:100%;display:flex;align-items:center;justify-content:space-between;
+	padding-left:50px;padding-right:70px}
+
+/* logo */
+.gnav__logo{display:inline-block;width:146px;flex-shrink:0;line-height:0;transition:width .25s ease}
+.gnav__logo img{display:block;width:100%;height:auto}
+
+/* 桌機選單列 */
+.gnav__menu{display:flex;align-items:center}
+.gnav__list{display:flex;align-items:center;gap:30px;list-style:none;margin:0;padding:0}
+.gnav__item{position:relative}
+.gnav__link{display:inline-flex;align-items:center;gap:6px;
+	font-size:17px;font-weight:500;color:var(--gnav-text);text-decoration:none;
+	background:none;border:0;cursor:pointer;font-family:inherit;letter-spacing:inherit;
+	padding:8px 0;white-space:nowrap}
+.gnav__link:hover{color:var(--gnav-navy)}
+.gnav__caret{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+	transform:rotate(45deg) translateY(-2px);transition:transform .2s ease}
+.gnav__item.is-open > .gnav__link .gnav__caret{transform:rotate(-135deg) translateY(-1px)}
+
+/* 下拉面板 */
+.gnav__panel{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(8px);
+	background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(11,66,130,.16);
+	padding:22px 26px;opacity:0;visibility:hidden;transition:opacity .2s ease,transform .2s ease;
+	min-width:220px}
+.gnav__item.is-open > .gnav__panel,
+.gnav__item--has:hover > .gnav__panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.gnav__panel a{display:flex;align-items:center;gap:8px;color:#1b2b3f;text-decoration:none;
+	font-size:15px;padding:7px 6px;border-radius:6px;white-space:nowrap}
+.gnav__panel a:hover{background:#f0f4fb;color:var(--gnav-navy)}
+.gnav__panel a::before{content:"";width:5px;height:5px;border-right:1.5px solid var(--gnav-red);
+	border-bottom:1.5px solid var(--gnav-red);transform:rotate(-45deg);flex-shrink:0}
+.gnav__phead{font-size:13px;font-weight:800;color:var(--gnav-navy);
+	padding-bottom:6px;margin-bottom:4px;border-bottom:2px solid var(--gnav-red)}
+
+/* 商品分類：多欄 mega 面板 */
+.gnav__panel--mega{left:50%;transform:translateX(-50%) translateY(8px);
+	width:min(1080px,calc(100vw - 48px));padding:26px 34px}
+.gnav__item--mega:hover > .gnav__panel--mega,
+.gnav__item--mega.is-open > .gnav__panel--mega{transform:translateX(-50%) translateY(0)}
+.gnav__mega{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 24px}
+.gnav__col ul{list-style:none;margin:0;padding:0}
+
+/* 搜尋 */
+.gnav__search-toggle{display:inline-flex;align-items:center;justify-content:center;
+	width:38px;height:38px;border:0;background:none;cursor:pointer;color:var(--gnav-text)}
+.gnav__search-toggle:hover{color:var(--gnav-navy)}
+.gnav__search{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border-radius:12px;
+	box-shadow:0 12px 40px rgba(11,66,130,.16);padding:14px;opacity:0;visibility:hidden;
+	transform:translateY(8px);transition:opacity .2s ease,transform .2s ease}
+.gnav__item--search.is-open .gnav__search{opacity:1;visibility:visible;transform:translateY(0)}
+.gnav__search form{display:flex;gap:8px}
+.gnav__search input{width:240px;border:1px solid #cdd8e6;border-radius:8px;padding:10px 12px;font:inherit}
+.gnav__search button{border:0;background:var(--gnav-navy);color:#fff;border-radius:8px;
+	width:42px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.gnav__ico{width:20px;height:20px;display:block}
+
+/* 漢堡鈕（手機才出現）*/
+.gnav__burger{display:none;flex-direction:column;justify-content:center;gap:5px;
+	width:42px;height:42px;border:0;background:none;cursor:pointer}
+.gnav__burger span{display:block;width:26px;height:2px;background:var(--gnav-text);
+	transition:transform .25s ease,opacity .2s ease}
+.gnav.is-menu-open .gnav__burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.gnav.is-menu-open .gnav__burger span:nth-child(2){opacity:0}
+.gnav.is-menu-open .gnav__burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---- 手機版（<1024）：漢堡 + 下拉面板 ---- */
+@media (max-width:1023px){
+	.gnav__burger{display:flex}
+	.gnav__menu{position:fixed;top:var(--gnav-h);left:0;right:0;bottom:0;
+		background:#fff;flex-direction:column;align-items:stretch;
+		padding:10px 22px 40px;overflow-y:auto;
+		transform:translateX(100%);transition:transform .3s ease;visibility:hidden}
+	.gnav.is-menu-open{background:#fff}
+	.gnav.is-menu-open .gnav__menu{transform:translateX(0);visibility:visible}
+	.gnav__list{flex-direction:column;align-items:stretch;gap:0;width:100%}
+	.gnav__item{border-bottom:1px solid #eef2f8}
+	.gnav__link{width:100%;justify-content:space-between;padding:16px 4px;font-size:16px}
+	.gnav__caret{margin-left:auto}
+	/* 手機下拉改為內嵌展開 */
+	.gnav__panel,.gnav__panel--mega{position:static;transform:none;opacity:1;visibility:visible;
+		box-shadow:none;border-radius:0;padding:0 0 12px;min-width:0;
+		max-height:0;overflow:hidden;transition:max-height .3s ease}
+	.gnav__item.is-open > .gnav__panel{max-height:1200px}
+	.gnav__mega{grid-template-columns:1fr 1fr;gap:6px 18px}
+	.gnav__search{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;
+		padding:14px 0 4px}
+	.gnav__search input{width:100%}
+	.gnav__item--search .gnav__search-toggle{display:none}
 }
-.pv-bar.scrolled {
-	background: #fff;
-	box-shadow: 0 2px 18px rgba(11,66,130,.10);
-}
-.pv-bar .container {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	max-width: none;
-	padding-left: 50px;
-	padding-right: 70px;
-}
-.pv-logo {
-	display: inline-block;
-	width: 146px;
-	line-height: 1;
-}
-.pv-logo img {
-	display: block;
-	width: 100%;
-	height: auto;
-}
-.pv-bar nav {
-	display: none;
-	align-items: center;
-	gap: 34px;
-	font-size: 22px;
-	font-weight: 400;
-}
-.pv-bar nav a,
-.pv-logo {
-	text-decoration: none;
-}
-.pv-bar nav a {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	color: #1F2120;
-}
-.pv-bar nav a:hover {
-	color: var(--c-navy);
-}
-.pv-ico-sm {
-	width: 22px;
-	height: 22px;
-}
-.pv-foot {
-	background: #08315e;
-	color: #9fb6d3;
-	text-align: center;
-	padding: 32px 16px;
-	font-size: 13px;
-}
-@media (max-width: 1244px) {
-	.pv-logo {
-		width: 115px;
-	}
-}
-@media (max-width: 767px) {
-	.pv-logo {
-		width: 73px;
-	}
-}
-@media (min-width: 1024px) {
-	.pv-bar nav {
-		display: flex;
-	}
-}
+@media (min-width:1024px){ .gnav__item--search .gnav__search{} }
+
+/* logo 響應式（沿用你的設定）*/
+@media (max-width:1244px){ .gnav__logo{width:115px} .gnav__list{gap:22px} .gnav__link{font-size:16px} .gnav.is-scrolled .gnav__logo{width:92px} }
+@media (max-width:767px){ .gnav{--gnav-h:73px} .gnav__logo{width:96px} .gnav__inner{padding-left:20px;padding-right:20px} .gnav.is-scrolled{--gnav-h:64px} .gnav.is-scrolled .gnav__logo{width:80px} }
+/* ▲▲▲ GNAV CSS 結束 ▲▲▲ */
+
+/* footer 佔位（正式版改用原站 _lp-footer.php）*/
+.pv-foot{background:#08315e;color:#9fb6d3;text-align:center;padding:32px 16px;font-size:13px}
 
 /* HERO button — increase overall size in hero area */
 .lp-hero .lp-btn {
@@ -701,16 +644,117 @@ body { letter-spacing: 0.12rem; }
        <?php include 'partials/_lp-header.php'; ?>
      並在 <head> 載入原站 header/footer 的 CSS（icon font 等）。
      ============================================================ -->
-<header class="pv-bar" id="siteHeader">
-	<div class="container">
-		<a class="pv-logo" href="#"><img src="./img/logo.svg" alt="Rinnai"></a>
-		<nav>
-			<a href="#">產品系列</a>
-			<a href="#">技術與創新</a>
-			<a href="#">選購指南</a>
-			<a href="#">支援服務</a>
-			<a href="#">關於林內</a>
-			<a href="#"><svg class="pv-ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.4-7-11a7 7 0 0 1 14 0c0 4.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>經銷商查詢</a>
+<header class="gnav" id="gnav">
+	<div class="gnav__inner">
+		<a class="gnav__logo" href="#"><img src="./img/logo.svg" alt="Rinnai"></a>
+
+		<button class="gnav__burger" type="button" aria-label="選單" aria-expanded="false">
+			<span></span><span></span><span></span>
+		</button>
+
+		<nav class="gnav__menu" aria-label="主選單">
+			<ul class="gnav__list">
+				<!-- 商品分類（mega）-->
+				<li class="gnav__item gnav__item--has gnav__item--mega">
+					<button class="gnav__link" type="button" aria-expanded="false">商品分類<i class="gnav__caret"></i></button>
+					<div class="gnav__panel gnav__panel--mega">
+						<div class="gnav__mega">
+							<div class="gnav__col">
+								<p class="gnav__phead">熱水器</p>
+								<ul>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/31" target="_blank">屋內型熱水器</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/32" target="_blank">屋外型熱水器</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/33" target="_blank">儲熱式電熱水器</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/34" target="_blank">瞬熱式電熱水器</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/35" target="_blank">溫控器</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/36" target="_blank">迴水機</a></li>
+								</ul>
+							</div>
+							<div class="gnav__col">
+								<p class="gnav__phead">爐具</p>
+								<ul>
+									<li><a href="https://www.rinnai.com.tw/Product/V1/9" target="_blank">瓦斯爐</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/47" target="_blank">IH爐</a></li>
+								</ul>
+							</div>
+							<div class="gnav__col">
+								<p class="gnav__phead">廚房設備</p>
+								<ul>
+									<li><a href="https://www.rinnai.com.tw/Product/V1/11" target="_blank">排油煙機</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V1/12" target="_blank">烘碗機</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V1/13" target="_blank">淨水器</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/58" target="_blank">烤箱/蒸爐/蒸烤爐</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/59" target="_blank">洗碗機</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/60" target="_blank">收納櫃</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/61" target="_blank">無水鍋</a></li>
+								</ul>
+							</div>
+							<div class="gnav__col">
+								<p class="gnav__phead">乾衣機</p>
+								<ul>
+									<li><a href="https://www.rinnai.com.tw/Product/V1/15" target="_blank">乾衣機</a></li>
+								</ul>
+							</div>
+							<div class="gnav__col">
+								<p class="gnav__phead">商用設備</p>
+								<ul>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/64" target="_blank">保溫鍋</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/65" target="_blank">煮飯鍋</a></li>
+									<li><a href="https://www.rinnai.com.tw/Product/V2/1/66" target="_blank">烤爐</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</li>
+
+				<li class="gnav__item"><a class="gnav__link" href="news">最新資訊</a></li>
+				<li class="gnav__item"><a class="gnav__link" href="https://rinnaifamily.rinnai.com.tw/" target="_blank">會員專區</a></li>
+
+				<!-- 關於林內 -->
+				<li class="gnav__item gnav__item--has">
+					<button class="gnav__link" type="button" aria-expanded="false">關於林內<i class="gnav__caret"></i></button>
+					<div class="gnav__panel">
+						<p class="gnav__phead">關於林內</p>
+						<ul>
+							<li><a href="corp">總覽</a></li>
+							<li><a href="corp/greeting">社長的話</a></li>
+							<li><a href="corp/idea">企業理念</a></li>
+							<li><a href="corp/brand">品牌</a></li>
+							<li><a href="corp/about">台灣林內</a></li>
+							<li><a href="corp/history">沿革記事</a></li>
+						</ul>
+					</div>
+				</li>
+
+				<!-- 型錄下載 -->
+				<li class="gnav__item gnav__item--has">
+					<button class="gnav__link" type="button" aria-expanded="false">型錄下載<i class="gnav__caret"></i></button>
+					<div class="gnav__panel">
+						<p class="gnav__phead">型錄下載</p>
+						<ul>
+							<li><a href="https://www.rinnai.com.tw/dm" target="_blank">電子型錄</a></li>
+							<li><a href="https://www.rinnai.com.tw/Manual" target="_blank">使用手冊</a></li>
+						</ul>
+					</div>
+				</li>
+
+				<li class="gnav__item"><a class="gnav__link" href="https://www.rinnai.com.tw/DistributionBase" target="_blank">經銷據點</a></li>
+
+				<!-- 搜尋 -->
+				<li class="gnav__item gnav__item--search">
+					<button class="gnav__search-toggle" type="button" aria-label="搜尋" aria-expanded="false">
+						<svg class="gnav__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+					</button>
+					<div class="gnav__search">
+						<form action="" role="search">
+							<input type="text" placeholder="請輸入產品關鍵字" aria-label="搜尋產品">
+							<button type="submit" aria-label="送出搜尋">
+								<svg class="gnav__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+							</button>
+						</form>
+					</div>
+				</li>
+			</ul>
 		</nav>
 	</div>
 </header>
@@ -1089,10 +1133,43 @@ body { letter-spacing: 0.12rem; }
 
 <script>
 (function(){
-	var bar = document.getElementById('siteHeader');
-	function onScroll(){ if(bar) bar.classList.toggle('scrolled', window.scrollY > 10); }
-	window.addEventListener('scroll', onScroll, { passive:true });
-	onScroll();
+	var nav = document.getElementById('gnav');
+	if(!nav) return;
+	var items = nav.querySelectorAll('.gnav__item--has, .gnav__item--mega, .gnav__item--search');
+	var burger = nav.querySelector('.gnav__burger');
+
+	// 滑動變白
+	function onScroll(){ nav.classList.toggle('is-scrolled', window.scrollY > 10); }
+	window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+	// 下拉 / 搜尋：點擊切換（手機與鍵盤；桌機另有 hover）
+	function closeAll(except){
+		items.forEach(function(it){ if(it!==except){ it.classList.remove('is-open');
+			var b=it.querySelector('[aria-expanded]'); if(b) b.setAttribute('aria-expanded','false'); } });
+	}
+	items.forEach(function(it){
+		var btn = it.querySelector('.gnav__link, .gnav__search-toggle');
+		if(!btn) return;
+		btn.addEventListener('click', function(e){
+			e.preventDefault();
+			var open = it.classList.toggle('is-open');
+			btn.setAttribute('aria-expanded', open ? 'true':'false');
+			closeAll(it);
+		});
+	});
+
+	// 點擊外部關閉
+	document.addEventListener('click', function(e){ if(!nav.contains(e.target)) closeAll(null); });
+	document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAll(null); nav.classList.remove('is-menu-open'); } });
+
+	// 手機漢堡
+	if(burger){
+		burger.addEventListener('click', function(){
+			var open = nav.classList.toggle('is-menu-open');
+			burger.setAttribute('aria-expanded', open ? 'true':'false');
+			if(!open) closeAll(null);
+		});
+	}
 })();
 </script>
 
