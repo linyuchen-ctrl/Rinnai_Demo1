@@ -292,8 +292,8 @@ body { margin: 0; letter-spacing: 0.12rem; }
 	}
 @media (max-width: 767px) {
 	.lp-hero {
-		min-height: auto;
-		padding: 104px 0 190px;
+		min-height: clamp(560px, 125vw, 780px);
+		padding: 96px 0;
 		background-image: url('./img/hero_bg_mobile.png');
 	}
 	.lp-hero__copy { max-width: 100%; }
