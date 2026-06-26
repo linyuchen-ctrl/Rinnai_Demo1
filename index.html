@@ -748,9 +748,6 @@ body { margin: 0; letter-spacing: 0.12rem; }
 @media (max-width: 767px) {
 	.lp-h2--left, .lp-lead--left { text-align: center; }
 
-	.lp-hero__copy { text-align: center; }
-	.lp-hero__copy .lp-btn { align-self: center; }
-
 	.lp-nano__intro { align-items: center; text-align: center; }
 	.lp-nano__intro .lp-btn { align-self: center; }
 
@@ -760,6 +757,13 @@ body { margin: 0; letter-spacing: 0.12rem; }
 
 	.lp-cta__inner { flex-direction: column; justify-content: center; text-align: center; }
 	.lp-cta__btns { justify-content: center; }
+
+	/* 困擾卡：icon 與文字一起置中 */
+	.lp-card__body { align-items: center; text-align: center; }
+	.lp-card .lp-ico { left: 50%; transform: translate(-50%, -50%); }
+
+	/* 媒體 / 口碑 / FAQ 的「閱讀更多」置中 */
+	.lp-col .lp-link { align-self: center; }
 }
 
 
