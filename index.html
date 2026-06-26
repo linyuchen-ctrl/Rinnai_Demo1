@@ -200,7 +200,8 @@ body { letter-spacing: 0.12rem; }
 .lp-btn--ghost   { color: #fff; border: 1.5px solid rgba(255,255,255,.7); }
 .lp-btn--ghost:hover { background: rgba(255,255,255,.12); }
 .lp-btn--outline { color: #fff; border: 1.5px solid rgba(255,255,255,.85); }
-.lp-cta .lp-btn--primary { background: #fff; color: var(--c-navy); }
+.lp-cta .lp-btn--primary { background: var(--c-navy); color: #fff; border: 0; }
+.lp-cta .lp-btn--outline { color: var(--c-navy); border-color: var(--c-navy); }
 
 .lp-ph {
 	position: relative;
@@ -230,7 +231,7 @@ body { letter-spacing: 0.12rem; }
 .lp-ph--wide { aspect-ratio: 16 / 10; }
 .lp-ph--tall { aspect-ratio: 3 / 4; }
 .lp-ph--sq   { aspect-ratio: 1 / 1; }
-.lp-ph--logo { width: 84px; height: 44px; flex: 0 0 auto; }
+.lp-ph--logo { width: 100px; height: 50px; flex: 0 0 auto; background: none; border: 0; border-radius: 0; }
 .lp-tech .lp-ph {
 	background: rgba(255,255,255,.08);
 	border-color: rgba(255,255,255,.25);
@@ -583,7 +584,11 @@ body { letter-spacing: 0.12rem; }
 	scroll-snap-type: x mandatory;
 	padding-block: var(--space-3);
 	-webkit-overflow-scrolling: touch;
+	scrollbar-color: var(--c-navy) transparent;   /* Firefox：拉桿深藍、軌道透明 */
 }
+.lp-compare__track::-webkit-scrollbar { height: 8px; }
+.lp-compare__track::-webkit-scrollbar-track { background: transparent; }
+.lp-compare__track::-webkit-scrollbar-thumb { background: var(--c-navy); border-radius: 4px; }
 .lp-compare__card {
 	position: relative;                 /* 產品圖絕對定位的基準 */
 	flex: 0 0 78%;
@@ -657,13 +662,13 @@ body { letter-spacing: 0.12rem; }
 .lp-col { display: flex; flex-direction: column; }
 .lp-col .lp-link { margin-top: auto; align-self: flex-start; }
 .lp-media__list, .lp-review__list { display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-4); }
-.lp-media__item { display: flex; gap: var(--space-3); }
+.lp-media__item { display: flex; gap: var(--space-3); align-items: flex-start; }
 .lp-media__source { font-size: 12px; color: var(--c-ink-soft); font-weight: 700; }
 .lp-media__headline { font-size: var(--fs-small); color: var(--c-ink); line-height: 1.5; margin: 2px 0 4px; }
 .lp-date { display: block; text-align: right; font-size: 12px; color: #9aa7b8; }
 
 /* 口碑卡與媒體卡同樣式：logo 左、內文＋日期右 */
-.lp-review { display: flex; gap: var(--space-3); }
+.lp-review { display: flex; gap: var(--space-3); align-items: flex-start; }
 .lp-review__text { font-size: var(--fs-small); color: var(--c-ink); line-height: 1.5; margin: 2px 0 4px; }
 
 .lp-faq__list { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
@@ -686,19 +691,32 @@ body { letter-spacing: 0.12rem; }
 	border: 1px solid var(--c-navy);
 	border-radius: 6px;
 }
+.lp-link:hover { background: var(--c-navy); color: #fff; }
 
 @media (min-width: 1024px) {
 	.lp-bottom3__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
 }
 
-/* 13 Bottom CTA */
-.lp-cta__inner { text-align: center; }
-.lp-cta__title { font-size: var(--fs-h2); font-weight: 800; color: #1b2b3f; line-height: 1.4; margin-bottom: var(--space-5); }
-.lp-cta__btns { display: flex; flex-direction: column; gap: var(--space-3); align-items: center; }
-
-@media (min-width: 768px) {
-	.lp-cta__btns { flex-direction: row; justify-content: center; flex-wrap: wrap; }
+/* 13 Bottom CTA：整段為深藍底卡片、標題齊左 */
+.lp-cta__inner {
+	background: linear-gradient(90deg, #5A728E, #D7E0EF);
+	border-radius: var(--radius);
+	padding: var(--space-6) var(--space-5);
+	text-align: left;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-4);
 }
+.lp-cta { padding-bottom: 30px; }
+
+/* btn hover 反白：背景與文字色互換 */
+.lp-btn--primary:hover { background: #fff; color: var(--c-navy); box-shadow: inset 0 0 0 1.5px var(--c-navy); }
+.lp-btn--outline:hover { background: var(--c-navy); color: #fff; border-color: var(--c-navy); }
+.lp-nano__intro .lp-btn:hover { background: var(--c-navy); color: #fff; }
+.lp-cta__title { font-size: 20px; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 0; }
+.lp-cta__btns { display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
 
 
 /* ====== 台灣官網 nav 整合（GNAV）====== */
@@ -725,7 +743,7 @@ body { letter-spacing: 0.12rem; }
 	font-size:17px;font-weight:500;color:var(--gnav-text);text-decoration:none;
 	background:none;border:0;cursor:pointer;font-family:inherit;letter-spacing:inherit;
 	padding:8px 0;white-space:nowrap}
-.gnav__link:hover{color:var(--gnav-navy)}
+.gnav__link:hover{opacity:.55}
 .gnav__caret{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
 	transform:rotate(45deg) translateY(-2px);transition:transform .2s ease}
 .gnav__item.is-open > .gnav__link .gnav__caret{transform:rotate(-135deg) translateY(-1px)}
@@ -735,8 +753,7 @@ body { letter-spacing: 0.12rem; }
 	background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(11,66,130,.16);
 	padding:22px 26px;opacity:0;visibility:hidden;transition:opacity .2s ease,transform .2s ease;
 	min-width:220px}
-.gnav__item.is-open > .gnav__panel,
-.gnav__item--has:hover > .gnav__panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.gnav__item.is-open > .gnav__panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
 .gnav__panel a{display:flex;align-items:center;gap:8px;color:#1b2b3f;text-decoration:none;
 	font-size:15px;padding:7px 6px;border-radius:6px;white-space:nowrap}
 .gnav__panel a:hover{background:#f0f4fb;color:var(--gnav-navy)}
@@ -748,7 +765,6 @@ body { letter-spacing: 0.12rem; }
 /* 商品分類：多欄 mega 面板 */
 .gnav__panel--mega{left:50%;transform:translateX(-50%) translateY(8px);
 	width:min(1080px,calc(100vw - 48px));padding:26px 34px}
-.gnav__item--mega:hover > .gnav__panel--mega,
 .gnav__item--mega.is-open > .gnav__panel--mega{transform:translateX(-50%) translateY(0)}
 .gnav__mega{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 24px}
 .gnav__col ul{list-style:none;margin:0;padding:0}
@@ -931,21 +947,6 @@ body { letter-spacing: 0.12rem; }
 				</li>
 
 				<li class="gnav__item"><a class="gnav__link" href="https://www.rinnai.com.tw/DistributionBase" target="_blank">經銷據點</a></li>
-
-				<!-- 搜尋 -->
-				<li class="gnav__item gnav__item--search">
-					<button class="gnav__search-toggle" type="button" aria-label="搜尋" aria-expanded="false">
-						<svg class="gnav__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-					</button>
-					<div class="gnav__search">
-						<form action="" role="search">
-							<input type="text" placeholder="請輸入產品關鍵字" aria-label="搜尋產品">
-							<button type="submit" aria-label="送出搜尋">
-								<svg class="gnav__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-							</button>
-						</form>
-					</div>
-				</li>
 			</ul>
 		</nav>
 	</div>
@@ -1338,7 +1339,7 @@ body { letter-spacing: 0.12rem; }
 		<h2 class="lp-cta__title">找到最適合你的熱水方案<br>讓每一次用水，都成為更好的生活體驗。</h2>
 		<div class="lp-cta__btns">
 			<a class="lp-btn lp-btn--primary" href="#">預約產品諮詢 →</a>
-			<a class="lp-btn lp-btn--outline" href="#">聯絡林內團隊 →</a>
+			<a class="lp-btn lp-btn--primary" href="#">聯絡林內團隊 →</a>
 			<a class="lp-btn lp-btn--outline" href="#">查看全系列熱水器 →</a>
 		</div>
 	</div>
