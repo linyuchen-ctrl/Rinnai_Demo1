@@ -744,6 +744,24 @@ body { margin: 0; letter-spacing: 0.12rem; }
 .lp-cta__title { font-size: 20px; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 0; }
 .lp-cta__btns { display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
 
+/* 手機版：主要內容置中 */
+@media (max-width: 767px) {
+	.lp-h2--left, .lp-lead--left { text-align: center; }
+
+	.lp-hero__copy { text-align: center; }
+	.lp-hero__copy .lp-btn { align-self: center; }
+
+	.lp-nano__intro { align-items: center; text-align: center; }
+	.lp-nano__intro .lp-btn { align-self: center; }
+
+	.lp-feature__copy { text-align: center; margin-inline: auto; }
+	.lp-checklist li { padding-left: 0; text-align: center; }
+	.lp-checklist li::before { position: static; display: inline-block; margin-right: 6px; }
+
+	.lp-cta__inner { flex-direction: column; justify-content: center; text-align: center; }
+	.lp-cta__btns { justify-content: center; }
+}
+
 
 /* ====== 台灣官網 nav 整合（GNAV）====== */
 .gnav{ --gnav-h:100px; --gnav-text:#1F2120; --gnav-red:#E60012; --gnav-navy:#0B4282; }
