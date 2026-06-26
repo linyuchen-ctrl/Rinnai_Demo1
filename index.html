@@ -472,21 +472,22 @@ body { margin: 0; letter-spacing: 0.12rem; }
 .lp-nano__stats {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 2px var(--space-5);
+	gap: 2px calc(var(--space-5) + 20px);
+	margin-left: -20px;
 }
 .lp-stat {
 	display: flex; align-items: center; justify-content: flex-start;
 	gap: var(--space-3);
-	padding: var(--space-3) 0;
+	padding: 5px 0;
 	border-bottom: 1px solid var(--c-line);
 }
 /* 文字容器：標題＋說明＋趴數，置左 */
 .lp-stat__text { display: flex; flex-direction: column; }
-.lp-stat__label { font-size: var(--fs-small); color: var(--c-ink); font-weight: 700; line-height: 1.3; }
-.lp-stat__label i { display: block; font-style: normal; font-weight: 400; color: var(--c-navy); font-size: 12px; }
+.lp-stat__label { font-size: var(--fs-small); color: var(--c-ink); font-weight: 700; line-height: 1.3; white-space: nowrap; }
+.lp-stat__label i { display: block; font-style: normal; font-weight: 400; color: var(--c-navy); font-size: 11px; line-height: 1.3; white-space: nowrap; margin-top: 10px; }
 .lp-stat__num { font-size: 30px; font-weight: 900; color: var(--c-navy); white-space: nowrap; }
 /* icon 預留位（移到左側）*/
-.lp-stat__ico { order: -1; flex: 0 0 auto; width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; }
+.lp-stat__ico { order: -1; flex: 0 0 auto; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; }
 .lp-stat__ico img { width: 100%; height: 100%; object-fit: contain; }
 .lp-nano__note { font-size: 12px; color: var(--c-ink-soft); margin-top: var(--space-4); }
 
@@ -745,13 +746,22 @@ body { margin: 0; letter-spacing: 0.12rem; }
 .lp-cta__title { font-size: 20px; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 0; }
 .lp-cta__btns { display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
 
-/* 手機版：主要內容置中 */
-@media (max-width: 767px) {
+/* 小於 1024：nano 區塊整區置中（與 RWD 一致） */
+@media (max-width: 1023px) {
 	.lp-h2--left, .lp-lead--left { text-align: center; }
 
 	.lp-nano__intro { align-items: center; text-align: center; }
 	.lp-nano__intro .lp-btn { align-self: center; }
 
+	.lp-nano__visual { display: flex; justify-content: center; }
+	.lp-nano__bubble { margin-inline: auto; }
+	.lp-nano__stats { grid-template-columns: repeat(2, max-content); margin-left: 0; column-gap: var(--space-4); justify-content: center; }
+	.lp-stat { justify-content: flex-start; }
+	.lp-nano__note { text-align: center; }
+}
+
+/* 手機版：主要內容置中 */
+@media (max-width: 767px) {
 	.lp-feature__copy { text-align: center; margin-inline: auto; }
 	.lp-checklist li { padding-left: 0; text-align: center; }
 	.lp-checklist li::before { position: static; display: inline-block; margin-right: 6px; }
@@ -778,7 +788,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 #rinnaiGlobalHeader .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 #rinnaiGlobalHeader .pc{display:block}
 #rinnaiGlobalHeader .sp{display:none}
-@media (max-width:767px){#rinnaiGlobalHeader .pc{display:none}#rinnaiGlobalHeader .sp{display:block}}
+@media (max-width:1244px){#rinnaiGlobalHeader .pc{display:none}#rinnaiGlobalHeader .sp{display:block}}
 #rinnaiGlobalHeader .border-red{
 	margin: 60px 0 40px;
 	padding: 7px 20px;
@@ -2030,7 +2040,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 									</div>
 								</li>
 								<li>
-									<a href="news">最新資訊</a>
+									<a href="https://www.rinnai.tw/news" target="_blank">最新資訊</a>
 								</li>
 								<li>
 									<a href="https://rinnaifamily.rinnai.com.tw/" target="_blank">會員專區</a>
@@ -2039,26 +2049,26 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 									<a href="javascript:void(0);">關於林內<span class="cmn-icon icon-arrow -down" aria-label="Open the menu"></span></a>
 									<div class="rinnaiglobalHeader_dropDownMenu">
 										<div class="rinnaiglobalHeader_dropDownMenu_inner">
-											<p class=""><a href="corp"><span class="cmn-icon icon-arrow -r"></span>總覽</a></p>
+											<p class=""><a href="https://www.rinnai.tw/corp" target="_blank"><span class="cmn-icon icon-arrow -r"></span>總覽</a></p>
 
 											<!--<div class="rinnaiglobalHeader_dropDownMenu_secondary">
 												<p class="border-red">基本資訊</p>
 												<ul class="dropDownMenu_secondary_list">
-													<li class="dropDownMenu_secondary_list_item"><a href="corp/greeting"><span class="cmn-icon icon-arrow -r"></span>社長的話</a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.tw/corp/greeting" target="_blank"><span class="cmn-icon icon-arrow -r"></span>社長的話</a></li>
 												</ul>
 											</div>-->
 											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
 												<p class="border-red">關於林內</p>
 												<ul class="dropDownMenu_secondary_list">
-													<li class="dropDownMenu_secondary_list_item"><a href="corp/idea"><span class="cmn-icon icon-arrow -r"></span>企業理念</a></li>
-													<li class="dropDownMenu_secondary_list_item"><a href="corp/brand"><span class="cmn-icon icon-arrow -r"></span>品牌</a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.tw/corp/idea" target="_blank"><span class="cmn-icon icon-arrow -r"></span>企業理念</a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.tw/corp/brand" target="_blank"><span class="cmn-icon icon-arrow -r"></span>品牌</a></li>
 												</ul>
 											</div>
 											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
 												<p class="border-red">公司簡介</p>
 												<ul class="dropDownMenu_secondary_list">
-													<li class="dropDownMenu_secondary_list_item"><a href="corp/about"><span class="cmn-icon icon-arrow -r"></span>台灣林內</a></li>
-													<li class="dropDownMenu_secondary_list_item"><a href="corp/history"><span class="cmn-icon icon-arrow -r"></span>沿革記事</a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.tw/corp/about" target="_blank"><span class="cmn-icon icon-arrow -r"></span>台灣林內</a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.tw/corp/history" target="_blank"><span class="cmn-icon icon-arrow -r"></span>沿革記事</a></li>
 												</ul>
 											</div>
 											<button class="menu_close" type="button" aria-label="Close the menu">
@@ -2290,18 +2300,18 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 												</dl>
 											</dd>
 
-											<a href="news" class="border-red menu-link">最新資訊</a>
+											<a href="https://www.rinnai.tw/news" target="_blank" class="border-red menu-link">最新資訊</a>
 
 											<a href="https://rinnaifamily.rinnai.com.tw/" target="_blank" class="border-red menu-link">會員專區</a>
 
 											<dt class="border-red">關於林內<i class="icon-plus"></i></dt>
 											<dd class="inner">
-												<a href="corp"><span class="cmn-icon icon-arrow -r"></span>總覽</a>
+												<a href="https://www.rinnai.tw/corp" target="_blank"><span class="cmn-icon icon-arrow -r"></span>總覽</a>
 												<!--<dl>
 													<dt class="border-gray">基本資訊<i class="icon-plus"></i></dt>
 													<dd>
 														<ul>
-															<li><a href="corp/greeting"><p><span class="cmn-icon icon-arrow -r"></span>社長的話</p></a></li>
+															<li><a href="https://www.rinnai.tw/corp/greeting" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>社長的話</p></a></li>
 														</ul>
 													</dd>
 												</dl>-->
@@ -2309,8 +2319,8 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 													<dt class="border-gray">關於林內<i class="icon-plus"></i></dt>
 													<dd>
 														<ul>
-															<li><a href="corp/idea"><p><span class="cmn-icon icon-arrow -r"></span>企業理念</p></a></li>
-															<li><a href="corp/brand"><p><span class="cmn-icon icon-arrow -r"></span>品牌</p></a></li>
+															<li><a href="https://www.rinnai.tw/corp/idea" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>企業理念</p></a></li>
+															<li><a href="https://www.rinnai.tw/corp/brand" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>品牌</p></a></li>
 														</ul>
 													</dd>
 												</dl>
@@ -2318,8 +2328,8 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 													<dt class="border-gray">公司簡介<i class="icon-plus"></i></dt>
 													<dd>
 														<ul>
-															<li><a href="corp/about"><p><span class="cmn-icon icon-arrow -r"></span>台灣林內</p></a></li>
-															<li><a href="corp/history"><p><span class="cmn-icon icon-arrow -r"></span>沿革記事</p></a></li>
+															<li><a href="https://www.rinnai.tw/corp/about" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>台灣林內</p></a></li>
+															<li><a href="https://www.rinnai.tw/corp/history" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>沿革記事</p></a></li>
 														</ul>
 													</dd>
 												</dl>
@@ -2367,7 +2377,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 			<p class="lp-eyebrow">日本百年熱能科技</p>
 			<h1 class="lp-hero__title">從熱水開始，<br>打造更健康的居家生活</h1>
 			<p class="lp-hero__sub">奈米氣泡科技 × 強勁水壓，讓每一次用水更舒適潔淨</p>
-			<a class="lp-btn lp-btn--primary" href="#nano">探索奈米氣泡科技 →</a>
+			<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/238" target="_blank">探索奈米氣泡科技 →</a>
 		</div>
 	</div>
 </section>
@@ -2458,13 +2468,13 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 			<article class="lp-prodcard">
 				<div class="lp-ph lp-ph--wide" data-img="內藏式加壓馬達熱水器"><img class="lp-ph__img" src="./img/product-booster-pump.png" alt="內藏式加壓馬達熱水器"><span>產品圖</span></div>
 				<div class="lp-prodcard__body">
-					<a class="lp-btn lp-btn--primary" href="#">了解更多 →</a>
+					<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/412" target="_blank">了解更多 →</a>
 				</div>
 			</article>
 			<article class="lp-prodcard">
 				<div class="lp-ph lp-ph--wide" data-img="Ultra Fine Bubble 奈米氣泡熱水器"><img class="lp-ph__img" src="./img/product-ufb.png" alt="Ultra Fine Bubble 奈米氣泡熱水器"><span>產品圖</span></div>
 				<div class="lp-prodcard__body">
-					<a class="lp-btn lp-btn--primary" href="#">了解更多 →</a>
+					<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/238" target="_blank">了解更多 →</a>
 				</div>
 			</article>
 		</div>
@@ -2477,7 +2487,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 		<div class="lp-nano__intro">
 			<h2 class="lp-h2 lp-h2--left">奈米氣泡科技<br>讓生活更美好</h2>
 			<p class="lp-nano__text">獨家 Air Bubble Technology，將直徑小於 1 微米的奈米氣泡溶於水中，深入肌膚的毛孔，促進肌膚潔淨，同時抑制細菌與異味，讓每一次用水都成為深入身體的呵護。</p>
-			<a class="lp-btn lp-btn--primary" href="#">了解奈米氣泡科技 →</a>
+			<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/238" target="_blank">了解奈米氣泡科技 →</a>
 		</div>
 		<div class="lp-nano__visual">
 			<div class="lp-ph lp-ph--sq lp-nano__bubble" data-img="奈米氣泡視覺">
@@ -2573,7 +2583,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 					<li>高溫運轉 × 智慧混水｜舒適恆溫更持久</li>
 					<li>智慧節能省電模式</li>
 				</ul>
-				<a class="lp-btn lp-btn--primary" href="#">了解更多 →</a>
+				<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/419" target="_blank">了解更多 →</a>
 			</div>
 			<div class="lp-feature__media">
 				<div class="lp-ph lp-ph--tall" data-img="倍容量儲熱電熱水器"><img class="lp-ph__img" src="./img/product-storage-heater.png" alt="倍容量儲熱電熱水器"><span>產品圖</span></div>
@@ -2596,7 +2606,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 					<thead><tr><th>生活需求</th><th>推薦機種</th></tr></thead>
 					<tbody>
 						<tr><td>水壓不足</td><td>RUA-UD1650WF</td></tr>
-						<tr><td>頂樓住宅</td><td>URUA-UD1650WF</td></tr>
+						<tr><td>頂樓住宅</td><td>RUA-UD1650WF</td></tr>
 						<tr><td>老屋翻新</td><td>RUA-UD1650WF</td></tr>
 						<tr><td>多點熱水家庭</td><td>RUA-UD1650WF</td></tr>
 						<tr><td>熱水不穩定</td><td>全系列</td></tr>
@@ -2604,7 +2614,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 						<tr><td>講究沐浴體驗</td><td>RUA-UD1620WF/RUA-D1620WF</td></tr>
 					</tbody>
 				</table>
-				<a class="lp-btn lp-btn--primary" href="#">進一步選擇 →</a>
+				<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V1/8" target="_blank">進一步選擇 →</a>
 			</div>
 
 			<!-- 右：林內熱水器系列比較 -->
@@ -2638,16 +2648,17 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 						<p class="lp-compare__desc">高效節能</p>
 						<p class="lp-compare__use"><b>適用</b>一般大樓</p>
 						<ul class="lp-compare__points">
-							<li>分層火排設計</li><li>多重安全保護</li>
+							<li>分段火排設計</li><li>多重安全保護</li>
 						</ul>
 					</article>
-					<article class="lp-compare__card lp-compare__card--noimg">
+					<article class="lp-compare__card">
+						<div class="lp-ph lp-ph--card" data-img="倍容電儲熱熱水器"><img class="lp-ph__img" src="./img/REH-1256P4.png" alt="倍容電儲熱熱水器"><span>產品圖</span></div>
 						<h3 class="lp-compare__name">倍容電儲熱熱水器</h3>
 						<p class="lp-compare__desc">容量不變，熱水加倍</p>
 						<p class="lp-compare__use"><b>適用</b>透天厝</p>
 						<ul class="lp-compare__points">
-							<li>儲存容量不變</li>
-							<li>可用熱水加倍</li>
+							<li>內膽隔艙設計</li>
+							<li>儲存容量不變，可用熱水加倍</li>
 						</ul>
 					</article>
 				</div>
@@ -2741,9 +2752,8 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 		<div class="lp-cta__inner">
 			<h2 class="lp-cta__title">找到最適合你的熱水方案<br>讓每一次用水，都成為更好的生活體驗。</h2>
 			<div class="lp-cta__btns">
-				<a class="lp-btn lp-btn--primary" href="#">預約產品諮詢 →</a>
-				<a class="lp-btn lp-btn--primary" href="#">聯絡林內團隊 →</a>
-				<a class="lp-btn lp-btn--outline" href="#">查看全系列熱水器 →</a>
+				<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/OnlineService" target="_blank">聯絡我們 →</a>
+				<a class="lp-btn lp-btn--outline" href="https://www.rinnai.com.tw/Product/V1/8" target="_blank">查看全系列熱水器 →</a>
 			</div>
 		</div>
 	</div>
@@ -2962,7 +2972,7 @@ footer#rinnaiGlobalFooter .copyright {
 					<li><a class="link_item" href="https://rinnaifamily.rinnai.com.tw/contact" target="_blank"><span class="cmn-icon icon-arrow -r"></span>聯絡我們</a></li>
 					<li><a class="link_item" href="https://www.rinnai.com.tw/Member/Dealer" target="_blank"><span class="cmn-icon icon-arrow -r"></span>經銷商專區</a></li>
 					<li><a class="link_item" href="https://www.rinnai.com.tw/Privacy.html" target="_blank"><span class="cmn-icon icon-arrow -r"></span>隱私權政策</a></li>
-					<li><a class="link_item" href="sitemap"><span class="cmn-icon icon-arrow -r"></span>網站地圖</a></li>
+					<li><a class="link_item" href="https://www.rinnai.tw/sitemap" target="_blank"><span class="cmn-icon icon-arrow -r"></span>網站地圖</a></li>
 				</ul>
 			</div>
 		</nav>
