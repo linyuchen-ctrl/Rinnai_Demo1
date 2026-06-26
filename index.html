@@ -307,7 +307,7 @@ body { letter-spacing: 0.12rem; }
 }
 .lp-trust__item {
 	display: flex;
-	gap: 20px;
+	gap: 14px;
 	align-items: flex-start;
 }
 .lp-trust__item .lp-ico {
@@ -339,7 +339,11 @@ body { letter-spacing: 0.12rem; }
 	/* 保留兩行高度讓短句也對齊；文字完整顯示，過長自然換行 */
 	min-height: calc(1.4em * 2);
 }
-@media (min-width: 768px) {
+@media (min-width: 600px) {
+	.lp-trust__list { grid-template-columns: repeat(3, 1fr); }
+	.lp-trust__item { gap: 18px; }
+}
+@media (min-width: 1024px) {
 	.lp-trust__list { grid-template-columns: repeat(5, 1fr); }
 }
 
