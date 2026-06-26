@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<link rel="stylesheet" href="https://use.typekit.net/yny6oav.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rinnai LP</title>
@@ -767,109 +768,1090 @@ body { margin: 0; letter-spacing: 0.12rem; }
 }
 
 
-/* ====== 台灣官網 nav 整合（GNAV）====== */
-.gnav{ --gnav-h:100px; --gnav-text:#1F2120; --gnav-red:#E60012; --gnav-navy:#0B4282; }
+/* ====== 官網 header（rinnaiGlobalHeader）整合：官方 markup + 由 project2025.css 抽出之官方樣式，rem→px，SVG 內嵌，全部鎖在 #rinnaiGlobalHeader ====== */
+:root{--Rinnai-Red:#cf000e;--Rinnai-Gray-1:#3e3a39;--Rinnai-Gray-2:#777473;--Rinnai-Gray-3:#969392;--Rinnai-Gray-4:#f0f0f0;}
+#rinnaiGlobalHeader{font-family:"neue-haas-grotesk-display","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--Rinnai-Gray-1);font-size:16px;letter-spacing:normal;}
+#rinnaiGlobalHeader ul,#rinnaiGlobalHeader ol,#rinnaiGlobalHeader li,#rinnaiGlobalHeader dl,#rinnaiGlobalHeader dt,#rinnaiGlobalHeader dd,#rinnaiGlobalHeader p,#rinnaiGlobalHeader figure{margin:0;padding:0;list-style:none}
+#rinnaiGlobalHeader a{text-decoration:none;color:inherit}
+#rinnaiGlobalHeader button{font:inherit;background:none;border:0;cursor:pointer;color:inherit}
+#rinnaiGlobalHeader img{display:block;max-width:100%;height:auto}
+#rinnaiGlobalHeader .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+#rinnaiGlobalHeader .pc{display:block}
+#rinnaiGlobalHeader .sp{display:none}
+@media (max-width:767px){#rinnaiGlobalHeader .pc{display:none}#rinnaiGlobalHeader .sp{display:block}}
+#rinnaiGlobalHeader .border-red{
+	margin: 60px 0 40px;
+	padding: 7px 20px;
+	border-left: 8px solid var(--Rinnai-Red);
+	font-size: 24px;
+	font-weight: 500;
+	line-height: 1.2;
+}
+#rinnaiGlobalHeader .border-gray{
+	margin: 60px 0 40px;
+	padding: 3px 20px;
+	border-left: 8px solid var(--Rinnai-Gray-3);
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 1.2;
+}
+#rinnaiGlobalHeader .cmn-icon::before{
+	position: absolute;
+	content: "";
+	top: 0.2em;
+	left: 0;
+	width: 1em;
+	height: 1em;
+}
+#rinnaiGlobalHeader .cmn-icon.icon-arrow::before{
+	width: 8px;
+	height: 8px;
+	border-top: 1px solid var(--Rinnai-Gray-1);
+	border-right: 1px solid var(--Rinnai-Gray-1);
+}
+#rinnaiGlobalHeader .cmn-icon.icon-arrow.-r::before{
+	transform: rotate(45deg);
+}
+#rinnaiGlobalHeader .cmn-icon.icon-arrow.-down::before{
+	top: 0.1em;
+	transform: rotate(135deg);
+}
+#rinnaiGlobalHeader .cmn-icon.icon-arrow.-up::before{
+	top: 0.4em;
+	transform: rotate(-45deg);
+}
+#rinnaiGlobalHeader .cmn-icon{position:relative;display:inline-block;width:1em;height:1em;vertical-align:middle}
 
-.gnav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--gnav-h);
-	background:transparent;transition:background .25s ease,box-shadow .25s ease,height .25s ease}
-.gnav.is-scrolled,
-.gnav.is-panel-open{background:#fff;box-shadow:0 2px 18px rgba(11,66,130,.10)}
-.gnav.is-scrolled{--gnav-h:76px}
-.gnav.is-scrolled .gnav__logo{width:104px}
-.gnav__inner{height:100%;display:flex;align-items:center;justify-content:space-between;
-	padding-left:50px;padding-right:70px}
+/* 補官網漏掉的頂層手風琴展開 */
+#rinnaiGlobalHeader .rinnaiglobalHeader_dropDown_accordion .border-red.is_active + dd{display:block}
 
-/* logo */
-.gnav__logo{display:inline-block;width:146px;flex-shrink:0;line-height:0;transition:width .25s ease}
-.gnav__logo img{display:block;width:100%;height:auto}
 
-/* 選單列 */
-.gnav__menu{display:flex;align-items:stretch;height:100%}
-.gnav__list{display:flex;align-items:stretch;gap:30px;list-style:none;margin:0;padding:0;height:100%}
-.gnav__item{position:relative;display:flex;align-items:center}
-.gnav__link{position:relative;display:inline-flex;align-items:center;gap:7px;height:100%;
-	font-size:17px;font-weight:500;color:var(--gnav-text);text-decoration:none;
-	background:none;border:0;cursor:pointer;font-family:inherit;letter-spacing:inherit;white-space:nowrap}
-.gnav__link:hover{opacity:.6}
-.gnav__caret{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
-	transform:rotate(45deg) translateY(-2px);transition:transform .2s ease}
-/* 點開：紅字 + caret 轉上 + 底部紅線 */
-.gnav__item.is-open > .gnav__link{color:var(--gnav-red)}
-.gnav__item.is-open > .gnav__link .gnav__caret{transform:rotate(-135deg) translateY(1px)}
-.gnav__item.is-open > .gnav__link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gnav-red)}
-
-/* ===== 下拉面板：全寬白底 ===== */
-.gnav__panel,.gnav__panel--mega{
-	position:fixed;left:0;right:0;top:var(--gnav-h);width:100%;
-	background:#fff;border-top:1px solid #eee;box-shadow:0 16px 28px rgba(0,0,0,.10);
-	padding:44px clamp(24px,6vw,96px) 56px;margin:0;min-width:0;
-	opacity:0;visibility:hidden;transform:translateY(-8px);
-	transition:opacity .22s ease,transform .22s ease,visibility .22s ease}
-.gnav__item.is-open > .gnav__panel,
-.gnav__item.is-open > .gnav__panel--mega{opacity:1;visibility:visible;transform:translateY(0)}
-
-/* 類別標題：紅直條 + 粗黑字 */
-.gnav__phead{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:800;color:#1f1f1f;
-	border:0;padding:0;margin:0 0 18px}
-.gnav__phead::before{content:"";width:4px;height:21px;background:var(--gnav-red);flex:0 0 auto;border-radius:1px}
-
-/* 連結：灰 chevron + 文字，4 欄 grid */
-.gnav__mega{display:flex;flex-direction:column;gap:34px}
-.gnav__col ul,
-.gnav__panel:not(.gnav__panel--mega) ul{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 28px;list-style:none;margin:0;padding:0}
-.gnav__panel a{display:inline-flex;align-items:center;gap:10px;color:#3a3a3a;text-decoration:none;
-	font-size:16px;padding:5px 0;white-space:nowrap;transition:color .15s ease}
-.gnav__panel a:hover{color:var(--gnav-red)}
-.gnav__panel a::before{content:"";flex:0 0 auto;width:6px;height:6px;
-	border-top:1.6px solid #9aa0a6;border-right:1.6px solid #9aa0a6;transform:rotate(45deg)}
-
-/* × 關閉鈕（面板開啟時出現）*/
-.gnav__close{position:fixed;top:calc(var(--gnav-h) + 16px);right:clamp(20px,5vw,60px);z-index:101;
-	width:34px;height:34px;border:0;background:none;cursor:pointer;
-	opacity:0;visibility:hidden;transition:opacity .2s ease}
-.gnav.is-panel-open .gnav__close{opacity:1;visibility:visible}
-.gnav__close::before,.gnav__close::after{content:"";position:absolute;left:50%;top:50%;width:26px;height:2px;background:#1f1f1f}
-.gnav__close::before{transform:translate(-50%,-50%) rotate(45deg)}
-.gnav__close::after{transform:translate(-50%,-50%) rotate(-45deg)}
-
-/* 漢堡鈕（手機才出現）*/
-.gnav__burger{display:none;flex-direction:column;justify-content:center;gap:5px;
-	width:42px;height:42px;border:0;background:none;cursor:pointer}
-.gnav__burger span{display:block;width:26px;height:2px;background:var(--gnav-text);
-	transition:transform .25s ease,opacity .2s ease}
-.gnav.is-menu-open .gnav__burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.gnav.is-menu-open .gnav__burger span:nth-child(2){opacity:0}
-.gnav.is-menu-open .gnav__burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-/* ---- 手機版（<1024）：漢堡 + 內嵌展開 ---- */
-@media (max-width:1023px){
-	.gnav__burger{display:flex}
-	.gnav__close{display:none}
-	.gnav__menu{position:fixed;top:var(--gnav-h);left:0;right:0;bottom:0;
-		background:#fff;flex-direction:column;align-items:stretch;
-		padding:10px 22px 40px;overflow-y:auto;
-		transform:translateX(100%);transition:transform .3s ease;visibility:hidden;height:auto}
-	.gnav.is-menu-open{background:#fff}
-	.gnav.is-menu-open .gnav__menu{transform:translateX(0);visibility:visible}
-	.gnav__list{flex-direction:column;align-items:stretch;gap:0;width:100%;height:auto}
-	.gnav__item{border-bottom:1px solid #eef2f8;display:block}
-	.gnav__link{width:100%;justify-content:space-between;padding:16px 4px;font-size:16px;height:auto}
-	.gnav__item.is-open > .gnav__link::after{display:none}
-	.gnav__caret{margin-left:auto}
-	.gnav__panel,.gnav__panel--mega{position:static;transform:none;opacity:1;visibility:visible;
-		box-shadow:none;border-top:0;padding:0;width:auto;
-		max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
-	.gnav__item.is-open > .gnav__panel,
-	.gnav__item.is-open > .gnav__panel--mega{max-height:1600px;padding:0 0 16px}
-	.gnav__mega{gap:18px}
-	.gnav__col ul,.gnav__panel:not(.gnav__panel--mega) ul{grid-template-columns:1fr 1fr;gap:6px 18px}
-	.gnav__phead{font-size:16px;margin-bottom:10px}
+header#rinnaiGlobalHeader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 110px;
+	padding: 0 50px;
+	background: #fff;
+	transition: .3s;
+	line-height: 1.5;
 }
 
-/* logo 響應式 */
-@media (max-width:1244px){ .gnav__logo{width:115px} .gnav__list{gap:22px} .gnav__link{font-size:16px} .gnav.is-scrolled .gnav__logo{width:92px} }
-@media (max-width:767px){ .gnav{--gnav-h:73px} .gnav__logo{width:96px} .gnav__inner{padding-left:20px;padding-right:20px} .gnav.is-scrolled{--gnav-h:64px} .gnav.is-scrolled .gnav__logo{width:80px} }
-/* ▲▲▲ GNAV CSS 結束 ▲▲▲ */
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_inner {
+	display: flex;
+	width: 100%;
+}
+
+header#rinnaiGlobalHeader .logo {
+	top: 0;
+	left: 50px;
+	bottom: 0;
+	margin: auto;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	width: 196px;
+	height: 110px;
+}
+
+header#rinnaiGlobalHeader .logo img {
+	width: 146px;
+	height: auto;
+	transition: .5s;
+}
+
+header#rinnaiGlobalHeader .logo a:hover {
+	opacity: 1;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi {
+	width: 100%;
+}
+
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi a:not(.rinnaiglobalHeader_dropDownMenu a) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top {
+	position: relative;
+	width: 100%;
+	height: 44px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top nav > ul {
+	display: flex;
+	align-items: center;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .entrance ul {
+	gap: 5px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .entrance li a {
+	padding: 9px 15px 8px 15px;
+	border-top: solid 3px transparent;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .entrance li.is_active a {
+	border-top: solid 3px var(--Rinnai-Red);
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight {
+	margin-left: 40px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight li + li {
+	margin-left: 1px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight li a {
+	min-width: 160px;
+	padding: 10px 15px;
+	background-color: var(--Rinnai-Gray-2);
+	color: #fff;
+	text-align: center;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight li a:hover {
+	background-color: var(--Rinnai-Gray-1);
+	opacity: 1;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight .cmn-icon::before {
+	border-color: #fff;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select {
+	margin: 0 0 0 15px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li a {
+	padding: 21px 22px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .cmn-icon {
+	margin-left: 30px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global {
+	width: 100%;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global .global > ul {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	font-weight: 500;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global .global > ul > li > a .cmn-icon {
+	margin-left: 10px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global .global > ul > li > a {
+	padding: 15px 10px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global > nav > ul > li.is_active > a {
+	color: var(--Rinnai-Red);
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global > nav > ul > li.is_active > a::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	background: var(--Rinnai-Red);
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global .global > ul > li.is_active > a .cmn-icon.icon-arrow::before {
+	border-color: var(--Rinnai-Red);
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global .global .search {
+	width: 44px;
+	height: 54px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_global .global .search_link {
+	display: block;
+	height: 100%;
+}
+
+header#rinnaiGlobalHeader .header-icon {
+	position: absolute;
+	content: "";
+	top: 0;
+	bottom: 0;
+	left: 10px;
+	margin: auto;
+}
+
+header#rinnaiGlobalHeader .icon-globe {
+	width: 24px;
+	height: 24px;
+	left: 0;
+	right: 0;
+	margin: auto;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%233e3a39' stroke-width='1.5'/%3E%3Cpath d='M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18' fill='none' stroke='%233e3a39' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat;
+	background-size: 100% auto;
+}
+
+header#rinnaiGlobalHeader .is_active .icon-globe {
+	filter: invert(10%) sepia(94%) saturate(6705%) hue-rotate(352deg) brightness(81%) contrast(106%);
+}
+
+header#rinnaiGlobalHeader .icon-search {
+	width: 24px;
+	height: 24px;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='%233e3a39' stroke-width='1.8'/%3E%3Cpath d='M15 15l5 5' stroke='%233e3a39' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat;
+	background-size: 100% auto;
+}
+
+header#rinnaiGlobalHeader .is_active .icon-search {
+	filter: invert(10%) sepia(94%) saturate(6705%) hue-rotate(352deg) brightness(81%) contrast(106%);
+}
+
+header#rinnaiGlobalHeader .menu_close {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 24px;
+	height: 24px;
+}
+
+header#rinnaiGlobalHeader .icon-close {
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 4l16 16M20 4L4 20' stroke='%233e3a39' stroke-width='2'/%3E%3C/svg%3E") no-repeat;
+	background-size: 100% auto;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu {
+	width: 100%;
+	position: absolute;
+	left: 50%;
+	right: 0;
+	top: calc(100%);
+	height: auto;
+	max-height: 80vh;
+	transform: translateX(-50%);
+	background: #fff;
+	visibility: hidden;
+	z-index: 100;
+	display: block;
+	overflow-y: auto;
+	scrollbar-gutter: stable;
+}
+
+header#rinnaiGlobalHeader .is_active .rinnaiglobalHeader_dropDownMenu {
+	visibility: visible;
+	transition: top 0.6s, visibility 0.6s;
+	border-top: solid 1px var(--Rinnai-Gray-3);
+}
+
+header#rinnaiGlobalHeader .search.is_active .rinnaiglobalHeader_dropDownMenu {
+	height: auto;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner {
+	width: 1120px;
+	margin: 0 auto;
+	padding: 70px 0;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner a.is_current {
+	font-weight: 700;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary {
+	margin-top: 50px;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .border-red {
+	margin: 50px 0 0;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .dropDownMenu_secondary_list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-left: 25px;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .dropDownMenu_secondary_list_item {
+	margin-top: 30px;
+	width: calc(100% / 4);
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .dropDownMenu_secondary_list_item a {
+	position: relative;
+	display: block;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .pickup-content-list {
+	margin-left: 28px;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .pickup-content-list > li > a {
+	display: block;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .pickup-content-list > li > a > p {
+	text-indent: -1em;
+	padding-left: 1em;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .pickup-content-list > li > a > p .cmn-icon {
+	text-indent: 0;
+}
+
+.global-nav-overlay {
+	z-index: 9;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(92, 92, 92, 0.65);
+}
+
+header#rinnaiGlobalHeader .language_changer {
+	position: relative;
+}
+
+header#rinnaiGlobalHeader .language_changer > a {
+	border-bottom: 2px solid transparent;
+}
+
+header#rinnaiGlobalHeader .language_changer.is_active > a {
+	border-color: var(--Rinnai-Red);
+}
+
+header#rinnaiGlobalHeader .language_changer.is_active > a .cmn-icon.icon-arrow.-up::before {
+	border-color: var(--Rinnai-Red);
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language {
+	z-index: 101;
+	position: absolute;
+	top: calc(100%);
+	right: 0;
+	display: none;
+	width: 280px;
+	max-height: 80vh;
+	background: #fff;
+	border: 1px solid var(--Rinnai-Gray-3);
+	overflow: auto;
+	scrollbar-gutter: stable;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language_inner {
+	position: relative;
+	padding: 30px 30px 80px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_resion_list {
+	margin-left: 17px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_resion_list > li + li {
+	margin-top: 20px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_resion_list li a {
+	position: relative;
+	justify-content: flex-start;
+	padding: 0;
+	line-height: 1;
+}
+
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiGlobalHeader_navi_language .cmn-icon {
+	margin-left: 0;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiGlobalHeader_navi_language .cmn-icon.icon-external {
+	margin-left: 10px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiGlobalHeader_navi_language .icon-svg::before {
+	top: 0;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .menu_close {
+	position: absolute;
+	right: 30px;
+	bottom: 30px;
+	width: 26px;
+	height: 26px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_navi_language_item + .rinnaiGlobalHeader_navi_language_item {
+	margin-top: 30px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_navi_language_item > a {
+	justify-content: flex-start;
+	margin-left: 15px;
+	padding: 0;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_navi_language_secondary {
+	margin-top: 25px;
+	margin-left: 15px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .border-red {
+	margin: 0 0 25px;
+	padding: 7px 15px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .border-gray {
+	margin: 0 0 20px;
+	padding: 0 15px;
+}
+
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .border-red,
+header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .border-gray {
+	border-width: 4px;
+	font-size: 18px;
+	line-height: 1;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_search_input_wrap {
+	display: flex;
+	align-items: stretch;
+	border: 1px solid var(--Rinnai-Gray-2);
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner .menu_close {
+	position: absolute;
+	top: 33px;
+	right: 45px;
+	cursor: pointer;
+	transition: .3s;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner .menu_close:hover {
+	opacity: 0.7;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_search_input {
+	width: calc(100% - 80px);
+	padding: 13px 20px 12px;
+	border: 0;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 80px;
+	height: auto;
+	background: var(--Rinnai-Gray-2);
+	transition: .3s;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button:hover {
+	opacity: 0.7;
+}
+
+header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 20px;
+	height: 20px;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='%233e3a39' stroke-width='1.8'/%3E%3Cpath d='M15 15l5 5' stroke='%233e3a39' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat;
+	background-size: 100% auto;
+	filter: invert(100%) sepia(0%) saturate(7499%) hue-rotate(225deg) brightness(96%) contrast(101%);
+	z-index: 10;
+}
+
+
+/*Height adjustment after header shrinks ヘッダーが縮まったときの処理*/
+.js-device_pc.thin header#rinnaiGlobalHeader,
+.js-device_tablet.thin header#rinnaiGlobalHeader {
+	height: 54px;
+}
+@media (max-width: 1244px){
+
+	.js-device_pc.thin header#rinnaiGlobalHeader,
+	.js-device_tablet.thin header#rinnaiGlobalHeader {
+		height: 60px;
+	}
+}
+
+.js-device_pc.thin header#rinnaiGlobalHeader .logo img,
+.js-device_tablet.thin header#rinnaiGlobalHeader .logo img {
+	width: 80px;
+	vertical-align: top;
+}
+
+.js-device_pc.thin header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top,
+.js-device_tablet.thin header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top {
+	display: none;
+}
+@media (max-width: 374px){
+
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance li .cmn-icon.icon-arrow {
+		display: block;
+		margin: auto;
+	}
+}
+@media (max-width: 1244px){
+
+	header#rinnaiGlobalHeader {
+		/*height: 104px;*/ height: 60px;
+		padding: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top {
+		display: block;
+		max-width: 385px;
+		margin-left: auto;
+		margin-bottom: 0;
+		padding: 0 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance {
+		position: static;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance ul {
+		width: 100%;
+		gap: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance ul li {
+		width: calc(100% / 3);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance li a {
+		position: relative;
+		display: block;
+		border-top: 3px solid transparent;
+		padding: 10px 15px 10px 5px;
+		text-align: center;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance li .cmn-icon.icon-arrow {
+		border-color: #fff;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance li.is_active a {
+		border-top: 3px solid var(--Rinnai-Red);
+		color: inherit;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance li.is_active .cmn-icon.icon-arrow {
+		border-color: inherit;
+	}
+	header#rinnaiGlobalHeader .logo {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 50px;
+		width: 115px;
+		height: auto;
+	}
+	header#rinnaiGlobalHeader .logo img {
+		width: 115px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_inner {
+		height: 60px;
+		padding: 0 20px;
+		line-height: 1;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi {
+		width: 100%;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi ul {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select {
+		margin: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li {
+		position: relative;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li a {
+		padding: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li a.menu-link {
+		padding: 5px 15px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li.is_active > a {
+		border-bottom: 2px solid var(--Rinnai-Red);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li > button {
+		position: relative;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li.is_active > button::after {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		bottom: -2px;
+		left: 0;
+		right: 0;
+		margin: auto;
+		z-index: 1;
+		border-bottom: 2px solid var(--Rinnai-Red);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .hamburgerMenu,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select > ul > li > a {
+		position: relative;
+		padding: 0;
+		width: 54px;
+		height: 60px;
+		text-align: center;
+	}
+	header#rinnaiGlobalHeader .header-icon {
+		position: relative;
+		left: 0;
+		right: 0;
+		width: 20px;
+		height: 20px;
+	}
+	header#rinnaiGlobalHeader .header-icon::before,
+	header#rinnaiGlobalHeader .header-icon::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		width: 24px;
+		height: 2px;
+		margin: auto;
+		opacity: 0;
+		background-color: var(--Rinnai-Gray-1);
+	}
+	header#rinnaiGlobalHeader .icon-search {
+		width: 20px;
+		height: 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li.is_active .icon-search,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li.is_active .icon-globe {
+		background: none;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li.is_active .header-icon::before,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li.is_active .header-icon::after {
+		left: -2px;
+		opacity: 1;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li.is_active .header-icon::before {
+		transform: rotate(45deg);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li.is_active .header-icon::after {
+		transform: rotate(-45deg);
+	}
+
+
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .hamburgerMenu span {
+		position: absolute;
+		right: 0;
+		left: 0;
+		margin: auto;
+		width: 24px;
+		height: 2px;
+		display: block;
+		background-color: var(--Rinnai-Gray-1);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .hamburgerMenu span:nth-of-type(1) {
+		top: 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .hamburgerMenu span:nth-of-type(2) {
+		top: 27px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .hamburgerMenu span:nth-of-type(3) {
+		top: 34px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .is_active .hamburgerMenu span {
+		background-color: var(--Rinnai-Red);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .is_active .hamburgerMenu span:nth-of-type(1) {
+		transform: translateY(8px) rotate(-45deg);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .is_active .hamburgerMenu span:nth-of-type(2) {
+		opacity: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .is_active .hamburgerMenu span:nth-of-type(3) {
+		transform: translateY(-6px) rotate(45deg);
+	}
+
+
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi ul > li:last-child .rinnaiglobalHeader_dropDownMenu {
+		left: unset;
+		right: -20px;
+		width: 100vw;
+		max-height: none;
+		transform: none;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language {
+		right: 50%;
+		width: 100vw;
+		max-height: none;
+		transform: translateX(155px);
+		border: 0;
+		border-top: 1px solid var(--Rinnai-Gray-3);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language_inner {
+		width: 80%;
+		margin: auto;
+		padding: 30px 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_resion_list {
+		justify-content: flex-start;
+		align-items: flex-start;
+		flex-direction: column;
+		margin-left: 17px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi ul > li:nth-child(2) .rinnaiglobalHeader_dropDownMenu {
+		left: unset;
+		right: -74px;
+		width: 100vw;
+		height: auto;
+		transform: none;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner {
+		width: 80%;
+		padding: 30px 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner .menu_close,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language_inner .menu_close {
+		position: relative;
+		top: 0;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 40px;
+		height: 40px;
+		margin-top: 30px;
+		margin-left: calc(100% - 40px);
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner .menu_close svg,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language_inner .menu_close svg {
+		width: 14px;
+		height: 14px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_search_input {
+		width: calc(100% - 45px);
+		padding: 13px 15px 12px;
+		border: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button {
+		width: 45px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
+		width: 19px;
+		height: 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary {
+		margin-top: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .dropDownMenu_secondary_list {
+		flex-direction: column;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .dropDownMenu_secondary_list_item {
+		width: 100%;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiglobalHeader_dropDown_accordion li a.is_current {
+		font-weight: 700;
+	}
+	.rinnaiglobalHeader_dropDown_accordion dt{
+		margin: 0;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		border-width: 4px;
+		padding: 5px 15px;
+		font-size: 16px;
+	}
+	.rinnaiglobalHeader_dropDown_accordion .menu-link {
+		margin-top: 20px;
+		border-width: 4px;
+		padding: 5px 15px;
+		font-size: 16px;
+	}
+	.rinnaiglobalHeader_dropDown_accordion dd {
+		display: none;
+	}
+	.rinnaiglobalHeader_dropDown_accordion .border-gray.is_active + dd {
+		display: block;
+	}
+	.rinnaiglobalHeader_dropDown_accordion dd + dt {
+		margin-top: 30px;
+	}
+	.rinnaiglobalHeader_dropDown_accordion a {
+		display: block;
+		width: calc(100% - 14px);
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiglobalHeader_dropDown_accordion dd > a {
+		margin-left: 16px;
+		margin-top: 25px;
+		padding: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiglobalHeader_dropDown_accordion .cmn-icon {
+		margin-left: 0;
+		margin-right: 5px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiglobalHeader_dropDown_accordion .cmn-icon::before {
+		top: 0.1em;
+	}
+	.rinnaiglobalHeader_dropDown_accordion > .border-gray.is_active {
+		border-color: var(--Rinnai-Red);
+	}
+	.rinnaiglobalHeader_dropDown_accordion .icon-plus {
+		position: relative;
+		width: 14px;
+		height: 14px;
+		margin-left: auto;
+	}
+	.rinnaiglobalHeader_dropDown_accordion .icon-plus::before,
+	.rinnaiglobalHeader_dropDown_accordion .icon-plus::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 14px;
+		height: 2px;
+		margin: auto;
+		background: var(--Rinnai-Gray-2);
+	}
+	.rinnaiglobalHeader_dropDown_accordion .icon-plus::after {
+		transform: rotate(90deg);
+	}
+	.rinnaiglobalHeader_dropDown_accordion .is_active .icon-plus::after {
+		transform: rotate(0deg);
+	}
+	.rinnaiglobalHeader_dropDown_accordion dd > dl {
+		margin: 25px 0;
+		margin-left: 19px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary {
+		margin-left: 19px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .border-red {
+		font-size: 16px;
+	}
+	.rinnaiglobalHeader_dropDown_accordion .border-gray {
+		padding: 0px 15px;
+		margin: 25px 0 0 0;
+		border-width: 4px;
+		font-size: 16px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary ul.pickup-content-list {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		gap: 15px;
+		margin: 0 19px 0 0;
+		margin-top: 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary ul.pickup-content-list > li {
+		margin: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary ul.pickup-content-list > li > a {
+		width: 100%;
+		font-size: 16px;
+		line-height: 140%;
+		padding: 0;
+	}
+	header#rinnaiGlobalHeader .select .rinnaiglobalHeader_dropDownMenu_secondary ul.pickup-content-list > li > a .cmn-icon {
+		margin-left: 8px;
+	}
+	header#rinnaiGlobalHeader .select .rinnaiglobalHeader_dropDownMenu_secondary ul.pickup-content-list > li > a .cmn-icon.icon-arrow {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDown_accordion ul {
+		display: block;
+		margin-left: 18px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDown_accordion ul > li {
+		margin-top: 15px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight {
+		margin-top: 30px;
+		margin-left: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight ul {
+		justify-content: flex-start;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight ul > li {
+		width: 100%;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight ul > li > a	{
+		display: block;
+		width: 100%;
+		padding: 10px 15px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .highlight .cmn-icon {
+		margin-right: 3px;
+		margin-left: 0;
+	}
+	/*Height adjustment after header shrinks ヘッダーが縮まったときの処理*/
+	.js-device_sp.thin header#rinnaiGlobalHeader {
+		height: 60px;
+		padding-top: 0;
+	}
+	.js-device_sp.thin header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top {
+		display: none;
+	}
+}
+@media (min-width: 768px) and (max-width: 1023px){
+
+	header#rinnaiGlobalHeader .logo {
+		left: 30px;
+		height: auto;
+	}
+}
+@media (max-width: 767px){
+
+	header#rinnaiGlobalHeader .logo {
+		position: static;
+		left: 0;
+		width: 93px;
+		height: auto;
+	}
+	header#rinnaiGlobalHeader .logo img {
+		width: 73px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top {
+		max-width: 100%;
+		border-bottom: solid 1px var(--Rinnai-Gray-3);
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner {
+		width: 100%;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li a {
+		padding: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select li a.menu-link {
+		padding: 5px 15px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiglobalHeader_dropDown_accordion dd > a,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_top .entrance li a,
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary .border-red,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiglobalHeader_dropDown_accordion li a {
+		font-size: 14px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language_inner {
+		width: 100%;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_resion_list {
+		margin-left: 12px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_navi_language_item > .border-red,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_navi_language_secondary > .border-gray {
+		padding: 2px 10px;
+		font-size: 16px;
+		line-height: 100%;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiglobalHeader_dropDown_accordion dd > a,
+	.rinnaiglobalHeader_dropDown_accordion dd > dl,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_navi_language_item > a,
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language .rinnaiGlobalHeader_navi_language_secondary {
+		margin-left: 12px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .select .rinnaiglobalHeader_dropDown_accordion dd > a {
+		margin-left: -4px;
+	}
+	.rinnaiglobalHeader_dropDown_accordion dd {
+		padding-left: 19px;
+	}
+	.rinnaiglobalHeader_dropDown_accordion dd > dl {
+		margin-left: 0;
+	}
+	.rinnaiglobalHeader_dropDown_accordion dd > dl:last-of-type {
+		margin-bottom: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary {
+		margin-left: 0;
+		margin-top: 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDown_accordion ul {
+		margin-left: -5px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDown_accordion ul > li {
+		margin-top: 20px;
+	}
+	header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_secondary ul.pickup-content-list > li > a {
+		width: 100%;
+		font-size: 14px;
+		line-height: 140%;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight ul {
+		flex-direction: column;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight li + li {
+		margin-top: 16px;
+		margin-left: 0;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight ul > li > a	{
+		font-size: 14px;
+	}
+	header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi .highlight .cmn-icon::before {
+		content: none;
+	}
+}
+
+
+/* pickup */
+.pickup-content-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 30px;
+	margin-top: 30px;
+}
+
+.pickup-content-list > li {
+	width: calc((100% - 60px) / 3);
+}
+
+.pickup-content-list > li img {
+	width: 100%;
+	height: auto;
+}
+
+.pickup-content-list > li figure {
+	margin-bottom: 10px;
+}
+
+.pickup-content-list > li a .icon-svg::before {
+	top: -0.2em;
+}
+@media (max-width: 767px){
+
+	.pickup-content-list > li {
+		width: calc((100% - 15px) / 2);
+		margin: 15px 15px 0 0;
+	}
+	.pickup-content-list > li:nth-child(2n) {
+		margin-right: 0;
+	}
+	.pickup-content-list > li:nth-child(3),
+	.pickup-content-list > li:nth-child(4) {
+		margin-top: 15px;
+	}
+}
+/* ====== /官網 header 整合 ====== */
+
 
 /* HERO button — increase overall size in hero area */
 .lp-hero .lp-btn {
@@ -901,107 +1883,476 @@ body { margin: 0; letter-spacing: 0.12rem; }
        <?php include 'partials/_lp-header.php'; ?>
      並在 <head> 載入原站 header/footer 的 CSS（icon font 等）。
      ============================================================ -->
-<header class="gnav" id="gnav">
-	<div class="gnav__inner">
-		<a class="gnav__logo" href="#"><img src="./img/logo.svg" alt="Rinnai"></a>
+<header id="rinnaiGlobalHeader">
+		<!-- [ PC ] -->
+		<div class="pc">
+			<div class="rinnaiGlobalHeader_inner">
+				<p class="logo"><a href="./"><img src="./img/logo.svg" alt="Rinnai"></a></p>
 
-		<button class="gnav__burger" type="button" aria-label="選單" aria-expanded="false">
-			<span></span><span></span><span></span>
-		</button>
+				<div class="rinnaiGlobalHeader_navi">
+					<div class="rinnaiGlobalHeader_navi_top">
+						<nav role="navigation" class="select" aria-label="select">
+							<ul>
+								<li class="language_changer">
+									<a class="language_changer_link" href="javascript:void(0);">
+										<span class="header-icon icon-globe" aria-label="Select Region"></span>
+									</a>
+									<nav class="rinnaiGlobalHeader_navi_language">
+										<div class="rinnaiGlobalHeader_navi_language_inner">
+											<div class="rinnaiGlobalHeader_navi_language_item">
+												<p class="border-red">Language</p>
+												<ul class="rinnaiGlobalHeader_resion_list">
+													<li class="rinnaiGlobalHeader_resion_list_item"><span class="cmn-icon icon-arrow -r"></span>繁體中文</li>
+												</ul>
+											</div>
+											<div class="rinnaiGlobalHeader_navi_language_item">
+												<p class="border-red">Region</p>
+												<a href="https://www.rinnai.com/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Global<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a>
+												<div class="rinnaiGlobalHeader_navi_language_secondary">
+													<p class="border-gray">East Asia</p>
+													<ul class="rinnaiGlobalHeader_resion_list">
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.co.jp/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Japan<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.co.kr/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Korea<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.cn/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Shanghai<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="http://www.gzrinnai.com.cn/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Guagzhou<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+                                                        <li class="rinnaiGlobalHeader_resion_list_item"><a href="http://www.rinnai.tw/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Taiwan<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.hk/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Hong Kong<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													</ul>
+												</div>
+												<div class="rinnaiGlobalHeader_navi_language_secondary">
+													<p class="border-gray">Southeast Asia</p>
+													<ul class="rinnaiGlobalHeader_resion_list">
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.com.vn/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Vietnam<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnaithailand.com/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Thailand<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.sg/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Singapore<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.my/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Malaysia<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.co.id/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Indonesia<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													</ul>
+												</div>
+												<div class="rinnaiGlobalHeader_navi_language_secondary">
+													<p class="border-gray">Oceania</p>
+													<ul class="rinnaiGlobalHeader_resion_list">
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.au/corporate/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Australia<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.co.nz/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>New Zealand<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													</ul>
+												</div>
+												<div class="rinnaiGlobalHeader_navi_language_secondary">
+													<p class="border-gray">Europe</p>
+													<ul class="rinnaiGlobalHeader_resion_list">
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai-uk.co.uk/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>United Kingdom<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.it/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Italy<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													</ul>
+												</div>
+                                                <div class="rinnaiGlobalHeader_navi_language_secondary">
+													<p class="border-gray">North America</p>
+													<ul class="rinnaiGlobalHeader_resion_list">
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.us/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>United States<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.ca/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Canada<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													</ul>
+												</div>
+												<div class="rinnaiGlobalHeader_navi_language_secondary">
+													<p class="border-gray">Central &amp; South America</p>
+													<ul class="rinnaiGlobalHeader_resion_list">
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.br/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Brazil<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.mx/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Mexico<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+														<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.cr/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Costa Rica<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													</ul>
+												</div>												
+											</div>
 
-		<nav class="gnav__menu" aria-label="主選單">
-			<ul class="gnav__list">
-				<!-- 商品分類（mega）-->
-				<li class="gnav__item gnav__item--has gnav__item--mega">
-					<button class="gnav__link" type="button" aria-expanded="false">商品分類<i class="gnav__caret"></i></button>
-					<div class="gnav__panel gnav__panel--mega">
-						<div class="gnav__mega">
-							<div class="gnav__col">
-								<p class="gnav__phead">熱水器</p>
-								<ul>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/31" target="_blank">屋內型熱水器</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/32" target="_blank">屋外型熱水器</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/33" target="_blank">儲熱式電熱水器</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/34" target="_blank">瞬熱式電熱水器</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/35" target="_blank">溫控器</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/36" target="_blank">迴水機</a></li>
-								</ul>
-							</div>
-							<div class="gnav__col">
-								<p class="gnav__phead">爐具</p>
-								<ul>
-									<li><a href="https://www.rinnai.com.tw/Product/V1/9" target="_blank">瓦斯爐</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/47" target="_blank">IH爐</a></li>
-								</ul>
-							</div>
-							<div class="gnav__col">
-								<p class="gnav__phead">廚房設備</p>
-								<ul>
-									<li><a href="https://www.rinnai.com.tw/Product/V1/11" target="_blank">排油煙機</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V1/12" target="_blank">烘碗機</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V1/13" target="_blank">淨水器</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/58" target="_blank">烤箱/蒸爐/蒸烤爐</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/59" target="_blank">洗碗機</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/60" target="_blank">收納櫃</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/61" target="_blank">無水鍋</a></li>
-								</ul>
-							</div>
-							<div class="gnav__col">
-								<p class="gnav__phead">乾衣機</p>
-								<ul>
-									<li><a href="https://www.rinnai.com.tw/Product/V1/15" target="_blank">乾衣機</a></li>
-								</ul>
-							</div>
-							<div class="gnav__col">
-								<p class="gnav__phead">商用設備</p>
-								<ul>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/64" target="_blank">保溫鍋</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/65" target="_blank">煮飯鍋</a></li>
-									<li><a href="https://www.rinnai.com.tw/Product/V2/1/66" target="_blank">烤爐</a></li>
-								</ul>
-							</div>
-						</div>
+											<button class="menu_close" type="button" aria-label="Close the menu">
+												<span class="header-icon icon-close"></span>
+											</button>
+										</div>
+									</nav>
+								</li>
+							</ul>
+						</nav>
 					</div>
-				</li>
+					<div class="rinnaiGlobalHeader_navi_global">
+						<nav role="navigation" class="global" aria-label="global">
+							<ul>
+								<li>
+									<a href="javascript:void(0);">商品分類<span class="cmn-icon icon-arrow -down" aria-label="Open the menu"></span></a>
+									<div class="rinnaiglobalHeader_dropDownMenu">
+										<div class="rinnaiglobalHeader_dropDownMenu_inner">
+											<!--<p class=""><a href="dummy/"><span class="cmn-icon icon-arrow -r"></span>總覽</a></p>-->
 
-				<li class="gnav__item"><a class="gnav__link" href="news">最新資訊</a></li>
-				<li class="gnav__item"><a class="gnav__link" href="https://rinnaifamily.rinnai.com.tw/" target="_blank">會員專區</a></li>
+											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">熱水器</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/31" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>屋內型熱水器</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/32" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>屋外型熱水器</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/33" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>儲熱式電熱水器</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/34" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>瞬熱式電熱水器</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/35" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>溫控器</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/36" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>迴水機</p></a></li>
+												</ul>
+											</div>
+											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">爐具</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V1/9" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>瓦斯爐</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/47" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>IH爐</p></a></li>
+												</ul>
+											</div>
+											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">廚房設備</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V1/11" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>排油煙機</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V1/12" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>烘碗機</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V1/13" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>淨水器</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/58" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>烤箱/蒸爐/蒸烤爐</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/59" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>洗碗機</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/60" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>收納櫃</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/61" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>無水鍋</p></a></li>
+												</ul>
+											</div>
+											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">乾衣機</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V1/15" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>乾衣機</p></a></li>
+												</ul>
+											</div>
+											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">商用設備</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/64" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>保溫鍋</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/65" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>煮飯鍋</p></a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Product/V2/1/66" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>烤爐</p></a></li>
+												</ul>
+											</div>
 
-				<!-- 關於林內 -->
-				<li class="gnav__item gnav__item--has">
-					<button class="gnav__link" type="button" aria-expanded="false">關於林內<i class="gnav__caret"></i></button>
-					<div class="gnav__panel">
-						<p class="gnav__phead">關於林內</p>
+											<button class="menu_close" type="button" aria-label="Close the menu">
+												<span class="header-icon icon-close"></span>
+											</button>
+										</div>
+									</div>
+								</li>
+								<li>
+									<a href="news">最新資訊</a>
+								</li>
+								<li>
+									<a href="https://rinnaifamily.rinnai.com.tw/" target="_blank">會員專區</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);">關於林內<span class="cmn-icon icon-arrow -down" aria-label="Open the menu"></span></a>
+									<div class="rinnaiglobalHeader_dropDownMenu">
+										<div class="rinnaiglobalHeader_dropDownMenu_inner">
+											<p class=""><a href="corp"><span class="cmn-icon icon-arrow -r"></span>總覽</a></p>
+
+											<!--<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">基本資訊</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="corp/greeting"><span class="cmn-icon icon-arrow -r"></span>社長的話</a></li>
+												</ul>
+											</div>-->
+											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">關於林內</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="corp/idea"><span class="cmn-icon icon-arrow -r"></span>企業理念</a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="corp/brand"><span class="cmn-icon icon-arrow -r"></span>品牌</a></li>
+												</ul>
+											</div>
+											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">公司簡介</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="corp/about"><span class="cmn-icon icon-arrow -r"></span>台灣林內</a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="corp/history"><span class="cmn-icon icon-arrow -r"></span>沿革記事</a></li>
+												</ul>
+											</div>
+											<button class="menu_close" type="button" aria-label="Close the menu">
+												<span class="header-icon icon-close"></span>
+											</button>
+										</div>
+									</div>
+								</li>
+								<li>
+									<a href="javascript:void(0);">型錄下載<span class="cmn-icon icon-arrow -down" aria-label="Open the menu"></span></a>
+									<div class="rinnaiglobalHeader_dropDownMenu">
+										<div class="rinnaiglobalHeader_dropDownMenu_inner">
+
+											<div class="rinnaiglobalHeader_dropDownMenu_secondary">
+												<p class="border-red">型錄下載</p>
+												<ul class="dropDownMenu_secondary_list">
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/dm" target="_blank"><span class="cmn-icon icon-arrow -r"></span>電子型錄</a></li>
+													<li class="dropDownMenu_secondary_list_item"><a href="https://www.rinnai.com.tw/Manual#modal--closedclosed" target="_blank"><span class="cmn-icon icon-arrow -r"></span>使用手冊</a></li>
+												</ul>
+											</div>
+
+											<button class="menu_close" type="button" aria-label="Close the menu">
+												<span class="header-icon icon-close"></span>
+											</button>
+										</div>
+									</div>
+								</li>
+								<li>
+									<a href="https://www.rinnai.com.tw/DistributionBase" target="_blank">經銷據點</a>
+								</li>
+								<li class="search">
+									<a href="javascript:void(0);" class="search_link" aria-controls="search" aria-expanded="false">
+										<div>
+											<span class="header-icon icon-search"></span>
+											<span class="visually-hidden">Search</span>
+										</div>
+									</a>
+									<div class="rinnaiglobalHeader_dropDownMenu -search">
+										<div class="rinnaiglobalHeader_dropDownMenu_inner">
+											<form class="rinnaiglobalHeader_search_input_wrap" action="">
+												<input class="rinnaiglobalHeader_search_input" type="text" placeholder="請輸入產品關鍵字">
+												<button class="rinnaiglobalHeader_search_button">
+													<span class="header-icon icon-search" aria-label="Search"></span>
+												</button>
+											</form>
+
+											<button class="menu_close" type="button" aria-label="Close the menu">
+												<span class="header-icon icon-close"></span>
+											</button>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- [ /PC ] -->
+
+		<!-- [ SP ] -->
+		<div class="sp">
+
+			<div class="rinnaiGlobalHeader_inner">
+				<p class="logo"><a href="./"><img src="./img/logo.svg" alt="Rinnai"></a></p>
+
+				<div class="rinnaiGlobalHeader_navi">
+					<nav role="navigation" class="select" aria-label="select">
 						<ul>
-							<li><a href="corp">總覽</a></li>
-							<li><a href="corp/greeting">社長的話</a></li>
-							<li><a href="corp/idea">企業理念</a></li>
-							<li><a href="corp/brand">品牌</a></li>
-							<li><a href="corp/about">台灣林內</a></li>
-							<li><a href="corp/history">沿革記事</a></li>
+							<li>
+								<a class="language_changer_link_sp" href="javascript:void(0);"><span class="header-icon icon-globe" aria-label="Select Region"></span></a>
+
+								<nav class="rinnaiGlobalHeader_navi_language">
+									<div class="rinnaiGlobalHeader_navi_language_inner">
+										<div class="rinnaiGlobalHeader_navi_language_item">
+											<p class="border-red">Language</p>
+											<ul class="rinnaiGlobalHeader_resion_list">
+												<li class="rinnaiGlobalHeader_resion_list_item"><span class="cmn-icon icon-arrow -r"></span>繁體中文</li>
+											</ul>
+										</div>
+										<div class="rinnaiGlobalHeader_navi_language_item">
+											<p class="border-red">Region</p>
+											<a href="https://www.rinnai.com/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Global<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a>
+											<div class="rinnaiGlobalHeader_navi_language_secondary">
+												<p class="border-gray">East Asia</p>
+												<ul class="rinnaiGlobalHeader_resion_list">
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.co.jp/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Japan<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.co.kr/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Korea<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.cn/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Shanghai<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="http://www.gzrinnai.com.cn/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Guagzhou<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+                                                    <li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.tw/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Taiwan<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.hk/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Hong Kong<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+												</ul>
+											</div>
+											<div class="rinnaiGlobalHeader_navi_language_secondary">
+												<p class="border-gray">Southeast Asia</p>
+												<ul class="rinnaiGlobalHeader_resion_list">
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.com.vn/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Vietnam<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnaithailand.com/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Thailand<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.sg/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Singapore<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.my/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Malaysia<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.co.id/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Indonesia<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+												</ul>
+											</div>
+											<div class="rinnaiGlobalHeader_navi_language_secondary">
+												<p class="border-gray">Oceania</p>
+												<ul class="rinnaiGlobalHeader_resion_list">
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.au/corporate/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Australia<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.co.nz/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>New Zealand<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+												</ul>
+											</div>
+											<div class="rinnaiGlobalHeader_navi_language_secondary">
+												<p class="border-gray">Europe</p>
+												<ul class="rinnaiGlobalHeader_resion_list">
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai-uk.co.uk/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>United Kingdom<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.it/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Italy<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+												</ul>
+											</div>
+                                            <div class="rinnaiGlobalHeader_navi_language_secondary">
+												<p class="border-gray">North America</p>
+												<ul class="rinnaiGlobalHeader_resion_list">
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.us/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>United States<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.ca/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Canada<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+												</ul>
+											</div>
+											<div class="rinnaiGlobalHeader_navi_language_secondary">
+												<p class="border-gray">Central &amp; South America</p>
+												<ul class="rinnaiGlobalHeader_resion_list">
+													<li class="rinnaiGlobalHeader_resion_list_item"><a href="https://www.rinnai.com.br/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Brazil<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+                                                    <li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.mx/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Mexico<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+                                                    <li class="rinnaiGlobalHeader_resion_list_item"><a href="https://rinnai.cr/" target="_blank"><span class="cmn-icon icon-arrow -r"></span>Costa Rica<span class="cmn-icon icon-svg icon-external" aria-label="Open an external link"></span></a></li>
+												</ul>
+											</div>											
+										</div>
+
+										<button class="menu_close" type="button" aria-label="Close the menu">
+											<span class="header-icon icon-close"></span>
+										</button>
+									</div>
+								</nav>
+
+							</li>
+							<li>
+								<a class="search_link_sp" href="javascript:void(0);"><span class="header-icon icon-search" aria-label="Search"></span></a>
+								<div class="rinnaiglobalHeader_dropDownMenu -search">
+									<div class="rinnaiglobalHeader_dropDownMenu_inner">
+										<form class="rinnaiglobalHeader_search_input_wrap" action="">
+											<input class="rinnaiglobalHeader_search_input" type="text" placeholder="請輸入產品關鍵字">
+											<button class="rinnaiglobalHeader_search_button">
+												<svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+													<path d="M15.0839 8.24005C15.0839 4.14428 11.885 0.824005 7.93889 0.824005C3.99282 0.824005 0.793889 4.14428 0.793889 8.24005C0.793889 12.3358 3.99282 15.6561 7.93889 15.6561V16.4801C3.55436 16.4801 0 12.7909 0 8.24005C0 3.6892 3.55436 0 7.93889 0C12.3234 0 15.8778 3.6892 15.8778 8.24005C15.8778 12.7909 12.3234 16.4801 7.93889 16.4801V15.6561C11.885 15.6561 15.0839 12.3358 15.0839 8.24005Z" fill="white"/>
+													<path d="M20 20.4173L19.4386 21L12.7023 14.0081L13.2636 13.4254L20 20.4173Z" fill="white"/>
+												</svg>
+											</button>
+										</form>
+
+										<div class="menu_close">
+											<span class="header-icon icon-close"></span>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<button class="hamburgerMenu js-hamburgerMenuButton" aria-controls="hamburgerMenu" aria-expanded="false">
+									<span></span>
+									<span></span>
+									<span></span>
+									<span class="visually-hidden js-iconLabel">Open the menu</span>
+								</button>
+								<div class="rinnaiglobalHeader_dropDownMenu">
+									<div class="rinnaiglobalHeader_dropDownMenu_inner">
+										<dl class="rinnaiglobalHeader_dropDown_accordion">
+											<dt class="border-red">商品分類<i class="icon-plus"></i></dt>
+											<dd class="inner">
+												<!--<a href="dummy/"><span class="cmn-icon icon-arrow -r"></span>商品分類總覽</a>-->
+												<dl>
+													<dt class="border-gray">熱水器<i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/31" target="_blank"><span class="cmn-icon icon-arrow -r"></span>屋內型熱水器</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/32" target="_blank"><span class="cmn-icon icon-arrow -r"></span>屋外型熱水器</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/33" target="_blank"><span class="cmn-icon icon-arrow -r"></span>儲熱式電熱水器</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/34" target="_blank"><span class="cmn-icon icon-arrow -r"></span>瞬熱式電熱水器</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/35" target="_blank"><span class="cmn-icon icon-arrow -r"></span>溫控器</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/36" target="_blank"><span class="cmn-icon icon-arrow -r"></span>迴水機</a></li>
+														</ul>
+													</dd>
+												</dl>
+												<dl>
+													<dt class="border-gray">爐具<i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="https://www.rinnai.com.tw/Product/V1/9" target="_blank"><span class="cmn-icon icon-arrow -r"></span>瓦斯爐</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/47" target="_blank"><span class="cmn-icon icon-arrow -r"></span>HI爐</a></li>
+														</ul>
+													</dd>
+												</dl>
+												<dl>
+													<dt class="border-gray">廚房設備 <i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="https://www.rinnai.com.tw/Product/V1/11" target="_blank"><span class="cmn-icon icon-arrow -r"></span>排油煙機</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V1/12" target="_blank"><span class="cmn-icon icon-arrow -r"></span>烘碗機</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V1/13" target="_blank"><span class="cmn-icon icon-arrow -r"></span>淨水器</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/58" target="_blank"><span class="cmn-icon icon-arrow -r"></span>烤箱/蒸爐/蒸烤爐</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/59" target="_blank"><span class="cmn-icon icon-arrow -r"></span>洗碗機</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/60" target="_blank"><span class="cmn-icon icon-arrow -r"></span>收納櫃</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/61" target="_blank"><span class="cmn-icon icon-arrow -r"></span>無水鍋</a></li>
+														</ul>
+													</dd>
+												</dl>
+												<dl>
+													<dt class="border-gray">乾衣機<i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="https://www.rinnai.com.tw/Product/V1/15" target="_blank"><span class="cmn-icon icon-arrow -r"></span>乾衣機</a></li>
+														</ul>
+													</dd>
+												</dl>
+												<dl>
+													<dt class="border-gray">商用設備<i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/64" target="_blank"><span class="cmn-icon icon-arrow -r"></span>保溫鍋</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/65" target="_blank"><span class="cmn-icon icon-arrow -r"></span>煮飯鍋</a></li>
+															<li><a href="https://www.rinnai.com.tw/Product/V2/1/66" target="_blank"><span class="cmn-icon icon-arrow -r"></span>烤爐</a></li>
+														</ul>
+													</dd>
+												</dl>
+											</dd>
+
+											<a href="news" class="border-red menu-link">最新資訊</a>
+
+											<a href="https://rinnaifamily.rinnai.com.tw/" target="_blank" class="border-red menu-link">會員專區</a>
+
+											<dt class="border-red">關於林內<i class="icon-plus"></i></dt>
+											<dd class="inner">
+												<a href="corp"><span class="cmn-icon icon-arrow -r"></span>總覽</a>
+												<!--<dl>
+													<dt class="border-gray">基本資訊<i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="corp/greeting"><p><span class="cmn-icon icon-arrow -r"></span>社長的話</p></a></li>
+														</ul>
+													</dd>
+												</dl>-->
+												<dl>
+													<dt class="border-gray">關於林內<i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="corp/idea"><p><span class="cmn-icon icon-arrow -r"></span>企業理念</p></a></li>
+															<li><a href="corp/brand"><p><span class="cmn-icon icon-arrow -r"></span>品牌</p></a></li>
+														</ul>
+													</dd>
+												</dl>
+												<dl>
+													<dt class="border-gray">公司簡介<i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="corp/about"><p><span class="cmn-icon icon-arrow -r"></span>台灣林內</p></a></li>
+															<li><a href="corp/history"><p><span class="cmn-icon icon-arrow -r"></span>沿革記事</p></a></li>
+														</ul>
+													</dd>
+												</dl>
+											</dd>
+											<dt class="border-red">型錄下載<i class="icon-plus"></i></dt>
+											<dd class="inner">
+
+												<dl>
+													<dt class="border-gray">型錄下載<i class="icon-plus"></i></dt>
+													<dd>
+														<ul>
+															<li><a href="https://www.rinnai.com.tw/dm" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>電子型錄</p></a></li>
+															<li><a href="https://www.rinnai.com.tw/Manual#modal--closedclosed" target="_blank"><p><span class="cmn-icon icon-arrow -r"></span>使用手冊</p></a></li>
+														</ul>
+													</dd>
+												</dl>
+											</dd>
+											<a href="https://www.rinnai.com.tw/DistributionBase" target="_blank" class="border-red menu-link">銷經據點</a>
+										</dl>
+
+										<div class="menu_close">
+											<span class="header-icon icon-close"></span>
+										</div>
+									</div>
+								</div>
+							</li>
 						</ul>
-					</div>
-				</li>
-
-				<!-- 型錄下載 -->
-				<li class="gnav__item gnav__item--has">
-					<button class="gnav__link" type="button" aria-expanded="false">型錄下載<i class="gnav__caret"></i></button>
-					<div class="gnav__panel">
-						<p class="gnav__phead">型錄下載</p>
-						<ul>
-							<li><a href="https://www.rinnai.com.tw/dm" target="_blank">電子型錄</a></li>
-							<li><a href="https://www.rinnai.com.tw/Manual" target="_blank">使用手冊</a></li>
-						</ul>
-					</div>
-				</li>
-
-				<li class="gnav__item"><a class="gnav__link" href="https://www.rinnai.com.tw/DistributionBase" target="_blank">經銷據點</a></li>
-			</ul>
-		</nav>
-
-		<button class="gnav__close" type="button" aria-label="關閉選單"></button>
-	</div>
-</header>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<!-- [ /SP ] -->
+	</header>
 
 <main class="lp">
 <!-- ============================================================
@@ -1404,155 +2755,252 @@ body { margin: 0; letter-spacing: 0.12rem; }
      FOOTER（官網一致）
      ============================================================ -->
 <style>
-/* ▼▼▼ FOOTER CSS ▼▼▼ */
-footer#rinnaiGlobalFooter{
-	padding:50px;
-	background:#fcfcfc;
-	line-height:1.3;
-	color:#5e5b5a;
-	font-size:15px;
-	font-family:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",system-ui,sans-serif;
-	letter-spacing:.04em;
+/* ▼▼▼ FOOTER CSS（官網 project2025.css 抽出，rem→px、SVG 內嵌）▼▼▼ */
+/* footer 自身 reset（鎖在 #rinnaiGlobalFooter）*/
+#rinnaiGlobalFooter{font-family:"neue-haas-grotesk-display","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--Rinnai-Gray-1);letter-spacing:normal;font-size:16px}
+#rinnaiGlobalFooter ul,#rinnaiGlobalFooter ol,#rinnaiGlobalFooter li,#rinnaiGlobalFooter dl,#rinnaiGlobalFooter dt,#rinnaiGlobalFooter dd,#rinnaiGlobalFooter p,#rinnaiGlobalFooter nav{margin:0;padding:0;list-style:none}
+#rinnaiGlobalFooter a{text-decoration:none;color:inherit}
+#rinnaiGlobalFooter .cmn-icon{position:relative;display:inline-block;width:1em;height:1em;vertical-align:middle}
+#rinnaiGlobalFooter .cmn-icon::before{position:absolute;content:"";top:0.2em;left:0;width:1em;height:1em}
+#rinnaiGlobalFooter .cmn-icon.icon-arrow::before{width:8px;height:8px;border-top:1px solid var(--Rinnai-Gray-1);border-right:1px solid var(--Rinnai-Gray-1)}
+#rinnaiGlobalFooter .cmn-icon.icon-arrow.-r::before{transform:rotate(45deg)}
+
+
+
+/*---------------------------------------------
+03. footer
+---------------------------------------------*/
+footer#rinnaiGlobalFooter {
+	padding: 50px;
+	background: #fcfcfc;
+	line-height: 1.3;
 }
-#rinnaiGlobalFooter *{box-sizing:border-box}
-#rinnaiGlobalFooter ul{list-style:none;margin:0;padding:0}
-#rinnaiGlobalFooter a{color:inherit;text-decoration:none}
 
-/* 右向箭頭（關注我們 / 各連結前）*/
-#rinnaiGlobalFooter .cmn-icon.icon-arrow.-r{
-	display:inline-block;width:6px;height:6px;flex:0 0 auto;
-	border-top:1.5px solid #a7a5a5;border-right:1.5px solid #a7a5a5;
-	transform:rotate(45deg);margin-right:9px;position:relative;top:1px;
+footer#rinnaiGlobalFooter a:hover {
+	opacity: 0.7;
+	text-decoration: none;
 }
 
-/* 關注我們 */
-#rinnaiGlobalFooter .official_list dl{margin:0}
-#rinnaiGlobalFooter .official_list dt{display:flex;align-items:center;font-size:15px;color:#5e5b5a;margin:0 0 22px}
-#rinnaiGlobalFooter .official_list dd{margin:0}
-#rinnaiGlobalFooter .official_list ul{display:flex;align-items:center;gap:16px}
-#rinnaiGlobalFooter .official_list dd a{display:inline-flex;line-height:0}
+footer#rinnaiGlobalFooter nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 15px;
+}
 
-/* 社群圖示（實心灰 SVG）*/
-#rinnaiGlobalFooter .sns-icon{display:inline-block;width:40px;height:40px;
-	background-position:center;background-repeat:no-repeat;background-size:contain;transition:opacity .2s ease}
-#rinnaiGlobalFooter a:hover .sns-icon{opacity:.7}
-#rinnaiGlobalFooter .sns-icon.-facebook{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Ccircle%20cx%3D%2720%27%20cy%3D%2720%27%20r%3D%2720%27%20fill%3D%27%2382929b%27%2F%3E%3Cpath%20d%3D%27M22.1%2028v-8h2.3l.46-3H22.1v-1.95c0-.87.3-1.46%201.55-1.46H25V11.06c-.3-.04-1.33-.13-2.53-.13-2.5%200-4.22%201.53-4.22%204.33V17H15.7v3h2.55v8z%27%20fill%3D%27%23ffffff%27%2F%3E%3C%2Fsvg%3E")}
-#rinnaiGlobalFooter .sns-icon.-instagram{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Crect%20width%3D%2740%27%20height%3D%2740%27%20rx%3D%2711%27%20fill%3D%27%2382929b%27%2F%3E%3Crect%20x%3D%2711.5%27%20y%3D%2711.5%27%20width%3D%2717%27%20height%3D%2717%27%20rx%3D%275.2%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%272.2%27%2F%3E%3Ccircle%20cx%3D%2720%27%20cy%3D%2720%27%20r%3D%274.1%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%272.2%27%2F%3E%3Ccircle%20cx%3D%2726.3%27%20cy%3D%2713.7%27%20r%3D%271.35%27%20fill%3D%27%23ffffff%27%2F%3E%3C%2Fsvg%3E")}
-#rinnaiGlobalFooter .sns-icon.-line{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Crect%20width%3D%2740%27%20height%3D%2740%27%20rx%3D%2711%27%20fill%3D%27%2382929b%27%2F%3E%3Ctext%20x%3D%2720%27%20y%3D%2724.5%27%20font-family%3D%27Arial%2C%20Helvetica%2C%20sans-serif%27%20font-size%3D%279.5%27%20font-weight%3D%27700%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffffff%27%3ELINE%3C%2Ftext%3E%3C%2Fsvg%3E")}
-#rinnaiGlobalFooter .sns-icon.-youtube{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Crect%20width%3D%2740%27%20height%3D%2740%27%20rx%3D%2711%27%20fill%3D%27%2382929b%27%2F%3E%3Cpath%20d%3D%27M16%2013l12%207-12%207z%27%20fill%3D%27%23ffffff%27%2F%3E%3C%2Fsvg%3E")}
+footer#rinnaiGlobalFooter nav dt {
+	display: inline-block;
+	font-size: 14px;
+}
 
-/* 連結列 */
-#rinnaiGlobalFooter .corp-info{margin-top:28px}
-#rinnaiGlobalFooter .corp-info ul{display:flex;flex-wrap:wrap;gap:12px 26px}
-#rinnaiGlobalFooter .corp-info .link_item{display:inline-flex;align-items:center;font-size:15px;color:#5e5b5a;transition:color .2s ease}
-#rinnaiGlobalFooter .corp-info .link_item:hover{color:#1f1f1f}
 
-/* 版權 */
-#rinnaiGlobalFooter .copyright{margin:28px 0 0;font-size:13px;color:#716e6d;letter-spacing:.04em}
+footer#rinnaiGlobalFooter nav dd {
+	margin-top: 20px;
+}
 
-/* 回頂端（滑動後出現的浮動鈕）*/
-#rinnaiGlobalFooter #pagetop{position:fixed;right:24px;bottom:24px;z-index:90;margin:0;
-	opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease}
-#rinnaiGlobalFooter #pagetop.is-show{opacity:1;visibility:visible;transform:none}
-#rinnaiGlobalFooter #pagetop a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-	width:50px;height:50px;border-radius:8px;background:#82929b;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em}
-#rinnaiGlobalFooter #pagetop a:hover{background:#6f7f88}
-#rinnaiGlobalFooter .icon-pagetop{display:block;width:9px;height:9px;
-	border-top:2px solid #fff;border-right:2px solid #fff;transform:rotate(-45deg)}
+footer#rinnaiGlobalFooter nav dd li + li {
+	margin-left: 15px;
+}
 
-@media (max-width:767px){
-	footer#rinnaiGlobalFooter{padding:36px 24px}
-	#rinnaiGlobalFooter .corp-info ul{gap:12px 20px}
-	#rinnaiGlobalFooter #pagetop{right:16px;bottom:16px}
+footer#rinnaiGlobalFooter nav dd .sns-icon {
+	display: block;
+	width: 45px;
+	height: 45px;
+}
+
+/*footer#rinnaiGlobalFooter nav dd .sns-icon.-x {
+	background: none;
+	background-size: 100% auto;
+}
+*/
+footer#rinnaiGlobalFooter nav dd .sns-icon.-facebook {
+	background: url("./img/ico_facebook.png");
+	background-size: 100% auto;
+}
+
+footer#rinnaiGlobalFooter nav dd .sns-icon.-instagram {
+	background: url("./img/ico_instagram.png");
+	background-size: 100% auto;
+}
+
+/*footer#rinnaiGlobalFooter nav dd .sns-icon.-threads {
+	background: none;
+	background-size: 100% auto;
+}
+*/
+footer#rinnaiGlobalFooter nav dd .sns-icon.-line {
+	background: url("./img/ico_line.png");
+	background-size: 100% auto;
+}
+
+footer#rinnaiGlobalFooter nav dd .sns-icon.-youtube {
+	background: url("./img/ico_youtube.png");
+	background-size: 100% auto;
+}
+
+/*footer#rinnaiGlobalFooter nav dd .sns-icon.-other {
+	background: none;
+	background-size: 100% auto;
+}
+*/
+footer#rinnaiGlobalFooter nav .corp-info {
+	margin-top: 40px;
+}
+
+footer#rinnaiGlobalFooter nav .corp-info li {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0 20px 0 0;
+	font-size: 14px;
+}
+
+footer#rinnaiGlobalFooter nav .link_item {
+	display: flex;
+	position: relative;
+}
+
+footer#rinnaiGlobalFooter nav .link_item .cmn-icon.icon-arrow.-r {
+	top: 0.2em;
+	right: 0;
+}
+
+footer#rinnaiGlobalFooter .copyright {
+	display: block;
+	margin-top: 30px;
+	font-size: 14px;
+}
+
+#pagetop {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 9;
+	width: 4.375vw;
+	height: 4.375vw;
+	background-color: rgba(255, 255, 255, 0.7);
+	color: var(--Rinnai-Gray-1);
+	text-align: center;
+}
+
+#pagetop a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-decoration: none;
+	height: 100%;
+}
+
+#pagetop .icon-pagetop {
+	display: block;
+	width: 15px;
+	height: 21px;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 15l8-8 8 8' fill='none' stroke='%233e3a39' stroke-width='2'/%3E%3C/svg%3E") no-repeat;
+	background-size: 100% auto;
+}
+@media (min-width: 768px) and (max-width: 1023px){
+
+	footer#rinnaiGlobalFooter {
+		padding: 30px;
+	}
+	#pagetop {
+		bottom: 20px;
+		width: 50px;
+		height: 50px;
+		font-size: 10px;
+	}
+}
+@media (max-width: 767px){
+
+	footer#rinnaiGlobalFooter {
+		padding: 30px 20px 45px;
+	}
+	footer#rinnaiGlobalFooter nav dd .sns-icon {
+		width: 43px;
+		height: 43px;
+	}
+	footer#rinnaiGlobalFooter nav .corp-info li {
+		width: 50%;
+		padding: 0 10px 0 0;
+	}
+	footer#rinnaiGlobalFooter nav .link_item {
+		width: 100%;
+		padding: 5px 0;
+	}
+	#pagetop {
+		bottom: 20px;
+		width: 50px;
+		height: 50px;
+		font-size: 10px;
+	}
+	#pagetop a {
+		padding-top: 8px;
+	}
 }
 /* ▲▲▲ FOOTER CSS 結束 ▲▲▲ */
 </style>
 
 <!-- ▼▼▼ FOOTER HTML（官網原始 markup，class 不動）▼▼▼ -->
 <footer id="rinnaiGlobalFooter">
-	<nav>
-		<div class="official_list">
-			<dl>
-				<dt><span class="cmn-icon icon-arrow -r"></span>關注我們</dt>
-				<dd>
-					<ul>
-						<li><a href="https://www.facebook.com/Rinnai.TW" target="_blank"><span class="sns-icon -facebook" aria-label="facebook"></span></a></li>
-						<li><a href="https://www.instagram.com/rinnai_tw/" target="_blank"><span class="sns-icon -instagram" aria-label="instagram"></span></a></li>
-						<li><a href="https://maac.io/21By3" target="_blank"><span class="sns-icon -line" aria-label="line"></span></a></li>
-						<li><a href="https://www.youtube.com/channel/UCUNE_xneekSCLE382b1YhFg" target="_blank"><span class="sns-icon -youtube" aria-label="youtube"></span></a></li>
-					</ul>
-				</dd>
-			</dl>
-		</div>
-		<div class="corp-info">
-			<ul>
-				<li><a class="link_item" href="https://www.rinnai.com.tw/QA/1/0" target="_blank"><span class="cmn-icon icon-arrow -r"></span>常見問題</a></li>
-				<li><a class="link_item" href="https://www.rinnai.com.tw/OnlineService" target="_blank"><span class="cmn-icon icon-arrow -r"></span>客服中心</a></li>
-				<li><a class="link_item" href="https://www.rinnai.com.tw/Member/Dealer" target="_blank"><span class="cmn-icon icon-arrow -r"></span>經銷商專區</a></li>
-				<li><a class="link_item" href="https://www.rinnai.com.tw/Privacy.html" target="_blank"><span class="cmn-icon icon-arrow -r"></span>隱私權政策</a></li>
-				<li><a class="link_item" href="sitemap"><span class="cmn-icon icon-arrow -r"></span>網站地圖</a></li>
-			</ul>
-		</div>
-	</nav>
-	<p class="copyright">© Rinnai Corporation.</p>
-	<p id="pagetop"><a class="no-menu-close" href="javascript:void(0);"><span class="icon-pagetop"></span>UP</a></p>
-</footer>
+		<nav>
+			<div class="official_list">
+				<dl>
+					<dt><span class="cmn-icon icon-arrow -r"></span>關注我們</dt>
+					<dd>
+						<ul>
+							<li><a href="https://www.facebook.com/Rinnai.TW" target="_blank"><span class="sns-icon -facebook" aria-label="facebook"></span></a></li>
+							<li><a href="https://www.instagram.com/rinnai_tw/" target="_blank"><span class="sns-icon -instagram" aria-label="instagram"></span></a></li>
+							<li><a href="https://maac.io/21By3" target="_blank"><span class="sns-icon -line" aria-label="line"></span></a></li>
+							<li><a href="https://www.youtube.com/channel/UCUNE_xneekSCLE382b1YhFg" target="_blank"><span class="sns-icon -youtube" aria-label="youtube"></span></a></li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<div class="corp-info">
+				<ul>
+					<li><a class="link_item" href="https://www.rinnai.com.tw/QA/1/0" target="_blank"><span class="cmn-icon icon-arrow -r"></span>常見問題</a></li>
+					<li><a class="link_item" href="https://rinnaifamily.rinnai.com.tw/contact" target="_blank"><span class="cmn-icon icon-arrow -r"></span>聯絡我們</a></li>
+					<li><a class="link_item" href="https://www.rinnai.com.tw/Member/Dealer" target="_blank"><span class="cmn-icon icon-arrow -r"></span>經銷商專區</a></li>
+					<li><a class="link_item" href="https://www.rinnai.com.tw/Privacy.html" target="_blank"><span class="cmn-icon icon-arrow -r"></span>隱私權政策</a></li>
+					<li><a class="link_item" href="sitemap"><span class="cmn-icon icon-arrow -r"></span>網站地圖</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<p class="copyright">&copy; Rinnai Corporation.</p>
+		<p id="pagetop"><a class="no-menu-close" href="javascript:void(0);"><span class="icon-pagetop"></span>UP</a></p>
+	</footer>
 <!-- ▲▲▲ FOOTER HTML 結束 ▲▲▲ -->
 
 <!-- ▼▼▼ FOOTER JS（回頂端）▼▼▼ -->
 <script>
-(function(){
-	var pt = document.getElementById('pagetop');
-	if(!pt) return;
-	function toggle(){ pt.classList.toggle('is-show', window.scrollY > 300); }
-	window.addEventListener('scroll', toggle, {passive:true}); toggle();
-	var a = pt.querySelector('a');
-	if(a) a.addEventListener('click', function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
-})();
+(function(){var pt=document.querySelector('#pagetop a');if(pt)pt.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});})();
 </script>
 <!-- ▲▲▲ FOOTER JS 結束 ▲▲▲ -->
 
+
+
 <script>
+/* 官網 header 互動：切換 .is_active（PC 下拉 / 手機漢堡 / 手風琴 / 關閉鈕） */
 (function(){
-	var nav = document.getElementById('gnav');
-	if(!nav) return;
-	var items = nav.querySelectorAll('.gnav__item--has, .gnav__item--mega');
-	var burger = nav.querySelector('.gnav__burger');
-	var closeBtn = nav.querySelector('.gnav__close');
-
-	function syncPanelOpen(){ nav.classList.toggle('is-panel-open', !!nav.querySelector('.gnav__item.is-open')); }
-	function onScroll(){ nav.classList.toggle('is-scrolled', window.scrollY > 10); }
-	window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
-
-	function closeAll(except){
-		items.forEach(function(it){ if(it!==except){ it.classList.remove('is-open');
-			var b=it.querySelector('[aria-expanded]'); if(b) b.setAttribute('aria-expanded','false'); } });
-		syncPanelOpen();
-	}
-	items.forEach(function(it){
-		var btn = it.querySelector('.gnav__link');
-		if(!btn) return;
-		btn.addEventListener('click', function(e){
-			e.preventDefault();
-			var open = it.classList.toggle('is-open');
-			btn.setAttribute('aria-expanded', open ? 'true':'false');
-			closeAll(it);
-		});
-	});
-
-	if(closeBtn) closeBtn.addEventListener('click', function(){ closeAll(null); });
-	document.addEventListener('click', function(e){ if(!nav.contains(e.target)) closeAll(null); });
-	document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAll(null); nav.classList.remove('is-menu-open'); } });
-
-	if(burger){
-		burger.addEventListener('click', function(){
-			var open = nav.classList.toggle('is-menu-open');
-			burger.setAttribute('aria-expanded', open ? 'true':'false');
-			if(!open) closeAll(null);
-		});
-	}
+  var H=document.getElementById('rinnaiGlobalHeader'); if(!H) return;
+  function closeAll(scope, except){(scope||H).querySelectorAll('li.is_active').forEach(function(li){if(li!==except) li.classList.remove('is_active');});}
+  H.querySelectorAll('.rinnaiGlobalHeader_navi_global > nav > ul > li, .rinnaiGlobalHeader_navi_top .select > ul > li, .sp .select > ul > li').forEach(function(li){
+    if(!li.querySelector(':scope > .rinnaiglobalHeader_dropDownMenu, :scope > nav.rinnaiGlobalHeader_navi_language')) return;
+    var trig=li.querySelector(':scope > a, :scope > button'); if(!trig) return;
+    trig.addEventListener('click', function(e){e.preventDefault();var open=!li.classList.contains('is_active');closeAll(li.closest('ul'),li);li.classList.toggle('is_active',open);});
+  });
+  H.querySelectorAll('.menu_close').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();var li=b.closest('li');if(li)li.classList.remove('is_active');});});
+  H.querySelectorAll('.rinnaiglobalHeader_dropDown_accordion dt').forEach(function(dt){dt.addEventListener('click',function(e){e.stopPropagation();dt.classList.toggle('is_active');});});
+  document.addEventListener('click',function(e){if(!H.contains(e.target))closeAll(H,null);});
+  /* 下滑縮小：在 <html> 切換裝置 class 與 .thin（套用官方縮小樣式）*/
+  var root=document.documentElement;
+  function setDevice(){var w=window.innerWidth;root.classList.remove('js-device_pc','js-device_tablet','js-device_sp');root.classList.add(w>=1024?'js-device_pc':(w>=768?'js-device_tablet':'js-device_sp'));}
+  function onHdrScroll(){root.classList.toggle('thin', window.scrollY>80);}
+  setDevice(); onHdrScroll();
+  window.addEventListener('resize',setDevice,{passive:true});
+  window.addEventListener('scroll',onHdrScroll,{passive:true});
 })();
 </script>
-
 </body>
 </html>
