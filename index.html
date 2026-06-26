@@ -351,15 +351,15 @@ body { letter-spacing: 0.12rem; }
 	overflow: hidden;
 	display: flex; flex-direction: column;
 }
-/* 困擾卡圖片：高度依實際圖片比例（不固定比例、不裁切）*/
-.lp-card .lp-ph { border: 0; border-radius: 0; aspect-ratio: auto; display: flex; align-items: center; justify-content: center; min-height: 200px; max-height: 210px; }
+/* 困擾卡圖片：固定長寬比的框，隨卡片寬度等比縮放 */
+.lp-card .lp-ph { border: 0; border-radius: 0; aspect-ratio: 16 / 9; width: 100%; }
 .lp-card .lp-ph > .lp-ph__img {
-	position: relative;   /* 回到正常流 */
+	position: absolute;
+	inset: 0;
 	z-index: 1;
-	width: auto;          /* 寬度依原生比例 */
-	height: auto;
-	max-height: 210px;    /* 高度封頂 210px */
-	max-width: 100%;      /* 不超過卡片寬度 */
+	width: 100%;
+	height: 100%;
+	object-fit: cover;   /* 等比放大縮小、填滿框、不變形 */
 }
 .lp-card .lp-ph > span {
 	position: absolute;   /* 佔位文字墊底，有圖時被蓋住 */
