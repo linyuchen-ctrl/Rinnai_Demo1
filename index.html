@@ -193,7 +193,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 	font-size: var(--fs-body);
 	font-weight: 700;
 	line-height: 1;
-	transition: transform .15s ease, opacity .15s ease, background .15s ease;
+	transition: transform .25s ease, opacity .25s ease, background .25s ease;
 	white-space: nowrap;
 }
 .lp-btn:hover { transform: translateY(-2px); }
@@ -587,7 +587,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 }
 .lp-compare__head .lp-recommend__title { margin-bottom: 0; }
 .lp-table { width: 100%; border-collapse: collapse; margin-bottom: var(--space-4); background: transparent; border-radius: var(--radius-sm); overflow: hidden; }
-.lp-table th, .lp-table td { padding: 13px 18px; text-align: left; font-size: var(--fs-small); border-bottom: 1px solid var(--c-line); }
+.lp-table th, .lp-table td { padding: 13px 18px; text-align: left; font-size: var(--fs-small); border-bottom: 1px solid var(--c-line); white-space: nowrap; }
 .lp-table thead th { color: var(--c-navy); font-weight: 700; border-bottom: 0.5px solid #ccc; }
 .lp-table tbody td { color: var(--c-ink); }
 .lp-table tbody td:last-child { color: #000; }
@@ -708,6 +708,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 	padding: 9px 18px;
 	border: 1px solid var(--c-navy);
 	border-radius: 6px;
+	transition: background .25s ease, color .25s ease;
 }
 .lp-link:hover { background: var(--c-navy); color: #fff; }
 
@@ -735,7 +736,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 .lp-nano__intro .lp-btn:hover { background: var(--c-navy); color: #fff; }
 
 /* 產品卡（內藏式加壓馬達 / UFB）「了解更多」：hover 只放大文字、不反白、不上浮、bar 高度固定 */
-.lp-prodcard .lp-btn { height: 52px; transition: font-size .15s ease; }
+.lp-prodcard .lp-btn { height: 52px; transition: font-size .25s ease; }
 .lp-prodcard .lp-btn:hover {
 	background: var(--c-navy);
 	color: #fff;
@@ -845,7 +846,7 @@ header#rinnaiGlobalHeader {
 	height: 110px;
 	padding: 0 50px;
 	background: #fff;
-	transition: .3s;
+	transition: .4s;
 	line-height: 1.5;
 }
 
@@ -869,7 +870,7 @@ header#rinnaiGlobalHeader .logo {
 header#rinnaiGlobalHeader .logo img {
 	width: 146px;
 	height: auto;
-	transition: .5s;
+	transition: .6s;
 }
 
 header#rinnaiGlobalHeader .logo a:hover {
@@ -1254,7 +1255,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner .menu_close {
 	top: 33px;
 	right: 45px;
 	cursor: pointer;
-	transition: .3s;
+	transition: .4s;
 }
 
 header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner .menu_close:hover {
@@ -1275,7 +1276,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button {
 	width: 80px;
 	height: auto;
 	background: var(--Rinnai-Gray-2);
-	transition: .3s;
+	transition: .4s;
 }
 
 header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button:hover {
