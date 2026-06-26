@@ -307,7 +307,7 @@ body { letter-spacing: 0.12rem; }
 }
 .lp-trust__item {
 	display: flex;
-	gap: 14px;
+	gap: 20px;
 	align-items: flex-start;
 }
 .lp-trust__item .lp-ico {
@@ -339,11 +339,7 @@ body { letter-spacing: 0.12rem; }
 	/* 保留兩行高度讓短句也對齊；文字完整顯示，過長自然換行 */
 	min-height: calc(1.4em * 2);
 }
-@media (min-width: 600px) {
-	.lp-trust__list { grid-template-columns: repeat(3, 1fr); }
-	.lp-trust__item { gap: 18px; }
-}
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
 	.lp-trust__list { grid-template-columns: repeat(5, 1fr); }
 }
 
@@ -724,13 +720,13 @@ body { letter-spacing: 0.12rem; }
 
 
 /* ====== 台灣官網 nav 整合（GNAV）====== */
-/* 顏色變數（與 LP 共用時可刪，改吃 LP 的 :root）*/
 .gnav{ --gnav-h:100px; --gnav-text:#1F2120; --gnav-red:#E60012; --gnav-navy:#0B4282; }
 
-/* header 本體：透明浮於 hero，滑動後變白 */
 .gnav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--gnav-h);
 	background:transparent;transition:background .25s ease,box-shadow .25s ease,height .25s ease}
-.gnav.is-scrolled{background:#fff;box-shadow:0 2px 18px rgba(11,66,130,.10);--gnav-h:76px}
+.gnav.is-scrolled,
+.gnav.is-panel-open{background:#fff;box-shadow:0 2px 18px rgba(11,66,130,.10)}
+.gnav.is-scrolled{--gnav-h:76px}
 .gnav.is-scrolled .gnav__logo{width:104px}
 .gnav__inner{height:100%;display:flex;align-items:center;justify-content:space-between;
 	padding-left:50px;padding-right:70px}
@@ -739,53 +735,54 @@ body { letter-spacing: 0.12rem; }
 .gnav__logo{display:inline-block;width:146px;flex-shrink:0;line-height:0;transition:width .25s ease}
 .gnav__logo img{display:block;width:100%;height:auto}
 
-/* 桌機選單列 */
-.gnav__menu{display:flex;align-items:center}
-.gnav__list{display:flex;align-items:center;gap:30px;list-style:none;margin:0;padding:0}
-.gnav__item{position:relative}
-.gnav__link{display:inline-flex;align-items:center;gap:6px;
+/* 選單列 */
+.gnav__menu{display:flex;align-items:stretch;height:100%}
+.gnav__list{display:flex;align-items:stretch;gap:30px;list-style:none;margin:0;padding:0;height:100%}
+.gnav__item{position:relative;display:flex;align-items:center}
+.gnav__link{position:relative;display:inline-flex;align-items:center;gap:7px;height:100%;
 	font-size:17px;font-weight:500;color:var(--gnav-text);text-decoration:none;
-	background:none;border:0;cursor:pointer;font-family:inherit;letter-spacing:inherit;
-	padding:8px 0;white-space:nowrap}
-.gnav__link:hover{opacity:.55}
+	background:none;border:0;cursor:pointer;font-family:inherit;letter-spacing:inherit;white-space:nowrap}
+.gnav__link:hover{opacity:.6}
 .gnav__caret{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
 	transform:rotate(45deg) translateY(-2px);transition:transform .2s ease}
-.gnav__item.is-open > .gnav__link .gnav__caret{transform:rotate(-135deg) translateY(-1px)}
+/* 點開：紅字 + caret 轉上 + 底部紅線 */
+.gnav__item.is-open > .gnav__link{color:var(--gnav-red)}
+.gnav__item.is-open > .gnav__link .gnav__caret{transform:rotate(-135deg) translateY(1px)}
+.gnav__item.is-open > .gnav__link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gnav-red)}
 
-/* 下拉面板 */
-.gnav__panel{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(8px);
-	background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(11,66,130,.16);
-	padding:22px 26px;opacity:0;visibility:hidden;transition:opacity .2s ease,transform .2s ease;
-	min-width:220px}
-.gnav__item.is-open > .gnav__panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
-.gnav__panel a{display:flex;align-items:center;gap:8px;color:#1b2b3f;text-decoration:none;
-	font-size:15px;padding:7px 6px;border-radius:6px;white-space:nowrap}
-.gnav__panel a:hover{background:#f0f4fb;color:var(--gnav-navy)}
-.gnav__panel a::before{content:"";width:5px;height:5px;border-right:1.5px solid var(--gnav-red);
-	border-bottom:1.5px solid var(--gnav-red);transform:rotate(-45deg);flex-shrink:0}
-.gnav__phead{font-size:13px;font-weight:800;color:var(--gnav-navy);
-	padding-bottom:6px;margin-bottom:4px;border-bottom:2px solid var(--gnav-red)}
+/* ===== 下拉面板：全寬白底 ===== */
+.gnav__panel,.gnav__panel--mega{
+	position:fixed;left:0;right:0;top:var(--gnav-h);width:100%;
+	background:#fff;border-top:1px solid #eee;box-shadow:0 16px 28px rgba(0,0,0,.10);
+	padding:44px clamp(24px,6vw,96px) 56px;margin:0;min-width:0;
+	opacity:0;visibility:hidden;transform:translateY(-8px);
+	transition:opacity .22s ease,transform .22s ease,visibility .22s ease}
+.gnav__item.is-open > .gnav__panel,
+.gnav__item.is-open > .gnav__panel--mega{opacity:1;visibility:visible;transform:translateY(0)}
 
-/* 商品分類：多欄 mega 面板 */
-.gnav__panel--mega{left:50%;transform:translateX(-50%) translateY(8px);
-	width:min(1080px,calc(100vw - 48px));padding:26px 34px}
-.gnav__item--mega.is-open > .gnav__panel--mega{transform:translateX(-50%) translateY(0)}
-.gnav__mega{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 24px}
-.gnav__col ul{list-style:none;margin:0;padding:0}
+/* 類別標題：紅直條 + 粗黑字 */
+.gnav__phead{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:800;color:#1f1f1f;
+	border:0;padding:0;margin:0 0 18px}
+.gnav__phead::before{content:"";width:4px;height:21px;background:var(--gnav-red);flex:0 0 auto;border-radius:1px}
 
-/* 搜尋 */
-.gnav__search-toggle{display:inline-flex;align-items:center;justify-content:center;
-	width:38px;height:38px;border:0;background:none;cursor:pointer;color:var(--gnav-text)}
-.gnav__search-toggle:hover{color:var(--gnav-navy)}
-.gnav__search{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border-radius:12px;
-	box-shadow:0 12px 40px rgba(11,66,130,.16);padding:14px;opacity:0;visibility:hidden;
-	transform:translateY(8px);transition:opacity .2s ease,transform .2s ease}
-.gnav__item--search.is-open .gnav__search{opacity:1;visibility:visible;transform:translateY(0)}
-.gnav__search form{display:flex;gap:8px}
-.gnav__search input{width:240px;border:1px solid #cdd8e6;border-radius:8px;padding:10px 12px;font:inherit}
-.gnav__search button{border:0;background:var(--gnav-navy);color:#fff;border-radius:8px;
-	width:42px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.gnav__ico{width:20px;height:20px;display:block}
+/* 連結：灰 chevron + 文字，4 欄 grid */
+.gnav__mega{display:flex;flex-direction:column;gap:34px}
+.gnav__col ul,
+.gnav__panel:not(.gnav__panel--mega) ul{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 28px;list-style:none;margin:0;padding:0}
+.gnav__panel a{display:inline-flex;align-items:center;gap:10px;color:#3a3a3a;text-decoration:none;
+	font-size:16px;padding:5px 0;white-space:nowrap;transition:color .15s ease}
+.gnav__panel a:hover{color:var(--gnav-red)}
+.gnav__panel a::before{content:"";flex:0 0 auto;width:6px;height:6px;
+	border-top:1.6px solid #9aa0a6;border-right:1.6px solid #9aa0a6;transform:rotate(45deg)}
+
+/* × 關閉鈕（面板開啟時出現）*/
+.gnav__close{position:fixed;top:calc(var(--gnav-h) + 16px);right:clamp(20px,5vw,60px);z-index:101;
+	width:34px;height:34px;border:0;background:none;cursor:pointer;
+	opacity:0;visibility:hidden;transition:opacity .2s ease}
+.gnav.is-panel-open .gnav__close{opacity:1;visibility:visible}
+.gnav__close::before,.gnav__close::after{content:"";position:absolute;left:50%;top:50%;width:26px;height:2px;background:#1f1f1f}
+.gnav__close::before{transform:translate(-50%,-50%) rotate(45deg)}
+.gnav__close::after{transform:translate(-50%,-50%) rotate(-45deg)}
 
 /* 漢堡鈕（手機才出現）*/
 .gnav__burger{display:none;flex-direction:column;justify-content:center;gap:5px;
@@ -796,32 +793,32 @@ body { letter-spacing: 0.12rem; }
 .gnav.is-menu-open .gnav__burger span:nth-child(2){opacity:0}
 .gnav.is-menu-open .gnav__burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* ---- 手機版（<1024）：漢堡 + 下拉面板 ---- */
+/* ---- 手機版（<1024）：漢堡 + 內嵌展開 ---- */
 @media (max-width:1023px){
 	.gnav__burger{display:flex}
+	.gnav__close{display:none}
 	.gnav__menu{position:fixed;top:var(--gnav-h);left:0;right:0;bottom:0;
 		background:#fff;flex-direction:column;align-items:stretch;
 		padding:10px 22px 40px;overflow-y:auto;
-		transform:translateX(100%);transition:transform .3s ease;visibility:hidden}
+		transform:translateX(100%);transition:transform .3s ease;visibility:hidden;height:auto}
 	.gnav.is-menu-open{background:#fff}
 	.gnav.is-menu-open .gnav__menu{transform:translateX(0);visibility:visible}
-	.gnav__list{flex-direction:column;align-items:stretch;gap:0;width:100%}
-	.gnav__item{border-bottom:1px solid #eef2f8}
-	.gnav__link{width:100%;justify-content:space-between;padding:16px 4px;font-size:16px}
+	.gnav__list{flex-direction:column;align-items:stretch;gap:0;width:100%;height:auto}
+	.gnav__item{border-bottom:1px solid #eef2f8;display:block}
+	.gnav__link{width:100%;justify-content:space-between;padding:16px 4px;font-size:16px;height:auto}
+	.gnav__item.is-open > .gnav__link::after{display:none}
 	.gnav__caret{margin-left:auto}
-	/* 手機下拉改為內嵌展開 */
 	.gnav__panel,.gnav__panel--mega{position:static;transform:none;opacity:1;visibility:visible;
-		box-shadow:none;border-radius:0;padding:0 0 12px;min-width:0;
-		max-height:0;overflow:hidden;transition:max-height .3s ease}
-	.gnav__item.is-open > .gnav__panel{max-height:1200px}
-	.gnav__mega{grid-template-columns:1fr 1fr;gap:6px 18px}
-	.gnav__search{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;
-		padding:14px 0 4px}
-	.gnav__search input{width:100%}
-	.gnav__item--search .gnav__search-toggle{display:none}
+		box-shadow:none;border-top:0;padding:0;width:auto;
+		max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+	.gnav__item.is-open > .gnav__panel,
+	.gnav__item.is-open > .gnav__panel--mega{max-height:1600px;padding:0 0 16px}
+	.gnav__mega{gap:18px}
+	.gnav__col ul,.gnav__panel:not(.gnav__panel--mega) ul{grid-template-columns:1fr 1fr;gap:6px 18px}
+	.gnav__phead{font-size:16px;margin-bottom:10px}
 }
 
-/* logo 響應式（沿用你的設定）*/
+/* logo 響應式 */
 @media (max-width:1244px){ .gnav__logo{width:115px} .gnav__list{gap:22px} .gnav__link{font-size:16px} .gnav.is-scrolled .gnav__logo{width:92px} }
 @media (max-width:767px){ .gnav{--gnav-h:73px} .gnav__logo{width:96px} .gnav__inner{padding-left:20px;padding-right:20px} .gnav.is-scrolled{--gnav-h:64px} .gnav.is-scrolled .gnav__logo{width:80px} }
 /* ▲▲▲ GNAV CSS 結束 ▲▲▲ */
@@ -953,6 +950,8 @@ body { letter-spacing: 0.12rem; }
 				<li class="gnav__item"><a class="gnav__link" href="https://www.rinnai.com.tw/DistributionBase" target="_blank">經銷據點</a></li>
 			</ul>
 		</nav>
+
+		<button class="gnav__close" type="button" aria-label="關閉選單"></button>
 	</div>
 </header>
 
@@ -1466,20 +1465,21 @@ footer#rinnaiGlobalFooter{
 (function(){
 	var nav = document.getElementById('gnav');
 	if(!nav) return;
-	var items = nav.querySelectorAll('.gnav__item--has, .gnav__item--mega, .gnav__item--search');
+	var items = nav.querySelectorAll('.gnav__item--has, .gnav__item--mega');
 	var burger = nav.querySelector('.gnav__burger');
+	var closeBtn = nav.querySelector('.gnav__close');
 
-	// 滑動變白
+	function syncPanelOpen(){ nav.classList.toggle('is-panel-open', !!nav.querySelector('.gnav__item.is-open')); }
 	function onScroll(){ nav.classList.toggle('is-scrolled', window.scrollY > 10); }
 	window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
-	// 下拉 / 搜尋：點擊切換（手機與鍵盤；桌機另有 hover）
 	function closeAll(except){
 		items.forEach(function(it){ if(it!==except){ it.classList.remove('is-open');
 			var b=it.querySelector('[aria-expanded]'); if(b) b.setAttribute('aria-expanded','false'); } });
+		syncPanelOpen();
 	}
 	items.forEach(function(it){
-		var btn = it.querySelector('.gnav__link, .gnav__search-toggle');
+		var btn = it.querySelector('.gnav__link');
 		if(!btn) return;
 		btn.addEventListener('click', function(e){
 			e.preventDefault();
@@ -1489,11 +1489,10 @@ footer#rinnaiGlobalFooter{
 		});
 	});
 
-	// 點擊外部關閉
+	if(closeBtn) closeBtn.addEventListener('click', function(){ closeAll(null); });
 	document.addEventListener('click', function(e){ if(!nav.contains(e.target)) closeAll(null); });
 	document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeAll(null); nav.classList.remove('is-menu-open'); } });
 
-	// 手機漢堡
 	if(burger){
 		burger.addEventListener('click', function(){
 			var open = nav.classList.toggle('is-menu-open');
