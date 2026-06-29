@@ -1187,6 +1187,8 @@ header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language {
 	scrollbar-gutter: stable;
 }
 
+/* 語言下拉的開合改由 JS 以高度動畫處理（等同官網 slideToggle），CSS 維持官網原樣（display:none）*/
+
 header#rinnaiGlobalHeader .rinnaiGlobalHeader_navi_language_inner {
 	position: relative;
 	padding: 30px 30px 80px;
@@ -1271,7 +1273,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner .menu_close {
 	top: 33px;
 	right: 45px;
 	cursor: pointer;
-	transition: .4s;
+	transition: opacity .4s;   /* 只過場 opacity，避免關閉時 visibility 被延遲 */
 }
 
 header#rinnaiGlobalHeader .rinnaiglobalHeader_dropDownMenu_inner .menu_close:hover {
@@ -1292,7 +1294,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button {
 	width: 80px;
 	height: auto;
 	background: var(--Rinnai-Gray-2);
-	transition: .4s;
+	transition: opacity .4s;   /* 只過場 opacity，避免關閉時 visibility 被延遲 */
 }
 
 header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button:hover {
@@ -1307,9 +1309,9 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 	margin: auto;
 	width: 20px;
 	height: 20px;
-	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='%233e3a39' stroke-width='1.8'/%3E%3Cpath d='M15 15l5 5' stroke='%233e3a39' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='white' stroke-width='1.8'/%3E%3Cpath d='M15 15l5 5' stroke='white' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat;
 	background-size: 100% auto;
-	filter: invert(100%) sepia(0%) saturate(7499%) hue-rotate(225deg) brightness(96%) contrast(101%);
+	filter: none;   /* 純白描邊，並擋掉 .is_active .icon-search 的紅色 filter */
 	z-index: 10;
 }
 
@@ -2125,9 +2127,9 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 									</a>
 									<div class="rinnaiglobalHeader_dropDownMenu -search">
 										<div class="rinnaiglobalHeader_dropDownMenu_inner">
-											<form class="rinnaiglobalHeader_search_input_wrap" action="">
-												<input class="rinnaiglobalHeader_search_input" type="text" placeholder="請輸入產品關鍵字">
-												<button class="rinnaiglobalHeader_search_button">
+											<form class="rinnaiglobalHeader_search_input_wrap" action="https://www.rinnai.com.tw/Search" method="get" target="_blank">
+												<input class="rinnaiglobalHeader_search_input" type="text" name="keyword" placeholder="請輸入產品關鍵字">
+												<button class="rinnaiglobalHeader_search_button" type="submit">
 													<span class="header-icon icon-search" aria-label="Search"></span>
 												</button>
 											</form>
@@ -2232,9 +2234,9 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 								<a class="search_link_sp" href="javascript:void(0);"><span class="header-icon icon-search" aria-label="Search"></span></a>
 								<div class="rinnaiglobalHeader_dropDownMenu -search">
 									<div class="rinnaiglobalHeader_dropDownMenu_inner">
-										<form class="rinnaiglobalHeader_search_input_wrap" action="">
-											<input class="rinnaiglobalHeader_search_input" type="text" placeholder="請輸入產品關鍵字">
-											<button class="rinnaiglobalHeader_search_button">
+										<form class="rinnaiglobalHeader_search_input_wrap" action="https://www.rinnai.com.tw/Search" method="get" target="_blank">
+											<input class="rinnaiglobalHeader_search_input" type="text" name="keyword" placeholder="請輸入產品關鍵字">
+											<button class="rinnaiglobalHeader_search_button" type="submit">
 												<svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
 													<path d="M15.0839 8.24005C15.0839 4.14428 11.885 0.824005 7.93889 0.824005C3.99282 0.824005 0.793889 4.14428 0.793889 8.24005C0.793889 12.3358 3.99282 15.6561 7.93889 15.6561V16.4801C3.55436 16.4801 0 12.7909 0 8.24005C0 3.6892 3.55436 0 7.93889 0C12.3234 0 15.8778 3.6892 15.8778 8.24005C15.8778 12.7909 12.3234 16.4801 7.93889 16.4801V15.6561C11.885 15.6561 15.0839 12.3358 15.0839 8.24005Z" fill="white"/>
 													<path d="M20 20.4173L19.4386 21L12.7023 14.0081L13.2636 13.4254L20 20.4173Z" fill="white"/>
@@ -2600,7 +2602,6 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				<ul class="lp-checklist">
 					<li>分層內膽設計｜熱水不被冷水沖散</li>
 					<li>高功率輔助加熱｜即用即熱補水</li>
-					<li>高溫運轉 × 智慧混水｜舒適恆溫更持久</li>
 					<li>智慧節能省電模式</li>
 				</ul>
 				<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/419" target="_blank">了解更多 →</a>
@@ -2989,7 +2990,7 @@ footer#rinnaiGlobalFooter .copyright {
 			<div class="corp-info">
 				<ul>
 					<li><a class="link_item" href="https://www.rinnai.com.tw/QA/1/0" target="_blank"><span class="cmn-icon icon-arrow -r"></span>常見問題</a></li>
-					<li><a class="link_item" href="https://rinnaifamily.rinnai.com.tw/contact" target="_blank"><span class="cmn-icon icon-arrow -r"></span>聯絡我們</a></li>
+					<li><a class="link_item" href="https://www.rinnai.com.tw/OnlineService" target="_blank"><span class="cmn-icon icon-arrow -r"></span>客服中心</a></li>
 					<li><a class="link_item" href="https://www.rinnai.com.tw/Member/Dealer" target="_blank"><span class="cmn-icon icon-arrow -r"></span>經銷商專區</a></li>
 					<li><a class="link_item" href="https://www.rinnai.com.tw/Privacy.html" target="_blank"><span class="cmn-icon icon-arrow -r"></span>隱私權政策</a></li>
 					<li><a class="link_item" href="https://www.rinnai.tw/sitemap" target="_blank"><span class="cmn-icon icon-arrow -r"></span>網站地圖</a></li>
@@ -3014,13 +3015,38 @@ footer#rinnaiGlobalFooter .copyright {
 /* 官網 header 互動：切換 .is_active（PC 下拉 / 手機漢堡 / 手風琴 / 關閉鈕） */
 (function(){
   var H=document.getElementById('rinnaiGlobalHeader'); if(!H) return;
-  function closeAll(scope, except){(scope||H).querySelectorAll('li.is_active').forEach(function(li){if(li!==except) li.classList.remove('is_active');});}
+  var DUR=350;
+  /* 語言下拉用高度動畫開合（等同官網 slideToggle）；CSS 維持 display:none，由此函式控制 */
+  function langNav(li){return li ? li.querySelector(':scope > nav.rinnaiGlobalHeader_navi_language') : null;}
+  function slide(el, show){
+    if(!el) return;
+    if(el._t){clearTimeout(el._t); el._t=null;}
+    el.style.overflow='hidden';
+    if(show){
+      el.style.display='block';
+      el.style.height='auto';
+      var target=el.offsetHeight;            /* 量到的高度已受 max-height 限制 */
+      el.style.height='0px';
+      el.getBoundingClientRect();             /* 強制 reflow，動畫才會跑 */
+      el.style.transition='height '+DUR+'ms ease';
+      el.style.height=target+'px';
+      el._t=setTimeout(function(){el.style.transition='';el.style.height='';el.style.overflow='';el._t=null;},DUR);
+    }else{
+      if(getComputedStyle(el).display==='none') return;
+      el.style.height=el.offsetHeight+'px';
+      el.getBoundingClientRect();
+      el.style.transition='height '+DUR+'ms ease';
+      el.style.height='0px';
+      el._t=setTimeout(function(){el.style.display='none';el.style.transition='';el.style.height='';el.style.overflow='';el._t=null;},DUR);
+    }
+  }
+  function closeAll(scope, except){(scope||H).querySelectorAll('li.is_active').forEach(function(li){if(li!==except){li.classList.remove('is_active');slide(langNav(li),false);}});}
   H.querySelectorAll('.rinnaiGlobalHeader_navi_global > nav > ul > li, .rinnaiGlobalHeader_navi_top .select > ul > li, .sp .select > ul > li').forEach(function(li){
     if(!li.querySelector(':scope > .rinnaiglobalHeader_dropDownMenu, :scope > nav.rinnaiGlobalHeader_navi_language')) return;
     var trig=li.querySelector(':scope > a, :scope > button'); if(!trig) return;
-    trig.addEventListener('click', function(e){e.preventDefault();var open=!li.classList.contains('is_active');closeAll(li.closest('ul'),li);li.classList.toggle('is_active',open);});
+    trig.addEventListener('click', function(e){e.preventDefault();var open=!li.classList.contains('is_active');closeAll(li.closest('ul'),li);li.classList.toggle('is_active',open);slide(langNav(li),open);});
   });
-  H.querySelectorAll('.menu_close').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();var li=b.closest('li');if(li)li.classList.remove('is_active');});});
+  H.querySelectorAll('.menu_close').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();var li=b.closest('li');if(li){li.classList.remove('is_active');slide(langNav(li),false);}});});
   H.querySelectorAll('.rinnaiglobalHeader_dropDown_accordion dt').forEach(function(dt){dt.addEventListener('click',function(e){e.stopPropagation();dt.classList.toggle('is_active');});});
   document.addEventListener('click',function(e){if(!H.contains(e.target))closeAll(H,null);});
   /* 下滑縮小：在 <html> 切換裝置 class 與 .thin（套用官方縮小樣式）*/
