@@ -3,9 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rinnai LP</title>
-<!-- 等客戶提供本頁正式網址後，補上自我參照 canonical：
-<link rel="canonical" href="https://www.rinnai.tw/此頁實際網址/"> -->
+
+<!-- ===== SEO / GEO Metadata ===== -->
+<title>林內 Rinnai 奈米氣泡熱水器｜Ultra Fine Bubble 潔淨沐浴・強勁水壓</title>
+<meta name="description" content="日本百年林內 Rinnai 奈米氣泡熱水器，將直徑小於 1 微米的微細氣泡融入熱水，提升潔淨與保濕；搭配內藏式加壓馬達，水壓強勁、多點用水穩定，適合頂樓、老屋與多人家庭。">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#0B4282">
+
+<!-- 上線後請把下列網域/路徑換成本頁正式網址（含 canonical、og:url、og:image、JSON-LD 內的 url）-->
+<!-- <link rel="canonical" href="https://www.rinnai.com.tw/此頁實際網址/"> -->
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="台灣林內 Rinnai">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="林內 Rinnai 奈米氣泡熱水器｜Ultra Fine Bubble 潔淨沐浴・強勁水壓">
+<meta property="og:description" content="日本百年林內 Rinnai 奈米氣泡熱水器，奈米氣泡 × 強勁水壓，讓每一次用水更舒適潔淨。">
+<meta property="og:url" content="https://www.rinnai.com.tw/">
+<meta property="og:image" content="https://www.rinnai.com.tw/img/product-ufb.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="林內 Rinnai 奈米氣泡熱水器｜Ultra Fine Bubble">
+<meta name="twitter:description" content="奈米氣泡 × 強勁水壓，讓每一次用水更舒適潔淨。">
+<meta name="twitter:image" content="https://www.rinnai.com.tw/img/product-ufb.png">
+
 <link rel="stylesheet" href="https://use.typekit.net/yny6oav.css">
 <style>
 /* ========== reset.css ========== */
@@ -286,7 +308,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 	min-height: clamp(560px, 56vw, 820px);
 	padding: 110px 0 28px;
 	overflow: hidden;
-	background: url('./img/hero_bg.png') center/cover no-repeat;
+	background: url('./img/hero_bg.webp') center/cover no-repeat;
 }
 .lp-hero__inner { position: relative; width: 100%; }
 .lp-hero__copy { max-width: 560px; }
@@ -311,7 +333,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 	.lp-hero {
 		min-height: clamp(560px, 125vw, 780px);
 		padding: 96px 0;
-		background-image: url('./img/hero_bg_mobile.png');
+		background-image: url('./img/hero_bg_mobile.webp');
 	}
 	.lp-hero__copy { max-width: 100%; }
 }
@@ -375,7 +397,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 }
 /* 困擾卡圖片：固定長寬比的框，隨卡片寬度等比縮放 */
 .lp-card .lp-ph { border: 0; border-radius: 0; aspect-ratio: 16 / 9; width: 100%; }
-.lp-card .lp-ph > .lp-ph__img {
+.lp-card .lp-ph .lp-ph__img {
 	position: absolute;
 	inset: 0;
 	z-index: 1;
@@ -423,7 +445,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 }
 /* 產品卡圖片：高度依實際圖片（不固定比例、不裁切），避免與按鈕分開 */
 .lp-prodcard .lp-ph { border-radius: 0; border: 0; aspect-ratio: auto; display: block; }
-.lp-prodcard .lp-ph > .lp-ph__img {
+.lp-prodcard .lp-ph .lp-ph__img {
 	position: relative;
 	z-index: 1;
 	width: 100%;
@@ -745,6 +767,8 @@ body { margin: 0; letter-spacing: 0.12rem; }
 
 @media (min-width: 1024px) {
 	.lp-bottom3__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+	/* 三欄共同最低高度：平常看起來一樣高、「閱讀更多」對齊；FAQ 展開時只長自己、不動其他欄。數字可依內容微調 */
+	.lp-bottom3__grid .lp-col { min-height: 420px; }
 }
 
 /* 13 Bottom CTA：整段為深藍底卡片、標題齊左 */
@@ -1919,6 +1943,92 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 }
 
 </style>
+
+<!-- ===== Structured Data（JSON-LD）。上線後請將 https://www.rinnai.com.tw/ 換成本頁正式網址 ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.rinnai.com.tw/#organization",
+      "name": "台灣林內 Rinnai",
+      "url": "https://www.rinnai.com.tw/",
+      "logo": "https://www.rinnai.com.tw/img/logo.svg",
+      "sameAs": [
+        "https://www.facebook.com/Rinnai.TW",
+        "https://www.instagram.com/rinnai_tw/",
+        "https://www.youtube.com/channel/UCUNE_xneekSCLE382b1YhFg"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.rinnai.com.tw/#website",
+      "url": "https://www.rinnai.com.tw/",
+      "name": "台灣林內 Rinnai",
+      "inLanguage": "zh-Hant",
+      "publisher": { "@id": "https://www.rinnai.com.tw/#organization" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.rinnai.com.tw/#webpage",
+      "url": "https://www.rinnai.com.tw/",
+      "name": "林內 Rinnai 奈米氣泡熱水器｜Ultra Fine Bubble 潔淨沐浴・強勁水壓",
+      "description": "日本百年林內 Rinnai 奈米氣泡熱水器，將直徑小於 1 微米的微細氣泡融入熱水，提升潔淨與保濕；搭配內藏式加壓馬達，水壓強勁、多點用水穩定。",
+      "inLanguage": "zh-Hant",
+      "isPartOf": { "@id": "https://www.rinnai.com.tw/#website" },
+      "about": { "@id": "https://www.rinnai.com.tw/#organization" },
+      "primaryImageOfPage": "https://www.rinnai.com.tw/img/product-ufb.png"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.rinnai.com.tw/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "奈米氣泡熱水器是什麼？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "奈米氣泡熱水器會將奈米級微細氣泡融入熱水中，讓水流更細緻。除了提供穩定熱水，也能提升清潔體驗，適合重視沐浴品質與居家生活品質的家庭。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "頂級住宅適合什麼熱水器？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "頂級住宅建議選擇熱水穩定、節能且安全性高的熱水器。如果家中有雙衛浴、浴缸或多人同時用水，可選擇大容量或奈米氣泡熱水器，提升整體使用體驗。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "多人家庭如何挑選熱水器？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "建議依家庭人數、是否有雙衛浴及同時用水需求挑選容量。4 人以上家庭通常建議 20L 以上機型，可減少水溫忽冷忽熱的情況，提供更穩定的熱水。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "熱水器容量怎麼選？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "熱水器容量以每分鐘出水量（L/min）計算。2～3 人家庭建議 16L，4～5 人家庭建議 20L，若有雙衛浴或浴缸，建議選擇 24L 以上，使用更舒適。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "林內熱水器保固多久？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "林內熱水器保固期限依產品型號而有所不同，購買前可確認產品保固內容，並完成產品登錄，以享有原廠保固及完善的售後服務。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -2143,7 +2253,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 									<div class="rinnaiglobalHeader_dropDownMenu -search">
 										<div class="rinnaiglobalHeader_dropDownMenu_inner">
 											<form class="rinnaiglobalHeader_search_input_wrap" action="https://www.rinnai.com.tw/Search" method="get" target="_blank">
-												<input class="rinnaiglobalHeader_search_input" type="text" name="keyword" placeholder="請輸入產品關鍵字">
+												<input class="rinnaiglobalHeader_search_input" type="text" name="keyword" aria-label="搜尋產品關鍵字" placeholder="請輸入產品關鍵字">
 												<button class="rinnaiglobalHeader_search_button" type="submit">
 													<span class="header-icon icon-search" aria-label="Search"></span>
 												</button>
@@ -2250,7 +2360,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 								<div class="rinnaiglobalHeader_dropDownMenu -search">
 									<div class="rinnaiglobalHeader_dropDownMenu_inner">
 										<form class="rinnaiglobalHeader_search_input_wrap" action="https://www.rinnai.com.tw/Search" method="get" target="_blank">
-											<input class="rinnaiglobalHeader_search_input" type="text" name="keyword" placeholder="請輸入產品關鍵字">
+											<input class="rinnaiglobalHeader_search_input" type="text" name="keyword" aria-label="搜尋產品關鍵字" placeholder="請輸入產品關鍵字">
 											<button class="rinnaiglobalHeader_search_button" type="submit">
 												<svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
 													<path d="M15.0839 8.24005C15.0839 4.14428 11.885 0.824005 7.93889 0.824005C3.99282 0.824005 0.793889 4.14428 0.793889 8.24005C0.793889 12.3358 3.99282 15.6561 7.93889 15.6561V16.4801C3.55436 16.4801 0 12.7909 0 8.24005C0 3.6892 3.55436 0 7.93889 0C12.3234 0 15.8778 3.6892 15.8778 8.24005C15.8778 12.7909 12.3234 16.4801 7.93889 16.4801V15.6561C11.885 15.6561 15.0839 12.3358 15.0839 8.24005Z" fill="white"/>
@@ -2421,21 +2531,21 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 	<div class="container">
 		<ul class="lp-trust__list">
 			<li class="lp-trust__item">
-				<span class="lp-ico" aria-hidden="true"><img src="./img/trust-history.svg" alt="" width="36" height="36"></span>  <!-- 成立超過100年 -->
+				<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/trust-history.svg" alt="" width="36" height="36"></span>  <!-- 成立超過100年 -->
 				<div class="lp-trust__text">
 					<strong>100+ 年</strong>
 					<span>日本林內成立<br>超過 100 年</span>
 				</div>
 			</li>
 			<li class="lp-trust__item">
-				<span class="lp-ico" aria-hidden="true"><img src="./img/trust-tech.svg" alt="" width="36" height="36"></span>  <!-- 日本研發 奈米氣泡 -->
+				<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/trust-tech.svg" alt="" width="36" height="36"></span>  <!-- 日本研發 奈米氣泡 -->
 				<div class="lp-trust__text">
 					<strong>日本研發</strong>
 					<span>Air Bubble Technology<br>奈米氣泡科技</span>
 				</div>
 			</li>
 			<li class="lp-trust__item">
-				<span class="lp-ico" aria-hidden="true"><img src="./img/trust-certified.svg" alt="" width="36" height="36"></span>  <!-- 第三方實證 檢驗機構 -->
+				<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/trust-certified.svg" alt="" width="36" height="36"></span>  <!-- 第三方實證 檢驗機構 -->
 				<div class="lp-trust__text">
 					<strong>第三方實證</strong>
 					<span>獲得FBIA認證
@@ -2443,14 +2553,14 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				</div>
 			</li>
 			<li class="lp-trust__item">
-				<span class="lp-ico" aria-hidden="true"><img src="./img/trust-service.svg" alt="" width="36" height="36"></span>  <!-- 全台服務據點 -->
+				<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/trust-service.svg" alt="" width="36" height="36"></span>  <!-- 全台服務據點 -->
 				<div class="lp-trust__text">
 					<strong>50+ 據點</strong>
 					<span>全台服務據點<br>專業售後服務</span>
 				</div>
 			</li>
 			<li class="lp-trust__item">
-				<span class="lp-ico" aria-hidden="true"><img src="./img/trust-leader.svg" alt="" width="36" height="36"></span>  <!-- 領導品牌 -->
+				<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/trust-leader.svg" alt="" width="36" height="36"></span>  <!-- 領導品牌 -->
 				<div class="lp-trust__text">
 					<strong>領導品牌</strong>
 					<span>日本熱水器領導品牌 值得信賴</span>
@@ -2466,25 +2576,25 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 		<h2 class="lp-h2">你是否也有這些用水困擾？</h2>
 		<div class="grid grid--3 lp-cards">
 			<article class="lp-card">
-				<div class="lp-ph lp-ph--card" data-img="水壓不足"><img class="lp-ph__img" src="./img/card-water-pressure.png" alt="水壓不足"><span>圖片</span></div>
+				<div class="lp-ph lp-ph--card" data-img="水壓不足"><img loading="lazy" class="lp-ph__img" src="./img/card-water-pressure.webp" alt="水壓不足"><span>圖片</span></div>
 				<div class="lp-card__body">
-					<span class="lp-ico" aria-hidden="true"><img src="./img/problem-pressure.svg" alt="" width="36" height="36"></span>  <!-- 水壓不足 -->
+					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-pressure.svg" alt="" width="36" height="36"></span>  <!-- 水壓不足 -->
 					<h3 class="lp-card__title">水壓不足</h3>
 					<p class="lp-card__text">高樓層、頂樓、水壓小<br>洗澡不夠暢快</p>
 				</div>
 			</article>
 			<article class="lp-card">
-				<div class="lp-ph lp-ph--card" data-img="水垢髒污"><img class="lp-ph__img" src="./img/card-water-scale.png" alt="水垢髒污"><span>圖片</span></div>
+				<div class="lp-ph lp-ph--card" data-img="水垢髒污"><img loading="lazy" class="lp-ph__img" src="./img/card-water-scale.webp" alt="水垢髒污"><span>圖片</span></div>
 				<div class="lp-card__body">
-					<span class="lp-ico" aria-hidden="true"><img src="./img/problem-scale.svg" alt="" width="36" height="36"></span>  <!-- 水垢髒污 -->
+					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-scale.svg" alt="" width="36" height="36"></span>  <!-- 水垢髒污 -->
 					<h3 class="lp-card__title">水垢髒污</h3>
 					<p class="lp-card__text">浴室、廚房水槽堆積<br>清潔費時又費力</p>
 				</div>
 			</article>
 			<article class="lp-card">
-				<div class="lp-ph lp-ph--card" data-img="多點用水"><img class="lp-ph__img" src="./img/card-multipoint.png" alt="多點用水"><span>圖片</span></div>
+				<div class="lp-ph lp-ph--card" data-img="多點用水"><img loading="lazy" class="lp-ph__img" src="./img/card-multipoint.webp" alt="多點用水"><span>圖片</span></div>
 				<div class="lp-card__body">
-					<span class="lp-ico" aria-hidden="true"><img src="./img/problem-multipoint.svg" alt="" width="36" height="36"></span>  <!-- 多點用水 -->
+					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-multipoint.svg" alt="" width="36" height="36"></span>  <!-- 多點用水 -->
 					<h3 class="lp-card__title">多點用水</h3>
 					<p class="lp-card__text">多點浴室、同時使用<br>忽冷忽熱不穩定</p>
 				</div>
@@ -2500,14 +2610,14 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 		<p class="lp-lead lp-lead--light">林內以創新科技，提供舒適、節能又安心的熱水體驗</p>
 		<div class="grid grid--2 lp-prodcards">
 			<article class="lp-prodcard">
-				<div class="lp-ph lp-ph--wide" data-img="內藏式加壓馬達熱水器"><img class="lp-ph__img" src="./img/product-booster-pump.png" alt="林內 內藏式加壓馬達熱水器 RUA-UD1650WF"><span>產品圖</span></div>
+				<div class="lp-ph lp-ph--wide" data-img="內藏式加壓馬達熱水器"><img loading="lazy" class="lp-ph__img" src="./img/product-booster-pump.webp" alt="林內 內藏式加壓馬達熱水器 RUA-UD1650WF"><span>產品圖</span></div>
 				<p class="sr-only">林內 Rinnai 內藏式加壓馬達熱水器 RUA-UD1650WF，把熱水變奔放，讓沐浴暢快舒爽。</p>
 				<div class="lp-prodcard__body">
 					<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/412" target="_blank">了解更多 →</a>
 				</div>
 			</article>
 			<article class="lp-prodcard">
-				<div class="lp-ph lp-ph--wide" data-img="Ultra Fine Bubble 奈米氣泡熱水器"><img class="lp-ph__img" src="./img/product-ufb.png" alt="林內 Ultra Fine Bubble 奈米氣泡熱水器"><span>產品圖</span></div>
+				<div class="lp-ph lp-ph--wide" data-img="Ultra Fine Bubble 奈米氣泡熱水器"><img loading="lazy" class="lp-ph__img" src="./img/product-ufb.webp" alt="林內 Ultra Fine Bubble 奈米氣泡熱水器"><span>產品圖</span></div>
 				<p class="sr-only">林內 Rinnai Ultra Fine Bubble 奈米氣泡熱水器，24L 日本製，16 公升加壓馬達機種，16 公升水量污垢偵測。</p>
 				<div class="lp-prodcard__body">
 					<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/238" target="_blank">了解更多 →</a>
@@ -2527,42 +2637,42 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 		</div>
 		<div class="lp-nano__visual">
 			<div class="lp-ph lp-ph--sq lp-nano__bubble" data-img="奈米氣泡視覺">
-				<img class="lp-ph__img" src="./img/nano-bubble.png" alt="奈米氣泡">
+				<img loading="lazy" class="lp-ph__img" src="./img/nano-bubble.webp" alt="奈米氣泡">
 				<p class="sr-only">直徑小於 1 微米的奈米氣泡</p>
 			</div>
 		</div>
 		<div class="lp-nano__stats">
 			<div class="lp-stat">
 				<div class="lp-stat__text"><span class="lp-stat__label">抑菌<br><i>引起汙漬的細菌菌落減少</i></span><span class="lp-stat__num">39%</span></div>
-				<span class="lp-stat__ico" aria-hidden="true"><img src="./img/stat-antibacterial.svg" alt=""></span>
+				<span class="lp-stat__ico" aria-hidden="true"><img loading="lazy" src="./img/stat-antibacterial.svg" alt=""></span>
 			</div>
 			<div class="lp-stat">
 				<div class="lp-stat__text"><span class="lp-stat__label">抑制紅色水垢<br><i>紅色水漬的原因菌減少</i></span><span class="lp-stat__num">70%</span></div>
-				<span class="lp-stat__ico" aria-hidden="true"><img src="./img/stat-red-scale.svg" alt=""></span>
+				<span class="lp-stat__ico" aria-hidden="true"><img loading="lazy" src="./img/stat-red-scale.svg" alt=""></span>
 			</div>
 			<div class="lp-stat">
 				<div class="lp-stat__text"><span class="lp-stat__label">保濕<br><i>沐浴後角質層含水量增加</i></span><span class="lp-stat__num">114%</span></div>
-				<span class="lp-stat__ico" aria-hidden="true"><img src="./img/stat-moisture.svg" alt=""></span>
+				<span class="lp-stat__ico" aria-hidden="true"><img loading="lazy" src="./img/stat-moisture.svg" alt=""></span>
 			</div>
 			<div class="lp-stat">
 				<div class="lp-stat__text"><span class="lp-stat__label">抑制水垢面積<br><i>水垢面積減少</i></span><span class="lp-stat__num">28%</span></div>
-				<span class="lp-stat__ico" aria-hidden="true"><img src="./img/stat-scale-area.svg" alt=""></span>
+				<span class="lp-stat__ico" aria-hidden="true"><img loading="lazy" src="./img/stat-scale-area.svg" alt=""></span>
 			</div>
 			<div class="lp-stat">
 				<div class="lp-stat__text"><span class="lp-stat__label">降低化妝品殘留<br><i>化妝品殘留減少</i></span><span class="lp-stat__num">30%</span></div>
-				<span class="lp-stat__ico" aria-hidden="true"><img src="./img/stat-makeup.svg" alt=""></span>
+				<span class="lp-stat__ico" aria-hidden="true"><img loading="lazy" src="./img/stat-makeup.svg" alt=""></span>
 			</div>
 			<div class="lp-stat">
 				<div class="lp-stat__text"><span class="lp-stat__label">保持排水管潔淨<br><i>管線殘留減少</i></span><span class="lp-stat__num">33%</span></div>
-				<span class="lp-stat__ico" aria-hidden="true"><img src="./img/stat-pipe-clear.svg" alt=""></span>
+				<span class="lp-stat__ico" aria-hidden="true"><img loading="lazy" src="./img/stat-pipe-clear.svg" alt=""></span>
 			</div>
 			<div class="lp-stat">
 				<div class="lp-stat__text"><span class="lp-stat__label">強化秀髮光澤<br><i>光澤度增加</i></span><span class="lp-stat__num">33%</span></div>
-				<span class="lp-stat__ico" aria-hidden="true"><img src="./img/stat-hair-shine.svg" alt=""></span>
+				<span class="lp-stat__ico" aria-hidden="true"><img loading="lazy" src="./img/stat-hair-shine.svg" alt=""></span>
 			</div>
 			<div class="lp-stat">
 				<div class="lp-stat__text"><span class="lp-stat__label">強化秀髮彈性<br><i>拉伸強度增加</i></span><span class="lp-stat__num">38%</span></div>
-				<span class="lp-stat__ico" aria-hidden="true"><img src="./img/stat-hair-elastic.svg" alt=""></span>
+				<span class="lp-stat__ico" aria-hidden="true"><img loading="lazy" src="./img/stat-hair-elastic.svg" alt=""></span>
 			</div>
 		</div>
 	</div>
@@ -2577,25 +2687,25 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 		<h2 class="lp-h2">您是否也有這些困擾？</h2>
 		<div class="grid grid--3 lp-cards">
 			<article class="lp-card">
-				<div class="lp-ph lp-ph--card" data-img="大樓無天然瓦斯"><img class="lp-ph__img" src="./img/card-no-gas.png" alt="大樓無天然瓦斯"><span>圖片</span></div>
+				<div class="lp-ph lp-ph--card" data-img="大樓無天然瓦斯"><img loading="lazy" class="lp-ph__img" src="./img/card-no-gas.webp" alt="大樓無天然瓦斯"><span>圖片</span></div>
 				<div class="lp-card__body">
-					<span class="lp-ico" aria-hidden="true"><img src="./img/problem-no-gas.svg" alt="" width="36" height="36"></span>  <!-- 大樓無天然瓦斯 -->
+					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-no-gas.svg" alt="" width="36" height="36"></span>  <!-- 大樓無天然瓦斯 -->
 					<h3 class="lp-card__title">大樓無天然瓦斯</h3>
 					<p class="lp-card__text">大樓建案不供瓦斯<br>傳統瓦斯搬運不便</p>
 				</div>
 			</article>
 			<article class="lp-card">
-				<div class="lp-ph lp-ph--card" data-img="用水加熱好慢"><img class="lp-ph__img" src="./img/card-slow-heating.png" alt="用水加熱好慢"><span>圖片</span></div>
+				<div class="lp-ph lp-ph--card" data-img="用水加熱好慢"><img loading="lazy" class="lp-ph__img" src="./img/card-slow-heating.webp" alt="用水加熱好慢"><span>圖片</span></div>
 				<div class="lp-card__body">
-					<span class="lp-ico" aria-hidden="true"><img src="./img/problem-slow.svg" alt="" width="36" height="36"></span>  <!-- 用水加熱好慢 -->
+					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-slow.svg" alt="" width="36" height="36"></span>  <!-- 用水加熱好慢 -->
 					<h3 class="lp-card__title">用水加熱好慢</h3>
 					<p class="lp-card__text">洗澡需漫長等待<br>多人連用熱水不夠</p>
 				</div>
 			</article>
 			<article class="lp-card">
-				<div class="lp-ph lp-ph--card" data-img="擔心耗電量大"><img class="lp-ph__img" src="./img/card-power-bill.png" alt="擔心耗電量大"><span>圖片</span></div>
+				<div class="lp-ph lp-ph--card" data-img="擔心耗電量大"><img loading="lazy" class="lp-ph__img" src="./img/card-power-bill.webp" alt="擔心耗電量大"><span>圖片</span></div>
 				<div class="lp-card__body">
-					<span class="lp-ico" aria-hidden="true"><img src="./img/problem-power.svg" alt="" width="36" height="36"></span>  <!-- 擔心耗電量大 -->
+					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-power.svg" alt="" width="36" height="36"></span>  <!-- 擔心耗電量大 -->
 					<h3 class="lp-card__title">擔心耗電量大</h3>
 					<p class="lp-card__text">高電價負擔<br>希望更節能環保</p>
 				</div>
@@ -2622,7 +2732,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/419" target="_blank">了解更多 →</a>
 			</div>
 			<div class="lp-feature__media">
-				<div class="lp-ph lp-ph--tall" data-img="倍容量儲熱電熱水器"><img class="lp-ph__img" src="./img/product-storage-heater.png" alt="倍容量儲熱電熱水器"><span>產品圖</span></div>
+				<div class="lp-ph lp-ph--tall" data-img="倍容量儲熱電熱水器"><img loading="lazy" class="lp-ph__img" src="./img/product-storage-heater.webp" alt="倍容量儲熱電熱水器"><span>產品圖</span></div>
 			</div>
 		</div>
 	</div>
@@ -2661,7 +2771,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				<div class="lp-compare__track">
 					<article class="lp-compare__card">
 						<span class="lp-tag lp-tag--soft lp-compare__badge">熱門系列</span>
-						<div class="lp-ph lp-ph--card" data-img="UFB內藏式增壓"><img class="lp-ph__img" src="./img/UD1650WF.png" alt="UFB內藏式增壓"><span>產品圖</span></div>
+						<div class="lp-ph lp-ph--card" data-img="UFB內藏式增壓"><img loading="lazy" class="lp-ph__img" src="./img/UD1650WF.webp" alt="UFB內藏式增壓"><span>產品圖</span></div>
 						<h3 class="lp-compare__name">UFB內藏式加壓馬達熱水器</h3>
 						<p class="lp-compare__desc">強勁水壓、暢快舒適</p>
 						<p class="lp-compare__use"><b>適用</b>頂樓、老屋</p>
@@ -2670,7 +2780,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 						</ul>
 					</article>
 					<article class="lp-compare__card">
-						<div class="lp-ph lp-ph--card" data-img="UFB開放版"><img class="lp-ph__img" src="./img/RUA-UD1620WF.png" alt="UFB開放版"><span>產品圖</span></div>
+						<div class="lp-ph lp-ph--card" data-img="UFB開放版"><img loading="lazy" class="lp-ph__img" src="./img/RUA-UD1620WF.webp" alt="UFB開放版"><span>產品圖</span></div>
 						<h3 class="lp-compare__name">UFB奈米氣泡熱水器</h3>
 						<p class="lp-compare__desc">潔淨、穩定</p>
 						<p class="lp-compare__use"><b>適用</b>公寓、一般大樓</p>
@@ -2679,7 +2789,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 						</ul>
 					</article>
 					<article class="lp-compare__card">
-						<div class="lp-ph lp-ph--card" data-img="FE強制排氣"><img class="lp-ph__img" src="./img/D1620WF.png" alt="FE強制排氣"><span>產品圖</span></div>
+						<div class="lp-ph lp-ph--card" data-img="FE強制排氣"><img loading="lazy" class="lp-ph__img" src="./img/D1620WF.webp" alt="FE強制排氣"><span>產品圖</span></div>
 						<h3 class="lp-compare__name">FE 強制排氣熱水器</h3>
 						<p class="lp-compare__desc">高效節能</p>
 						<p class="lp-compare__use"><b>適用</b>一般大樓</p>
@@ -2688,7 +2798,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 						</ul>
 					</article>
 					<article class="lp-compare__card">
-						<div class="lp-ph lp-ph--card" data-img="倍容電儲熱熱水器"><img class="lp-ph__img" src="./img/REH-1256P4.png" alt="倍容電儲熱熱水器"><span>產品圖</span></div>
+						<div class="lp-ph lp-ph--card" data-img="倍容電儲熱熱水器"><img loading="lazy" class="lp-ph__img" src="./img/REH-1256P4.webp" alt="倍容電儲熱熱水器"><span>產品圖</span></div>
 						<h3 class="lp-compare__name">倍容電儲熱熱水器</h3>
 						<p class="lp-compare__desc">容量不變，熱水加倍</p>
 						<p class="lp-compare__use"><b>適用</b>透天厝</p>
@@ -2714,21 +2824,21 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 			<h2 class="lp-h3title">媒體關注</h2>
 			<ul class="lp-media__list">
 				<li class="lp-media__item">
-					<div class="lp-ph lp-ph--logo" data-img="壹蘋"><img class="lp-ph__img" src="./img/logo-nextapple.png" alt="壹蘋"><span>logo</span></div>
+					<div class="lp-ph lp-ph--logo" data-img="壹蘋"><img loading="lazy" class="lp-ph__img" src="./img/logo-nextapple.webp" alt="壹蘋"><span>logo</span></div>
 					<div>
 						<p class="lp-media__headline">林內日本獨家技術落地台灣產線，脆友推「升級熱水器最有感」</p>
 						<time class="lp-date">2025-12-24</time>
 					</div>
 				</li>
 				<li class="lp-media__item">
-					<div class="lp-ph lp-ph--logo" data-img="上報"><img class="lp-ph__img" src="./img/logo-upmedia.png" alt="上報"><span>logo</span></div>
+					<div class="lp-ph lp-ph--logo" data-img="上報"><img loading="lazy" class="lp-ph__img" src="./img/logo-upmedia.webp" alt="上報"><span>logo</span></div>
 					<div>
 						<p class="lp-media__headline">日本職人技術在台灣落地！一條龍產線確保品質，30+ 台灣董座都親自推薦！</p>
 						<time class="lp-date">2025-12-23</time>
 					</div>
 				</li>
 				<li class="lp-media__item">
-					<div class="lp-ph lp-ph--logo" data-img="工商時報"><img class="lp-ph__img" src="./img/logo-ctee.png" alt="工商時報"><span>logo</span></div>
+					<div class="lp-ph lp-ph--logo" data-img="工商時報"><img loading="lazy" class="lp-ph__img" src="./img/logo-ctee.webp" alt="工商時報"><span>logo</span></div>
 					<div>
 						<p class="lp-media__headline">能友熱烈討論 普發現金家電汰換「升級林內熱水器立即有感」</p>
 						<time class="lp-date">2025-12-23</time>
@@ -2743,21 +2853,21 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 			<h2 class="lp-h3title">使用者口碑</h2>
 			<ul class="lp-review__list">
 									<li class="lp-review">
-						<span class="lp-ph lp-ph--logo lp-review__logo" data-img="Google"><img class="lp-ph__img" src="./img/logo-google.png" alt="Google"><span>logo</span></span>
+						<span class="lp-ph lp-ph--logo lp-review__logo" data-img="Google"><img loading="lazy" class="lp-ph__img" src="./img/logo-google.webp" alt="Google"><span>logo</span></span>
 						<div>
 							<p class="lp-review__text">高樓層終於不用擔心水壓不足，洗澡舒服很多！</p>
 							<time class="lp-date">2025-05-02</time>
 						</div>
 					</li>
 									<li class="lp-review">
-						<span class="lp-ph lp-ph--logo lp-review__logo" data-img="mobile01"><img class="lp-ph__img" src="./img/logo-mobile01.png" alt="mobile01"><span>logo</span></span>
+						<span class="lp-ph lp-ph--logo lp-review__logo" data-img="mobile01"><img loading="lazy" class="lp-ph__img" src="./img/logo-mobile01.webp" alt="mobile01"><span>logo</span></span>
 						<div>
 							<p class="lp-review__text">奈米氣泡功能很有感，浴室水垢真的變少！</p>
 							<time class="lp-date">2025-04-18</time>
 						</div>
 					</li>
 									<li class="lp-review">
-						<span class="lp-ph lp-ph--logo lp-review__logo" data-img="PTT"><img class="lp-ph__img" src="./img/logo-ptt.png" alt="PTT 居家版"><span>logo</span></span>
+						<span class="lp-ph lp-ph--logo lp-review__logo" data-img="PTT"><img loading="lazy" class="lp-ph__img" src="./img/logo-ptt.webp" alt="PTT 居家版"><span>logo</span></span>
 						<div>
 							<p class="lp-review__text">多人同時洗澡，洗碗都不會忽冷忽熱，非常穩定！</p>
 							<time class="lp-date">2025-04-10</time>
@@ -2874,12 +2984,12 @@ footer#rinnaiGlobalFooter nav dd .sns-icon {
 }
 */
 footer#rinnaiGlobalFooter nav dd .sns-icon.-facebook {
-	background: url("./img/ico_facebook.png");
+	background: url("./img/ico_facebook.webp");
 	background-size: 100% auto;
 }
 
 footer#rinnaiGlobalFooter nav dd .sns-icon.-instagram {
-	background: url("./img/ico_instagram.png");
+	background: url("./img/ico_instagram.webp");
 	background-size: 100% auto;
 }
 
@@ -2889,12 +2999,12 @@ footer#rinnaiGlobalFooter nav dd .sns-icon.-instagram {
 }
 */
 footer#rinnaiGlobalFooter nav dd .sns-icon.-line {
-	background: url("./img/ico_line.png");
+	background: url("./img/ico_line.webp");
 	background-size: 100% auto;
 }
 
 footer#rinnaiGlobalFooter nav dd .sns-icon.-youtube {
-	background: url("./img/ico_youtube.png");
+	background: url("./img/ico_youtube.webp");
 	background-size: 100% auto;
 }
 
