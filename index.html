@@ -714,7 +714,21 @@ body { margin: 0; letter-spacing: 0.12rem; }
 	box-shadow: var(--shadow-card);
 	font-size: var(--fs-small); color: var(--c-ink); font-weight: 500;
 }
-.lp-faq__plus { color: var(--c-navy); font-size: 18px; font-weight: 700; }
+.lp-faq__q { cursor: pointer; }
+.lp-faq__plus { color: var(--c-navy); font-size: 18px; font-weight: 700; flex-shrink: 0; line-height: 1; transition: transform .3s ease; }
+/* 展開時：＋ 旋轉 45 度變成 ✕ */
+.lp-faq__item.is-open .lp-faq__plus { transform: rotate(45deg); }
+/* 答案面板：用 grid-template-rows 0fr→1fr 做平滑高度展開 */
+.lp-faq__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+.lp-faq__item.is-open .lp-faq__a { grid-template-rows: 1fr; }
+.lp-faq__a-inner { overflow: hidden; min-height: 0; }
+.lp-faq__a p {
+	margin: 0;
+	padding: 14px 18px 16px;
+	color: var(--c-ink-soft);
+	font-size: var(--fs-small);
+	line-height: 1.8;
+}
 .lp-link {
 	display: inline-flex;
 	align-items: center;
@@ -2756,11 +2770,26 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 		<div class="lp-col">
 			<h2 class="lp-h3title">常見問題 FAQ</h2>
 			<ul class="lp-faq__list">
-				<li class="lp-faq__item"><button class="lp-faq__q" type="button">奈米氣泡熱水器是什麼？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
-				<li class="lp-faq__item"><button class="lp-faq__q" type="button">頂級住宅適合什麼熱水器？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
-				<li class="lp-faq__item"><button class="lp-faq__q" type="button">多人家庭如何挑選熱水器？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
-				<li class="lp-faq__item"><button class="lp-faq__q" type="button">熱水器容量怎麼選？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
-				<li class="lp-faq__item"><button class="lp-faq__q" type="button">林內熱水器保固多久？<span class="lp-faq__plus" aria-hidden="true">＋</span></button></li>
+				<li class="lp-faq__item">
+					<button class="lp-faq__q" type="button" aria-expanded="false"><span>奈米氣泡熱水器是什麼？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
+					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>奈米氣泡熱水器會將奈米級微細氣泡融入熱水中，讓水流更細緻。除了提供穩定熱水，也能提升清潔體驗，適合重視沐浴品質與居家生活品質的家庭。</p></div></div>
+				</li>
+				<li class="lp-faq__item">
+					<button class="lp-faq__q" type="button" aria-expanded="false"><span>頂級住宅適合什麼熱水器？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
+					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>頂級住宅建議選擇熱水穩定、節能且安全性高的熱水器。如果家中有雙衛浴、浴缸或多人同時用水，可選擇大容量或奈米氣泡熱水器，提升整體使用體驗。</p></div></div>
+				</li>
+				<li class="lp-faq__item">
+					<button class="lp-faq__q" type="button" aria-expanded="false"><span>多人家庭如何挑選熱水器？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
+					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>建議依家庭人數、是否有雙衛浴及同時用水需求挑選容量。4 人以上家庭通常建議 20L 以上機型，可減少水溫忽冷忽熱的情況，提供更穩定的熱水。</p></div></div>
+				</li>
+				<li class="lp-faq__item">
+					<button class="lp-faq__q" type="button" aria-expanded="false"><span>熱水器容量怎麼選？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
+					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>熱水器容量以每分鐘出水量（L/min）計算。2～3 人家庭建議 16L，4～5 人家庭建議 20L，若有雙衛浴或浴缸，建議選擇 24L 以上，使用更舒適。</p></div></div>
+				</li>
+				<li class="lp-faq__item">
+					<button class="lp-faq__q" type="button" aria-expanded="false"><span>林內熱水器保固多久？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
+					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>林內熱水器保固期限依產品型號而有所不同，購買前可確認產品保固內容，並完成產品登錄，以享有原廠保固及完善的售後服務。</p></div></div>
+				</li>
 			</ul>
 			<a class="lp-link" href="#">閱讀更多 →</a>
 		</div>
@@ -3008,6 +3037,20 @@ footer#rinnaiGlobalFooter .copyright {
 (function(){var pt=document.querySelector('#pagetop a');if(pt)pt.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});})();
 </script>
 <!-- ▲▲▲ FOOTER JS 結束 ▲▲▲ -->
+
+<!-- ▼▼▼ FAQ 手風琴：點擊展開/收合，＋ 旋轉成 ✕ ▼▼▼ -->
+<script>
+(function(){
+  document.querySelectorAll('.lp-faq__item').forEach(function(item){
+    var q=item.querySelector('.lp-faq__q'); if(!q) return;
+    q.addEventListener('click', function(){
+      var open=item.classList.toggle('is-open');
+      q.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+})();
+</script>
+<!-- ▲▲▲ FAQ 手風琴 結束 ▲▲▲ -->
 
 
 
