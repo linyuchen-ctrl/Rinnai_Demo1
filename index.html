@@ -691,6 +691,7 @@ body { margin: 0; letter-spacing: 0.12rem; }
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: var(--space-6);
+	align-items: start;   /* 各欄獨立高度：FAQ 展開時不會撐高其他兩欄 */
 }
 /* 三欄同高，「閱讀更多」對齊到各欄最下方 */
 .lp-col { display: flex; flex-direction: column; }
