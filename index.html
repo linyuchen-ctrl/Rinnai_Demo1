@@ -679,13 +679,13 @@ body { margin: 0; letter-spacing: 0.12rem; }
 /* 無圖卡片：不需底部圖片預留空間 */
 .lp-compare__card--noimg { padding-bottom: var(--space-3); }
 /* 主標題：放大 10px、固定兩行高度讓各卡一致 */
-.lp-compare__name { font-size: calc(1.05rem + 10px); font-weight: 800; color: #000; line-height: 1.25; margin-top: var(--space-2); min-height: 2.5em; }
-.lp-compare__desc { font-size: calc(var(--fs-small) + 5px); color: #000; margin: 10px 0 15px; }
+.lp-compare__name { font-size: calc(1.05rem + 5px); font-weight: 800; color: #000; line-height: 1.2; margin-top: var(--space-1); min-height: 2.4em; }
+.lp-compare__desc { font-size: calc(var(--fs-small) + 5px); color: #000; margin: 6px 0 8px; }
 .lp-compare__use { font-size: 15px; color: #000; }
 /* 適用：純文字 + 冒號，無特別樣式 */
 .lp-compare__use b { font-weight: inherit; }
 .lp-compare__use b::after { content: "："; }
-.lp-compare__points { display: flex; flex-direction: column; gap: 4px; margin-top: -5px; }
+.lp-compare__points { display: flex; flex-direction: column; gap: 2px; margin-top: 6px; }
 .lp-compare__points li { position: relative; padding-left: 18px; font-size: 13px; color: #000; }
 .lp-compare__points li::before { content: "✓"; position: absolute; left: 0; color: #000; font-size: 12px; }
 /* 熱門系列 badge：浮標貼在卡片上框線、寬度只包文字（其他卡也可重複使用）*/
@@ -2555,8 +2555,8 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 			<li class="lp-trust__item">
 				<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/trust-service.svg" alt="" width="36" height="36"></span>  <!-- 全台服務據點 -->
 				<div class="lp-trust__text">
-					<strong>50+ 據點</strong>
-					<span>全台服務據點<br>專業售後服務</span>
+					<strong>全台服務據點</strong>
+					<span>專業售後服務<br>安心有保障</span>
 				</div>
 			</li>
 			<li class="lp-trust__item">
@@ -2588,15 +2588,15 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				<div class="lp-card__body">
 					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-scale.svg" alt="" width="36" height="36"></span>  <!-- 水垢髒污 -->
 					<h3 class="lp-card__title">水垢髒污</h3>
-					<p class="lp-card__text">浴室、廚房水槽堆積<br>清潔費時又費力</p>
+					<p class="lp-card__text">浴室、廚房水槽堆積水垢<br>清潔費時又費力</p>
 				</div>
 			</article>
 			<article class="lp-card">
 				<div class="lp-ph lp-ph--card" data-img="多點用水"><img loading="lazy" class="lp-ph__img" src="./img/card-multipoint.webp" alt="多點用水"><span>圖片</span></div>
 				<div class="lp-card__body">
 					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-multipoint.svg" alt="" width="36" height="36"></span>  <!-- 多點用水 -->
-					<h3 class="lp-card__title">多點用水</h3>
-					<p class="lp-card__text">多點浴室、同時使用<br>忽冷忽熱不穩定</p>
+					<h3 class="lp-card__title">紅色水漬</h3>
+					<p class="lp-card__text">浴室磁磚、洗手台出現紅色水漬<br>清潔不易又容易反覆出現</p>
 				</div>
 			</article>
 		</div>
@@ -2698,7 +2698,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				<div class="lp-ph lp-ph--card" data-img="用水加熱好慢"><img loading="lazy" class="lp-ph__img" src="./img/card-slow-heating.webp" alt="用水加熱好慢"><span>圖片</span></div>
 				<div class="lp-card__body">
 					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-slow.svg" alt="" width="36" height="36"></span>  <!-- 用水加熱好慢 -->
-					<h3 class="lp-card__title">用水加熱好慢</h3>
+					<h3 class="lp-card__title">熱水供應速度慢</h3>
 					<p class="lp-card__text">洗澡需漫長等待<br>多人連用熱水不夠</p>
 				</div>
 			</article>
@@ -2727,7 +2727,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				<ul class="lp-checklist">
 					<li>分層內膽設計｜熱水不被冷水沖散</li>
 					<li>高功率輔助加熱｜即用即熱補水</li>
-					<li>智慧節能省電模式</li>
+					<li>防空燒等安全裝置</li>
 				</ul>
 				<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/419" target="_blank">了解更多 →</a>
 			</div>
@@ -2754,10 +2754,9 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 						<tr><td>水壓不足</td><td>RUA-UD1650WF</td></tr>
 						<tr><td>頂樓住宅</td><td>RUA-UD1650WF</td></tr>
 						<tr><td>老屋翻新</td><td>RUA-UD1650WF</td></tr>
-						<tr><td>多點熱水家庭</td><td>RUA-UD1650WF</td></tr>
 						<tr><td>熱水不穩定</td><td>全系列</td></tr>
-						<tr><td>多人家庭</td><td>RUA-D1600WF/RUA-D1300WF</td></tr>
-						<tr><td>講究沐浴體驗</td><td>RUA-UD1620WF/RUA-D1620WF</td></tr>
+						<tr><td>多組溫度記憶</td><td>RUA-D1600WF/RUA-D1300WF</td></tr>
+						<tr><td>講究沐浴溫度</td><td>RUA-UD1620WF/RUA-D1620WF</td></tr>
 					</tbody>
 				</table>
 				<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V1/8" target="_blank">進一步選擇 →</a>
@@ -2772,27 +2771,27 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 					<article class="lp-compare__card">
 						<span class="lp-tag lp-tag--soft lp-compare__badge">熱門系列</span>
 						<div class="lp-ph lp-ph--card" data-img="UFB內藏式增壓"><img loading="lazy" class="lp-ph__img" src="./img/UD1650WF.webp" alt="UFB內藏式增壓"><span>產品圖</span></div>
-						<h3 class="lp-compare__name">UFB內藏式加壓馬達熱水器</h3>
+						<h3 class="lp-compare__name">UFB內藏式<br>加壓馬達熱水器</h3>
 						<p class="lp-compare__desc">強勁水壓、暢快舒適</p>
 						<p class="lp-compare__use"><b>適用</b>頂樓、老屋</p>
 						<ul class="lp-compare__points">
-							<li>內建增壓馬達</li><li>UFB 奈米氣泡科技</li><li>多點出水穩定</li>
+							<li>內建增壓馬達</li><li>UFB 奈米氣泡科技</li>
 						</ul>
 					</article>
 					<article class="lp-compare__card">
 						<div class="lp-ph lp-ph--card" data-img="UFB開放版"><img loading="lazy" class="lp-ph__img" src="./img/RUA-UD1620WF.webp" alt="UFB開放版"><span>產品圖</span></div>
 						<h3 class="lp-compare__name">UFB奈米氣泡熱水器</h3>
 						<p class="lp-compare__desc">潔淨、穩定</p>
-						<p class="lp-compare__use"><b>適用</b>公寓、一般大樓</p>
+						<p class="lp-compare__use"><b>適用</b>公寓、大樓、透天厝</p>
 						<ul class="lp-compare__points">
-							<li>UFB 奈米氣泡科技</li><li>多點出水穩定</li>
+							<li>UFB 奈米氣泡科技</li><li>搭載水量伺服器</li>
 						</ul>
 					</article>
 					<article class="lp-compare__card">
 						<div class="lp-ph lp-ph--card" data-img="FE強制排氣"><img loading="lazy" class="lp-ph__img" src="./img/D1620WF.webp" alt="FE強制排氣"><span>產品圖</span></div>
 						<h3 class="lp-compare__name">FE 強制排氣熱水器</h3>
 						<p class="lp-compare__desc">高效節能</p>
-						<p class="lp-compare__use"><b>適用</b>一般大樓</p>
+						<p class="lp-compare__use"><b>適用</b>公寓、大樓、透天厝</p>
 						<ul class="lp-compare__points">
 							<li>分段火排設計</li><li>多重安全保護</li>
 						</ul>
@@ -2801,7 +2800,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 						<div class="lp-ph lp-ph--card" data-img="倍容電儲熱熱水器"><img loading="lazy" class="lp-ph__img" src="./img/REH-1256P4.webp" alt="倍容電儲熱熱水器"><span>產品圖</span></div>
 						<h3 class="lp-compare__name">倍容電儲熱熱水器</h3>
 						<p class="lp-compare__desc">容量不變，熱水加倍</p>
-						<p class="lp-compare__use"><b>適用</b>透天厝</p>
+						<p class="lp-compare__use"><b>適用</b>套房、公寓、高樓、透天厝</p>
 						<ul class="lp-compare__points">
 							<li>內膽隔艙設計</li>
 							<li>儲存容量不變，可用熱水加倍</li>
