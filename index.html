@@ -720,6 +720,8 @@ body { margin: 0; letter-spacing: 0.12rem; }
 .lp-col .lp-link { margin-top: auto; align-self: flex-start; }
 .lp-media__list, .lp-review__list { display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-4); }
 .lp-media__item { display: flex; gap: var(--space-3); align-items: flex-start; }
+.lp-media__link { display: flex; gap: var(--space-3); align-items: flex-start; width: 100%; color: inherit; transition: opacity .2s; }
+.lp-media__link:hover { opacity: .7; }
 .lp-media__source { font-size: 12px; color: var(--c-ink-soft); font-weight: 700; }
 .lp-media__headline { font-size: var(--fs-small); color: var(--c-ink); line-height: 1.5; margin: 2px 0 4px; }
 .lp-date { display: block; text-align: right; font-size: 12px; color: #9aa7b8; }
@@ -2685,7 +2687,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 <section class="lp-section lp-section--alt">
 	<div class="container">
 		<h2 class="lp-h2">您是否也有這些困擾？</h2>
-		<div class="grid grid--3 lp-cards">
+		<div class="grid grid--2 lp-cards">
 			<article class="lp-card">
 				<div class="lp-ph lp-ph--card" data-img="大樓無天然瓦斯"><img loading="lazy" class="lp-ph__img" src="./img/card-no-gas.webp" alt="大樓無天然瓦斯"><span>圖片</span></div>
 				<div class="lp-card__body">
@@ -2700,14 +2702,6 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-slow.svg" alt="" width="36" height="36"></span>  <!-- 用水加熱好慢 -->
 					<h3 class="lp-card__title">熱水供應速度慢</h3>
 					<p class="lp-card__text">洗澡需漫長等待<br>多人連用熱水不夠</p>
-				</div>
-			</article>
-			<article class="lp-card">
-				<div class="lp-ph lp-ph--card" data-img="擔心耗電量大"><img loading="lazy" class="lp-ph__img" src="./img/card-power-bill.webp" alt="擔心耗電量大"><span>圖片</span></div>
-				<div class="lp-card__body">
-					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-power.svg" alt="" width="36" height="36"></span>  <!-- 擔心耗電量大 -->
-					<h3 class="lp-card__title">擔心耗電量大</h3>
-					<p class="lp-card__text">高電價負擔<br>希望更節能環保</p>
 				</div>
 			</article>
 		</div>
@@ -2823,25 +2817,31 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 			<h2 class="lp-h3title">媒體關注</h2>
 			<ul class="lp-media__list">
 				<li class="lp-media__item">
-					<div class="lp-ph lp-ph--logo" data-img="壹蘋"><img loading="lazy" class="lp-ph__img" src="./img/logo-nextapple.webp" alt="壹蘋"><span>logo</span></div>
-					<div>
-						<p class="lp-media__headline">林內日本獨家技術落地台灣產線，脆友推「升級熱水器最有感」</p>
-						<time class="lp-date">2025-12-24</time>
-					</div>
+					<a class="lp-media__link" href="https://3c.ltn.com.tw/amp/news/66665" target="_blank" rel="noopener">
+						<div class="lp-ph lp-ph--logo" data-img="自由時報"><img loading="lazy" class="lp-ph__img" src="./img/logo-LTN.webp" alt="自由時報"><span>logo</span></div>
+						<div>
+							<p class="lp-media__headline">林內日本獨家技術落地台灣產線，脆友推「升級熱水器最有感」</p>
+							<time class="lp-date">2025-12-24</time>
+						</div>
+					</a>
 				</li>
 				<li class="lp-media__item">
-					<div class="lp-ph lp-ph--logo" data-img="上報"><img loading="lazy" class="lp-ph__img" src="./img/logo-upmedia.webp" alt="上報"><span>logo</span></div>
-					<div>
-						<p class="lp-media__headline">日本職人技術在台灣落地！一條龍產線確保品質，30+ 台灣董座都親自推薦！</p>
-						<time class="lp-date">2025-12-23</time>
-					</div>
+					<a class="lp-media__link" href="https://money.udn.com/money/story/5635/9603810?from=edn_related_storybottom" target="_blank" rel="noopener">
+						<div class="lp-ph lp-ph--logo" data-img="經濟日報"><img loading="lazy" class="lp-ph__img" src="./img/logo-Economic_Daily_News.webp" alt="經濟日報"><span>logo</span></div>
+						<div>
+							<p class="lp-media__headline">林內推昂三大新品搶攻居家升級商機，堤俊介：以創新技術打造從容生活</p>
+							<time class="lp-date">2025-12-23</time>
+						</div>
+					</a>
 				</li>
 				<li class="lp-media__item">
-					<div class="lp-ph lp-ph--logo" data-img="工商時報"><img loading="lazy" class="lp-ph__img" src="./img/logo-ctee.webp" alt="工商時報"><span>logo</span></div>
-					<div>
-						<p class="lp-media__headline">能友熱烈討論 普發現金家電汰換「升級林內熱水器立即有感」</p>
-						<time class="lp-date">2025-12-23</time>
-					</div>
+					<a class="lp-media__link" href="https://www.designwant.com/article/12603" target="_blank" rel="noopener">
+						<div class="lp-ph lp-ph--logo" data-img="Living 空間美學"><img loading="lazy" class="lp-ph__img" src="./img/logo-DW.webp" alt="Living 空間美學"><span>logo</span></div>
+						<div>
+							<p class="lp-media__headline">林內以科技細節進化日常，為現代家庭打造更從容的生活節奏</p>
+							<time class="lp-date">2025-12-23</time>
+						</div>
+					</a>
 				</li>
 			</ul>
 			<a class="lp-link" href="#">閱讀更多 →</a>
