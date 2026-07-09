@@ -611,7 +611,6 @@ body { margin: 0; letter-spacing: 0.12rem; }
 .lp-compare {
 	background: #E0E6F3;
 	border-radius: var(--radius);
-	box-shadow: var(--shadow-card);
 	padding: var(--space-4);
 }
 
@@ -679,9 +678,9 @@ body { margin: 0; letter-spacing: 0.12rem; }
 /* 無圖卡片：不需底部圖片預留空間 */
 .lp-compare__card--noimg { padding-bottom: var(--space-3); }
 /* 主標題：放大 10px、固定兩行高度讓各卡一致 */
-.lp-compare__name { font-size: calc(1.05rem + 5px); font-weight: 800; color: #000; line-height: 1.2; margin-top: var(--space-1); min-height: 2.4em; }
-.lp-compare__desc { font-size: calc(var(--fs-small) + 5px); color: #000; margin: 6px 0 8px; }
-.lp-compare__use { font-size: 15px; color: #000; }
+.lp-compare__name { font-size: calc(1.05rem + 5px); font-weight: 800; color: var(--c-navy); line-height: 1.2; margin-top: var(--space-1); min-height: 2.4em; }
+.lp-compare__desc { font-size: calc(var(--fs-small) + 5px); font-weight: 600; color: #000; margin: 6px 0 8px; min-height: 1.5em; }
+.lp-compare__use { font-size: 15px; color: #000; line-height: 1.5; min-height: 3em; margin-top: -5px; }
 /* 適用：純文字 + 冒號，無特別樣式 */
 .lp-compare__use b { font-weight: inherit; }
 .lp-compare__use b::after { content: "："; }
@@ -789,6 +788,12 @@ body { margin: 0; letter-spacing: 0.12rem; }
 
 /* btn hover 反白：背景與文字色互換 */
 .lp-btn--primary:hover { background: #fff; color: var(--c-navy); box-shadow: inset 0 0 0 1.5px var(--c-navy); }
+/* 探索奈米氣泡科技／進一步選擇／了解更多／聯絡我們：hover 改為透明底、深藍外框＋深藍字 */
+.lp-hero .lp-btn--primary:hover,
+.lp-recommend .lp-btn--primary:hover,
+.lp-feature__copy .lp-btn--primary:hover { background: transparent; color: var(--c-navy); box-shadow: inset 0 0 0 1.5px var(--c-navy); }
+/* 聯絡我們：hover 改為透明底、白色外框＋白字 */
+.lp-cta .lp-btn--primary:hover { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px #fff; }
 .lp-btn--outline:hover { background: var(--c-navy); color: #fff; border-color: var(--c-navy); }
 .lp-nano__intro .lp-btn:hover { background: var(--c-navy); color: #fff; }
 
@@ -1996,26 +2001,18 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
         },
         {
           "@type": "Question",
-          "name": "頂級住宅適合什麼熱水器？",
+          "name": "瓦斯熱水器公升數怎麼選?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "頂級住宅建議選擇熱水穩定、節能且安全性高的熱水器。如果家中有雙衛浴、浴缸或多人同時用水，可選擇大容量或奈米氣泡熱水器，提升整體使用體驗。"
+            "text": "熱水器公升數是指將入水溫度提升25°C後，每分鐘所能供應的熱水量(L/min)。公升數越大，可同時供應的熱水量越多，挑選時建議依據家中的「衛浴數量」與「用水習慣」評估：一般一廚一衛建議挑選12公升以上；若擁有雙衛浴且可能同時洗澡或使用熱水，則建議挑選16公升以上；若家中坪數較大、人數較多且有同時用水或浴缸泡澡等需求，則建議挑選24公升以上，使用更舒適、熱水供應更穩定。"
           }
         },
         {
           "@type": "Question",
-          "name": "多人家庭如何挑選熱水器？",
+          "name": "儲熱式電熱水器怎麼選?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "建議依家庭人數、是否有雙衛浴及同時用水需求挑選容量。4 人以上家庭通常建議 20L 以上機型，可減少水溫忽冷忽熱的情況，提供更穩定的熱水。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "熱水器容量怎麼選？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "熱水器容量以每分鐘出水量（L/min）計算。2～3 人家庭建議 16L，4～5 人家庭建議 20L，若有雙衛浴或浴缸，建議選擇 24L 以上，使用更舒適。"
+            "text": "儲熱式電熱水器的加侖/公升數是指內桶可以儲存的熱水總量，容量越大，可連續供應的熱水越多。挑選時建議依據家中的居住人數、衛浴數量與洗澡習慣來評估：單身或雙人家庭、一間衛浴且以淋浴為主，建議挑選 15 加侖(約 56.7 公升)；3~4人家庭、擁有雙衛浴且習慣接續洗澡，建議挑選 20 至 30 加侖(約 75 至 110 公升)以確保熱水充沛；若家中人數較多、或經常使用浴缸、大花灑等高出水量設備，建議挑選 50 加侖(約 190 公升)以上，以維持充足且穩定的熱水供應。"
           }
         },
         {
@@ -2493,7 +2490,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 													</dd>
 												</dl>
 											</dd>
-											<a href="https://www.rinnai.com.tw/DistributionBase" target="_blank" class="border-red menu-link">銷經據點</a>
+											<a href="https://www.rinnai.com.tw/DistributionBase" target="_blank" class="border-red menu-link">經銷據點</a>
 										</dl>
 
 										<div class="menu_close">
@@ -2594,7 +2591,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				</div>
 			</article>
 			<article class="lp-card">
-				<div class="lp-ph lp-ph--card" data-img="多點用水"><img loading="lazy" class="lp-ph__img" src="./img/card-multipoint.webp" alt="多點用水"><span>圖片</span></div>
+				<div class="lp-ph lp-ph--card" data-img="多點用水"><img loading="lazy" class="lp-ph__img" src="./img/card-Red-water-stains.webp" alt="多點用水"><span>圖片</span></div>
 				<div class="lp-card__body">
 					<span class="lp-ico" aria-hidden="true"><img loading="lazy" src="./img/problem-multipoint.svg" alt="" width="36" height="36"></span>  <!-- 多點用水 -->
 					<h3 class="lp-card__title">紅色水漬</h3>
@@ -2615,14 +2612,14 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				<div class="lp-ph lp-ph--wide" data-img="內藏式加壓馬達熱水器"><img loading="lazy" class="lp-ph__img" src="./img/product-booster-pump.webp" alt="林內 內藏式加壓馬達熱水器 RUA-UD1650WF"><span>產品圖</span></div>
 				<p class="sr-only">林內 Rinnai 內藏式加壓馬達熱水器 RUA-UD1650WF，把熱水變奔放，讓沐浴暢快舒爽。</p>
 				<div class="lp-prodcard__body">
-					<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/412" target="_blank">了解更多 →</a>
+					<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/238" target="_blank">了解更多 →</a>
 				</div>
 			</article>
 			<article class="lp-prodcard">
 				<div class="lp-ph lp-ph--wide" data-img="Ultra Fine Bubble 奈米氣泡熱水器"><img loading="lazy" class="lp-ph__img" src="./img/product-ufb.webp" alt="林內 Ultra Fine Bubble 奈米氣泡熱水器"><span>產品圖</span></div>
 				<p class="sr-only">林內 Rinnai Ultra Fine Bubble 奈米氣泡熱水器，24L 日本製，16 公升加壓馬達機種，16 公升水量污垢偵測。</p>
 				<div class="lp-prodcard__body">
-					<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/238" target="_blank">了解更多 →</a>
+					<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/412" target="_blank">了解更多 →</a>
 				</div>
 			</article>
 		</div>
@@ -2719,9 +2716,9 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 				<h3 class="lp-feature__name">倍容電儲熱<br>熱水器</h3>
 				<p class="lp-feature__desc">解決儲水不夠用、加熱慢難題</p>
 				<ul class="lp-checklist">
-					<li>分層內膽設計｜熱水不被冷水沖散</li>
-					<li>高功率輔助加熱｜即用即熱補水</li>
-					<li>防空燒等安全裝置</li>
+					<li>分層內膽設計｜延長熱水使用時間</li>
+					<li>高效動態加熱｜維持穩定水溫不中斷</li>
+					<li>高溫儲熱｜內部維持高溫延伸更多使用量</li>
 				</ul>
 				<a class="lp-btn lp-btn--primary" href="https://www.rinnai.com.tw/Product/V3/419" target="_blank">了解更多 →</a>
 			</div>
@@ -2829,7 +2826,7 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 					<a class="lp-media__link" href="https://money.udn.com/money/story/5635/9603810?from=edn_related_storybottom" target="_blank" rel="noopener">
 						<div class="lp-ph lp-ph--logo" data-img="經濟日報"><img loading="lazy" class="lp-ph__img" src="./img/logo-Economic_Daily_News.webp" alt="經濟日報"><span>logo</span></div>
 						<div>
-							<p class="lp-media__headline">林內推昂三大新品搶攻居家升級商機，堤俊介：以創新技術打造從容生活</p>
+							<p class="lp-media__headline">林內推出三大新品搶攻居家升級商機，堤俊介：以創新技術打造從容生活</p>
 							<time class="lp-date">2026/07/03</time>
 						</div>
 					</a>
@@ -2880,16 +2877,12 @@ header#rinnaiGlobalHeader .rinnaiglobalHeader_search_button .icon-search {
 					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>奈米氣泡熱水器會將奈米級微細氣泡融入熱水中，讓水流更細緻。除了提供穩定熱水，也能提升清潔體驗，適合重視沐浴品質與居家生活品質的家庭。</p></div></div>
 				</li>
 				<li class="lp-faq__item">
-					<button class="lp-faq__q" type="button" aria-expanded="false"><span>頂級住宅適合什麼熱水器？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
-					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>頂級住宅建議選擇熱水穩定、節能且安全性高的熱水器。如果家中有雙衛浴、浴缸或多人同時用水，可選擇大容量或奈米氣泡熱水器，提升整體使用體驗。</p></div></div>
+					<button class="lp-faq__q" type="button" aria-expanded="false"><span>瓦斯熱水器公升數怎麼選?</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
+					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>熱水器公升數是指將入水溫度提升25°C後，每分鐘所能供應的熱水量(L/min)。公升數越大，可同時供應的熱水量越多，挑選時建議依據家中的「衛浴數量」與「用水習慣」評估：一般一廚一衛建議挑選12公升以上；若擁有雙衛浴且可能同時洗澡或使用熱水，則建議挑選16公升以上；若家中坪數較大、人數較多且有同時用水或浴缸泡澡等需求，則建議挑選24公升以上，使用更舒適、熱水供應更穩定。</p></div></div>
 				</li>
 				<li class="lp-faq__item">
-					<button class="lp-faq__q" type="button" aria-expanded="false"><span>多人家庭如何挑選熱水器？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
-					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>建議依家庭人數、是否有雙衛浴及同時用水需求挑選容量。4 人以上家庭通常建議 20L 以上機型，可減少水溫忽冷忽熱的情況，提供更穩定的熱水。</p></div></div>
-				</li>
-				<li class="lp-faq__item">
-					<button class="lp-faq__q" type="button" aria-expanded="false"><span>熱水器容量怎麼選？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
-					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>熱水器容量以每分鐘出水量（L/min）計算。2～3 人家庭建議 16L，4～5 人家庭建議 20L，若有雙衛浴或浴缸，建議選擇 24L 以上，使用更舒適。</p></div></div>
+					<button class="lp-faq__q" type="button" aria-expanded="false"><span>儲熱式電熱水器怎麼選?</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
+					<div class="lp-faq__a"><div class="lp-faq__a-inner"><p>儲熱式電熱水器的加侖/公升數是指內桶可以儲存的熱水總量，容量越大，可連續供應的熱水越多。挑選時建議依據家中的居住人數、衛浴數量與洗澡習慣來評估：單身或雙人家庭、一間衛浴且以淋浴為主，建議挑選 15 加侖(約 56.7 公升)；3~4人家庭、擁有雙衛浴且習慣接續洗澡，建議挑選 20 至 30 加侖(約 75 至 110 公升)以確保熱水充沛；若家中人數較多、或經常使用浴缸、大花灑等高出水量設備，建議挑選 50 加侖(約 190 公升)以上，以維持充足且穩定的熱水供應。</p></div></div>
 				</li>
 				<li class="lp-faq__item">
 					<button class="lp-faq__q" type="button" aria-expanded="false"><span>林內熱水器保固多久？</span><span class="lp-faq__plus" aria-hidden="true">＋</span></button>
